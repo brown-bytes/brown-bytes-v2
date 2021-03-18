@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { logout } from "../../actions/auth";
@@ -14,37 +14,32 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 const NavBar = ({ isAuthenticated, logout }) => {
 	const guestNavbar = (
 		<Fragment>
-			<Navbar bg="light" expand="lg">
-				<Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+			<Navbar bg="dark" expand="lg" variant="dark" fixed="top">
+				<Navbar.Brand href="/">BB</Navbar.Brand>
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
 				<Navbar.Collapse id="basic-navbar-nav">
 					<Nav className="mr-auto">
-						<Nav.Link href="#home">Home</Nav.Link>
-						<Nav.Link href="#link">Link</Nav.Link>
-						<NavDropdown title="Dropdown" id="basic-nav-dropdown">
-							<NavDropdown.Item href="#action/3.1">
-								Action
-							</NavDropdown.Item>
-							<NavDropdown.Item href="#action/3.2">
-								Another action
-							</NavDropdown.Item>
-							<NavDropdown.Item href="#action/3.3">
-								Something
-							</NavDropdown.Item>
-							<NavDropdown.Divider />
-							<NavDropdown.Item href="#action/3.4">
-								Separated link
-							</NavDropdown.Item>
-						</NavDropdown>
+						<Nav.Link as={NavLink} to="/" exact>
+							Home
+						</Nav.Link>
+						<Nav.Link
+							as={NavLink}
+							activeClassName="active"
+							to="/calendar">
+							Calendar
+						</Nav.Link>
+						<Nav.Link
+							as={NavLink}
+							activeClassName="active"
+							to="/about">
+							About
+						</Nav.Link>
 					</Nav>
-					<Form inline>
-						<FormControl
-							type="text"
-							placeholder="Search"
-							className="mr-sm-2"
-						/>
-						<Button variant="outline-success">Search</Button>
-					</Form>
+					<Nav className="justify-content-end">
+						<Nav.Item>
+							<Nav.Link href="#home">Sign Up / Log In</Nav.Link>
+						</Nav.Item>
+					</Nav>
 				</Navbar.Collapse>
 			</Navbar>
 		</Fragment>
@@ -52,28 +47,31 @@ const NavBar = ({ isAuthenticated, logout }) => {
 
 	const authNavbar = (
 		<Fragment>
-			<Navbar bg="light" expand="lg">
-				<Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+			<Navbar bg="dark" expand="lg" variant="dark" fixed="top">
+				<Navbar.Brand href="/">BB</Navbar.Brand>
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
 				<Navbar.Collapse id="basic-navbar-nav">
 					<Nav className="mr-auto">
-						<Nav.Link href="#home">Home</Nav.Link>
-						<Nav.Link href="#link">Link</Nav.Link>
-						<NavDropdown title="Dropdown" id="basic-nav-dropdown">
-							<NavDropdown.Item href="#action/3.1">
-								Action
-							</NavDropdown.Item>
-							<NavDropdown.Item href="#action/3.2">
-								Another action
-							</NavDropdown.Item>
-							<NavDropdown.Item href="#action/3.3">
-								Something
-							</NavDropdown.Item>
-							<NavDropdown.Divider />
-							<NavDropdown.Item href="#action/3.4">
-								Separated link
-							</NavDropdown.Item>
-						</NavDropdown>
+						<Nav.Link as={NavLink} to="/" exact>
+							Home
+						</Nav.Link>
+						<Nav.Link
+							as={NavLink}
+							activeClassName="active"
+							to="/calendar">
+							Calendar
+						</Nav.Link>
+						<Nav.Link
+							as={NavLink}
+							activeClassName="active"
+							to="/about">
+							About
+						</Nav.Link>
+					</Nav>
+					<Nav className="justify-content-end">
+						<Nav.Item>
+							<Nav.Link href="#home">Log Out</Nav.Link>
+						</Nav.Item>
 					</Nav>
 				</Navbar.Collapse>
 			</Navbar>

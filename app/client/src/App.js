@@ -28,10 +28,9 @@ const App = () => {
 			<Router>
 				<Fragment>
 					<Navbar />
-					{/* <Switch>
-						<Route exact path="/" component={Landing} />
+					<Switch>
 						<Route component={Routes} />
-					</Switch> */}
+					</Switch>
 				</Fragment>
 			</Router>
 		</Provider>
