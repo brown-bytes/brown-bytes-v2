@@ -76,6 +76,12 @@ const NavBar = ({ isAuthenticated, logout }) => {
 							to="/about">
 							About
 						</Nav.Link>
+						<Nav.Link
+							as={NavLink}
+							activeClassName="active"
+							to="/profile">
+							Profile
+						</Nav.Link>
 					</Nav>
 					<Nav className="justify-content-end">
 						<Nav.Item onClick={logout}>

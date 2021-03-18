@@ -1,15 +1,112 @@
-import React from "react";
+import React, { Fragment, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+
+import { login } from "../../actions/auth";
+
+const Login = ({ login, isAuthenticated }) => {
+	const [formData, setFormData] = useState({
+		email: "",
+		password: "",
+	});
+
+	const { email, password } = formData;
+
+	const onChange = (e) =>
+		setFormData({ ...formData, [e.target.type]: e.target.value });
+
+	const onSubmit = async (e) => {
+		e.preventDefault();
+		login(email, password);
+	};
+
+	return (
+		<Fragment>
+			<Container fluid>
+				<Row>
+					<Col>
+						<p className="login-signup-headline">Log in</p>
+						<hr></hr>
+						<Form onSubmit={(e) => onSubmit(e)} id="login-form">
+							<Form.Group controlId="formEmail">
+								<Form.Label className="login-form-label">
+									Email
+								</Form.Label>
+								<Form.Control
+									size="lg"
+									type="email"
+									placeholder="Enter email"
+									onChange={onChange}
+									required
+								/>
+							</Form.Group>
+
+							<Form.Group controlId="formPassword">
+								<Form.Label className="login-form-label">
+									Password
+								</Form.Label>
+								<Form.Control
+									size="lg"
+									type="password"
+									placeholder="Password"
+									onChange={onChange}
+									required
+								/>
+								<Form.Control.Feedback type="invalid">
+									Please provide a valid zip.
+								</Form.Control.Feedback>
+							</Form.Group>
+							<Button variant="info" type="submit">
+								Submit
+							</Button>
+						</Form>
+
+						<Link
+							to="/forgotpassword"
+							id="login-forgot-password-text">
+							Forgot Password
+						</Link>
+					</Col>
+					<Col>
+						<p className="login-signup-headline">
+							Don't have an account yet?
+						</p>
+						<hr></hr>
+						<p className="login-signup-plain-text">
+							Create an account to be able to use the platform
+							best:
+						</p>
+						<ul>
+							<li className="login-signup-plain-text">
+								Create, track and manage offers
+							</li>
+							<li className="login-signup-plain-text">
+								Get compensated when you give away meal credits
+							</li>
+							<li className="login-signup-plain-text">
+								Stay informed about Brown Bytes changes and
+								updates
+							</li>
+						</ul>
+						<Link to="/signup">
+							<Button variant="success">Sign Up</Button>
+						</Link>
+					</Col>
+				</Row>
+			</Container>
+		</Fragment>
+	);
+};
 
 const mapStateToProps = (state) => ({
-	alerts: state.alert,
+	isAuthenticated: state.auth.isAuthenticated,
 });
 
-const Login = () => (
-	<div className="home">
-		<h1>Login</h1>
-	</div>
-);
-
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps, { login })(Login);
