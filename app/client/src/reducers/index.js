@@ -4,6 +4,8 @@ import auth from "./auth";
 // import profile from "./profile";
 // import post from "./post";
 
+import "bootstrap/dist/css/bootstrap.css";
+
 export default combineReducers({
 	//	alert,
 	auth,
