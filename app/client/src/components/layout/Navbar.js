@@ -1,20 +1,21 @@
 import React, { Fragment } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { logout } from "../../actions/auth";
 
-import Form from "react-bootstrap/Form";
-import FormControl from "react-bootstrap/FormControl";
-import Button from "react-bootstrap/Button";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import NavDropdown from "react-bootstrap/NavDropdown";
 
 const NavBar = ({ isAuthenticated, logout }) => {
 	const guestNavbar = (
 		<Fragment>
-			<Navbar bg="dark" expand="lg" variant="dark" fixed="top">
+			<Navbar
+				className="py-0"
+				bg="dark"
+				expand="lg"
+				variant="dark"
+				fixed="top">
 				<Navbar.Brand href="/">BB</Navbar.Brand>
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
 				<Navbar.Collapse id="basic-navbar-nav">
@@ -36,9 +37,12 @@ const NavBar = ({ isAuthenticated, logout }) => {
 						</Nav.Link>
 					</Nav>
 					<Nav className="justify-content-end">
-						<Nav.Item>
-							<Nav.Link href="#home">Sign Up / Log In</Nav.Link>
-						</Nav.Item>
+						<Nav.Link
+							as={NavLink}
+							activeClassName="active"
+							to="/login">
+							Sign Up / Log In
+						</Nav.Link>
 					</Nav>
 				</Navbar.Collapse>
 			</Navbar>
@@ -47,7 +51,12 @@ const NavBar = ({ isAuthenticated, logout }) => {
 
 	const authNavbar = (
 		<Fragment>
-			<Navbar bg="dark" expand="lg" variant="dark" fixed="top">
+			<Navbar
+				className="py-0"
+				bg="dark"
+				expand="lg"
+				variant="dark"
+				fixed="top">
 				<Navbar.Brand href="/">BB</Navbar.Brand>
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
 				<Navbar.Collapse id="basic-navbar-nav">
@@ -69,8 +78,8 @@ const NavBar = ({ isAuthenticated, logout }) => {
 						</Nav.Link>
 					</Nav>
 					<Nav className="justify-content-end">
-						<Nav.Item>
-							<Nav.Link href="#home">Log Out</Nav.Link>
+						<Nav.Item onClick={logout}>
+							<Nav.Link>Log Out</Nav.Link>
 						</Nav.Item>
 					</Nav>
 				</Navbar.Collapse>
@@ -83,7 +92,7 @@ const NavBar = ({ isAuthenticated, logout }) => {
 
 NavBar.propTypes = {
 	logout: PropTypes.func.isRequired,
-	isAuthenticated: PropTypes.object.isRequired,
+	isAuthenticated: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
