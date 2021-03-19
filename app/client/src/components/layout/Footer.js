@@ -15,14 +15,14 @@ const Footer = () => {
 			<Container>
 				<hr></hr>
 				<Row>
-					<Col sm={10}>
+					<Col sm={9}>
 						Copyright © Brown Bytes{" "}
 						<Moment format="YYYY">{date_now}</Moment>
 					</Col>
-					<Col sm={2}>
+					<Col sm={3}>
 						Contact the{" "}
 						<Link to="/team">
-							<a>team</a>
+							<i class="fas fa-user-friends"></i> <a>team</a>
 						</Link>
 						.
 					</Col>
