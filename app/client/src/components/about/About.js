@@ -1,29 +1,10 @@
-import React from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-
-// const Alert = ({ alerts }) =>
-// 	alerts !== null &&
-// 	alerts.length > 0 &&
-// 	alerts.map((alert) => (
-// 		<div key={alert.id} className={`alert alert-${alert.alertType}`}>
-// 			{alert.msg}
-// 		</div>
-// 	));
-
-// Alert.propTypes = {
-// 	alerts: PropTypes.array.isRequired,
-// };
-
-// const mapStateToProps = (state) => ({
-// 	alerts: state.alert,
-// });
-
-// export default connect(mapStateToProps)(Alert);
-
-const mapStateToProps = (state) => ({
-	alerts: state.alert,
-});
+import { Link } from "react-router-dom";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 const About = () => (
 	<div className="home">
@@ -31,4 +12,4 @@ const About = () => (
 	</div>
 );
 
-export default connect(mapStateToProps)(About);
+export default About;

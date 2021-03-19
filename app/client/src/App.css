@@ -52,3 +52,20 @@ body {
   border-top: 20px;
 }
 
+#team-heading{
+  font-size: 2vw;
+  font-weight: bold;
+}
+
+#team-text{
+  font-size: 1.5vw;
+}
+
+#feedback-form {
+  padding-bottom: 10px;
+}
+
+.feedback-form-label {
+  font-weight: bold;
+  font-size: 1.2vw;
+}

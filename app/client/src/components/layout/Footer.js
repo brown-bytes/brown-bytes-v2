@@ -20,8 +20,8 @@ const Footer = () => {
 						<Moment format="YYYY">{date_now}</Moment>
 					</Col>
 					<Col sm={2}>
-						Join the{" "}
-						<Link to="/signup">
+						Contact the{" "}
+						<Link to="/team">
 							<a>team</a>
 						</Link>
 						.

@@ -59,9 +59,6 @@ const Login = ({ login, isAuthenticated }) => {
 									onChange={onChange}
 									required
 								/>
-								<Form.Control.Feedback type="invalid">
-									Please provide a valid zip.
-								</Form.Control.Feedback>
 							</Form.Group>
 							<Button variant="info" type="submit">
 								Submit

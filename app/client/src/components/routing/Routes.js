@@ -10,6 +10,7 @@ import Login from "../login/Login";
 import Profile from "../profile/Profile";
 import ForgotPassword from "../forgot-password/ForgotPassword";
 import SignUp from "../signup/SignUp";
+import Team from "../team/Team";
 
 const Routes = () => {
 	return (
@@ -27,6 +28,7 @@ const Routes = () => {
 					component={ForgotPassword}
 				/>
 				<Route exact path="/signup" component={SignUp} />
+				<Route exact path="/team" component={Team} />
 			</Switch>
 		</section>
 	);
