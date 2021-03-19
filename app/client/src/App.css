@@ -31,7 +31,7 @@ body {
 
 .login-signup-headline {
   font-weight: bold;
-  font-size: 2.5vw;
+  font-size: x-large;
 }
 
 #login-form {
@@ -40,11 +40,11 @@ body {
 
 .login-form-label {
   font-weight: bold;
-  font-size: 1.2vw;
+  font-size: larger;
 }
 
 .login-signup-plain-text {
-  font-size: 1.2vw;
+  font-size: large;
 }
 
 #login-forgot-password-text{
@@ -53,12 +53,12 @@ body {
 }
 
 #team-heading{
-  font-size: 2vw;
+  font-size: xx-large;
   font-weight: bold;
 }
 
 #team-text{
-  font-size: 1.5vw;
+  font-size: larger;
 }
 
 #feedback-form {
@@ -66,20 +66,19 @@ body {
 }
 
 .feedback-form-label {
-  font-weight: bold;
-  font-size: 1.2vw;
+  font-size: larger;
 }
 
 .about-first-heading {
   font-weight: bolder;
-  font-size: 2.5vw;
+  font-size: xx-large;
 }
 
 .about-second-heading {
   font-weight: bold;
-  font-size: 1.5vw;
+  font-size: x-large;
 }
 
 .about-text {
-  font-size: 1vw;
+  font-size: larger;
 }

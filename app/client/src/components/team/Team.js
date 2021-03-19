@@ -79,7 +79,7 @@ const Team = ({ sendFeedBack }) => {
 					/>
 				</Form.Group>
 				<Button variant="info" type="submit">
-					Send
+					<i class="far fa-envelope"></i> Send
 				</Button>
 			</Form>
 		</Fragment>

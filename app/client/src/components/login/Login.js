@@ -31,7 +31,7 @@ const Login = ({ login, isAuthenticated }) => {
 		<Fragment>
 			<Container fluid>
 				<Row>
-					<Col>
+					<Col xs={12} sm={12} md={6}>
 						<p className="login-signup-headline">Log in</p>
 						<hr></hr>
 						<Form onSubmit={(e) => onSubmit(e)} id="login-form">
@@ -71,7 +71,7 @@ const Login = ({ login, isAuthenticated }) => {
 							Forgot Password
 						</Link>
 					</Col>
-					<Col>
+					<Col xs={12} sm={12} md={6}>
 						<p className="login-signup-headline">
 							Don't have an account yet?
 						</p>
