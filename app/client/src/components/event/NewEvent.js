@@ -108,7 +108,7 @@ const NewEvent = ({ createEvent }) => {
 						<Form.Control
 							size="lg"
 							type="date"
-							id="password"
+							id="date"
 							onChange={onChange}
 							placeholder="yyyy/mm/dd"
 							minLength={10}
