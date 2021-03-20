@@ -9,22 +9,25 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-import { login } from "../../actions/auth";
+import { resetPassword } from "../../actions/auth";
 
-const Login = ({ login, isAuthenticated }) => {
+const mapStateToProps = (state) => ({
+	alerts: state.alert,
+});
+
+const ForgotPassword = ({ resetPassword }) => {
 	const [formData, setFormData] = useState({
 		email: "",
-		password: "",
 	});
 
-	const { email, password } = formData;
+	const { email } = formData;
 
 	const onChange = (e) =>
 		setFormData({ ...formData, [e.target.type]: e.target.value });
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
-		login(email, password);
+		resetPassword(email);
 	};
 
 	return (
@@ -32,12 +35,21 @@ const Login = ({ login, isAuthenticated }) => {
 			<Container fluid>
 				<Row>
 					<Col xs={12} sm={12} md={6}>
-						<p className="login-signup-reset-headline">Log in</p>
+						<p className="login-signup-reset-headline">
+							Reset Password
+						</p>
+						<p className="login-signup-reset-plain-text">
+							Enter an email address associated with your account.
+							You will receive an email with the link to reset
+							your password.
+						</p>
 						<hr></hr>
-						<Form onSubmit={(e) => onSubmit(e)} id="login-form">
+						<Form
+							onSubmit={(e) => onSubmit(e)}
+							id="forgot-password-form">
 							<Form.Group controlId="formEmail">
 								<Form.Label className="login-reset-form-label">
-									Email
+									Account Email
 								</Form.Label>
 								<Form.Control
 									size="lg"
@@ -48,27 +60,13 @@ const Login = ({ login, isAuthenticated }) => {
 								/>
 							</Form.Group>
 
-							<Form.Group controlId="formPassword">
-								<Form.Label className="login-reset-form-label">
-									Password
-								</Form.Label>
-								<Form.Control
-									size="lg"
-									type="password"
-									placeholder="Password"
-									onChange={onChange}
-									required
-								/>
-							</Form.Group>
 							<Button variant="info" type="submit">
 								Submit
 							</Button>
 						</Form>
 
-						<Link
-							to="/forgotpassword"
-							id="login-forgot-password-text">
-							Forgot your Password?
+						<Link to="/login" id="login-forgot-password-text">
+							Back to Login
 						</Link>
 					</Col>
 					<Col xs={12} sm={12} md={6}>
@@ -102,8 +100,4 @@ const Login = ({ login, isAuthenticated }) => {
 	);
 };
 
-const mapStateToProps = (state) => ({
-	isAuthenticated: state.auth.isAuthenticated,
-});
-
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, { resetPassword })(ForgotPassword);

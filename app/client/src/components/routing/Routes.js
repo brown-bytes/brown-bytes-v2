@@ -8,7 +8,7 @@ import Calendar from "../calendar/Calendar";
 import About from "../about/About";
 import Login from "../login/Login";
 import Profile from "../profile/Profile";
-import ForgotPassword from "../forgot-password/ForgotPassword";
+import ForgotPassword from "../login/ForgotPassword";
 import SignUp from "../signup/SignUp";
 import Team from "../team/Team";
 

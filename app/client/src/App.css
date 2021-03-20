@@ -29,21 +29,21 @@ body {
   margin: 0 0.25rem;
 }
 
-.login-signup-headline {
+.login-signup-reset-headline {
   font-weight: bold;
-  font-size: x-large;
+  font-size: xx-large;
 }
 
 #login-form {
   padding-bottom: 10px;
 }
 
-.login-form-label {
+.login-reset-form-label {
   font-weight: bold;
   font-size: larger;
 }
 
-.login-signup-plain-text {
+.login-signup-reset-plain-text {
   font-size: large;
 }
 
@@ -81,4 +81,8 @@ body {
 
 .about-text {
   font-size: larger;
+}
+
+#forgot-password-form {
+  padding-bottom: 10px;
 }

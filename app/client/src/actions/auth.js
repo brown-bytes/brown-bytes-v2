@@ -104,3 +104,13 @@ export const logout = () => (dispatch) => {
 		type: LOGOUT,
 	});
 };
+
+export const resetPassword = (email) => (dispatch) => {
+	console.log("resetting password for ", email);
+	dispatch({
+		type: "reset",
+	});
+	dispatch({
+		type: "reset",
+	});
+};
