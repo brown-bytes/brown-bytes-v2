@@ -1,34 +1,38 @@
-import React from "react";
+import React, { Fragment, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
-// const Alert = ({ alerts }) =>
-// 	alerts !== null &&
-// 	alerts.length > 0 &&
-// 	alerts.map((alert) => (
-// 		<div key={alert.id} className={`alert alert-${alert.alertType}`}>
-// 			{alert.msg}
-// 		</div>
-// 	));
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
-// Alert.propTypes = {
-// 	alerts: PropTypes.array.isRequired,
-// };
-
-// const mapStateToProps = (state) => ({
-// 	alerts: state.alert,
-// });
-
-// export default connect(mapStateToProps)(Alert);
+const Calendar = ({ isAuthenticated }) => (
+	<Fragment>
+		<p className="calendar-heading1">Free Food Calendar</p>
+		<p className="calendar-text">
+			The following list of free food events were compiled by Brown Bytes
+			users and ML algorithms. <br></br> Make sure to ensure the type of
+			food available fits your dietary restrictions.
+		</p>
+		<p className="calendar-heading2">Actions</p>
+		{isAuthenticated ? (
+			<Link to="/newevent">
+				<Button variant="success">Create Event</Button>
+			</Link>
+		) : (
+			<p className="calendar-text">
+				You are not logged in. Log in to add events to the calendar.
+			</p>
+		)}
+		<hr></hr>
+	</Fragment>
+);
 
 const mapStateToProps = (state) => ({
-	alerts: state.alert,
+	isAuthenticated: state.auth.isAuthenticated,
 });
-
-const Calendar = () => (
-	<div className="home">
-		<h1>Calendar</h1>
-	</div>
-);
 
 export default connect(mapStateToProps)(Calendar);

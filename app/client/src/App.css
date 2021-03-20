@@ -104,3 +104,17 @@ body {
 .signup-form-label-bottom {
   font-size: medium;
 }
+
+.calendar-heading1 {
+  font-weight: bold;
+  font-size: xx-large;
+}
+
+.calendar-heading2 {
+  font-weight: bold;
+  font-size: x-large;
+}
+
+.calendar-text {
+  font-size: large;
+}
