@@ -31,41 +31,37 @@ export const loadUser = () => async (dispatch) => {
 	}
 };
 
-// export const register = ({ name, email, password }) => async (dispatch) => {
-// 	const config = {
-// 		headers: {
-// 			"Content-Type": "application/json",
-// 		},
-// 	};
+export const register = (name, email, password) => async (dispatch) => {
+	console.log("signing up with ", name, email, password);
+	const config = {
+		headers: {
+			"Content-Type": "application/json",
+		},
+	};
 
-// 	const body = JSON.stringify({ name, email, password });
+	const body = JSON.stringify({ name, email, password });
 
-// 	try {
-// 		const res = await axios.post("/api/users", body, config);
+	try {
+		const res = await axios.post("/api/users", body, config);
 
-// 		dispatch({
-// 			type: REGISTER_SUCCESS,
-// 			payload: res.data,
-// 		});
+		dispatch({
+			type: REGISTER_SUCCESS,
+			payload: res.data,
+		});
 
-// 		dispatch(loadUser());
-// 	} catch (err) {
-// 		const errors = err.response.data.errors;
+		dispatch(loadUser());
+	} catch (err) {
+		const errors = err.response.data.errors;
 
-// 		if (errors) {
-// 			errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
-// 		}
+		if (errors) {
+			errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+		}
 
-// 		dispatch({
-// 			type: REGISTER_FAIL,
-// 		});
-// 	}
-// };
-
-// export const login = (em, ps) => {
-// 	console.log("lgg", em, ps);
-// 	return;
-// };
+		dispatch({
+			type: REGISTER_FAIL,
+		});
+	}
+};
 
 export const login = (email, password) => async (dispatch) => {
 	const config = {

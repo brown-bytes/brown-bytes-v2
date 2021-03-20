@@ -32,7 +32,7 @@ const Login = ({ login, isAuthenticated }) => {
 			<Container fluid>
 				<Row>
 					<Col xs={12} sm={12} md={6}>
-						<p className="login-signup-reset-headline">Log in</p>
+						<p className="login-signup-reset-heading">Log in</p>
 						<hr></hr>
 						<Form onSubmit={(e) => onSubmit(e)} id="login-form">
 							<Form.Group controlId="formEmail">
@@ -72,7 +72,7 @@ const Login = ({ login, isAuthenticated }) => {
 						</Link>
 					</Col>
 					<Col xs={12} sm={12} md={6}>
-						<p className="login-signup-reset-headline">
+						<p className="login-signup-reset-heading">
 							Don't have an account yet?
 						</p>
 						<hr></hr>

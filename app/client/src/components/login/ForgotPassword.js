@@ -35,7 +35,7 @@ const ForgotPassword = ({ resetPassword }) => {
 			<Container fluid>
 				<Row>
 					<Col xs={12} sm={12} md={6}>
-						<p className="login-signup-reset-headline">
+						<p className="login-signup-reset-heading">
 							Reset Password
 						</p>
 						<p className="login-signup-reset-plain-text">
@@ -70,7 +70,7 @@ const ForgotPassword = ({ resetPassword }) => {
 						</Link>
 					</Col>
 					<Col xs={12} sm={12} md={6}>
-						<p className="login-signup-reset-headline">
+						<p className="login-signup-reset-heading">
 							Don't have an account yet?
 						</p>
 						<hr></hr>

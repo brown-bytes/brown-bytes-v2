@@ -20,7 +20,7 @@ const Team = ({ sendFeedBack }) => {
 	const { name, email, comment } = formData;
 
 	const onChange = (e) =>
-		setFormData({ ...formData, [e.target.type]: e.target.value });
+		setFormData({ ...formData, [e.target.id]: e.target.value });
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
@@ -43,43 +43,45 @@ const Team = ({ sendFeedBack }) => {
 				contribute.
 			</p>
 			<Form id="feedback-form" onSubmit={(e) => onSubmit(e)}>
-				<Form.Group controlId="formYourName">
+				<Form.Group>
 					<Form.Label className="feedback-form-label">
 						Your full name
 					</Form.Label>
 					<Form.Control
-						type="name"
+						id="name"
 						size="lg"
 						onChange={onChange}
 						required
 					/>
 				</Form.Group>
 
-				<Form.Group controlId="formEmail">
+				<Form.Group>
 					<Form.Label className="feedback-form-label">
 						Email
 					</Form.Label>
 					<Form.Control
 						size="lg"
 						type="email"
+						id="email"
 						onChange={onChange}
 						required
 					/>
 				</Form.Group>
 
-				<Form.Group controlId="formPassword">
+				<Form.Group>
 					<Form.Label className="feedback-form-label">
 						Comments
 					</Form.Label>
 					<Form.Control
 						type="comment"
+						id="comment"
 						as="textarea"
 						onChange={onChange}
 						rows={3}
 					/>
 				</Form.Group>
 				<Button variant="info" type="submit">
-					<i class="far fa-envelope"></i> Send
+					<i className="far fa-envelope"></i> Send
 				</Button>
 			</Form>
 		</Fragment>

@@ -34,7 +34,7 @@ const About = () => (
 			<a
 				href="https://github.com/brown-bytes/brown-bytes"
 				target="_blank">
-				<i class="fab fa-github"></i>GitHub
+				<i className="fab fa-github"></i>GitHub
 			</a>
 		</p>
 		<p className="about-text">

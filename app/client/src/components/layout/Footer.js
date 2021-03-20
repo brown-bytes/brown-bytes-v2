@@ -22,7 +22,7 @@ const Footer = () => {
 					<Col sm={3}>
 						Contact the{" "}
 						<Link to="/team">
-							<i class="fas fa-user-friends"></i> <a>team</a>
+							<i className="fas fa-user-friends"></i> team
 						</Link>
 						.
 					</Col>

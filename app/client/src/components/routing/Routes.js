@@ -9,7 +9,7 @@ import About from "../about/About";
 import Login from "../login/Login";
 import Profile from "../profile/Profile";
 import ForgotPassword from "../login/ForgotPassword";
-import SignUp from "../signup/SignUp";
+import SignUp from "../login/SignUp";
 import Team from "../team/Team";
 
 const Routes = () => {
