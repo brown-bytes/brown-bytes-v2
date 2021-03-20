@@ -118,3 +118,31 @@ body {
 .calendar-text {
   font-size: large;
 }
+
+#new-event-heading {
+  font-weight: bold;
+  font-size: xx-large;
+}
+
+.new-event-asterisk {
+  color: red;
+}
+
+.new-event-text {
+  font-size: larger;
+  font-weight: normal;
+}
+
+#new-event-form {
+  padding-bottom: 10px;
+}
+
+.new-event-form-label{
+  font-size: larger;
+  font-weight: bold;
+}
+
+.new-event-form-label-eg{
+  font-size: large;
+  font-weight: normal;
+}

@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
+import PrivateRoute from "./PrivateRoute";
 
 import Alert from "../layout/Alert";
 
@@ -11,6 +12,7 @@ import Profile from "../profile/Profile";
 import ForgotPassword from "../login/ForgotPassword";
 import SignUp from "../login/SignUp";
 import Team from "../team/Team";
+import NewEvent from "../event/NewEvent";
 
 const Routes = () => {
 	return (
@@ -29,6 +31,8 @@ const Routes = () => {
 				/>
 				<Route exact path="/signup" component={SignUp} />
 				<Route exact path="/team" component={Team} />
+
+				<PrivateRoute exact path="/newevent" component={NewEvent} />
 			</Switch>
 		</section>
 	);
