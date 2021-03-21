@@ -18,7 +18,23 @@ export const createEvent = (info) => async (dispatch) => {
 		foodAmount,
 		otherInfo,
 	} = info;
-	dispatch(setAlert("hello", RED_ALERT));
+
+	if (!moment().isValid(date)) {
+		dispatch(setAlert("Invalid event date", RED_ALERT));
+		toTop();
+	}
+
+	if (!moment().isValid(startTime)) {
+		dispatch(setAlert("Invalid event start time", RED_ALERT));
+		toTop();
+	}
+
+	if (!moment().isValid(endTime)) {
+		dispatch(setAlert("Invalid event end time", RED_ALERT));
+		toTop();
+	}
+
+	dispatch(setAlert("Successfully created an event", GREEN_ALERT));
 	toTop();
 	console.log("creating an event with ", info);
 };
