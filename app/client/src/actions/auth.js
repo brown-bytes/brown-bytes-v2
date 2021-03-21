@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setAlert } from "./alert";
+import { setAlert, clearAlerts } from "./alert";
 import setAuthToken from "../utils/setAuthToken";
 import { RED_ALERT, GREEN_ALERT } from "../components/layout/AlertTypes";
 import {
@@ -32,7 +32,20 @@ export const loadUser = () => async (dispatch) => {
 	}
 };
 
-export const register = (name, email, password) => async (dispatch) => {
+export const register = (name, email, password, passwordRepeat) => async (
+	dispatch
+) => {
+	clearAlerts();
+	if (passwordRepeat != password) {
+		dispatch(setAlert("Passwords should match", RED_ALERT));
+		return;
+	}
+	if (password.length < 8 || passwordRepeat < 8) {
+		dispatch(
+			setAlert("Password should have at least 8 characters", RED_ALERT)
+		);
+		return;
+	}
 	console.log("signing up with ", name, email, password);
 	const config = {
 		headers: {

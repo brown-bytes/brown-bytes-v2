@@ -53,15 +53,7 @@ const SignUp = ({ register }) => {
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
-		if (password.length < 8 || passwordRepeat < 8) {
-			window.alert("Passwords should have more than 8 characters!");
-			return;
-		}
-		if (password != passwordRepeat) {
-			window.alert("Passwords should match!");
-			return;
-		}
-		register(name, email, password);
+		register(name, email, password, passwordRepeat);
 	};
 
 	return (
