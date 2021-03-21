@@ -12,9 +12,26 @@ import Button from "react-bootstrap/Button";
 import { register } from "../../actions/auth";
 import { clearAlerts } from "../../actions/alert";
 
+import Popover from "react-bootstrap/Popover";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+
 const mapStateToProps = (state) => ({
 	alerts: state.alert,
 });
+
+const termsPopover = (
+	<Popover id="popover-basic">
+		<Popover.Title as="h3">Privacy and Information Policy</Popover.Title>
+		<Popover.Content>
+			Brown Bytes is a non-profit organization that does not engage in or
+			condone information gathering. No user behavioral information is
+			collected, and all platform user statistics are private and belong
+			to the user by which they were created. Brown Bytes is not an
+			individual entity, but rather a platform, and the ownership of Brown
+			Bytes resides in its users. Last Updated July 2018.
+		</Popover.Content>
+	</Popover>
+);
 
 const SignUp = ({ register }) => {
 	useEffect(() => {
@@ -111,10 +128,20 @@ const SignUp = ({ register }) => {
 							required
 						/>
 					</Form.Group>
+
 					<p className="signup-form-label-bottom">
-						By registering, you accept terms of use and privacy
-						policy.
+						By registering, you accept{" "}
+						<OverlayTrigger
+							trigger={["click", "hover"]}
+							placement="bottom"
+							overlay={termsPopover}>
+							<span id="terms-clickable-text">
+								{" "}
+								terms of privacy and information Policy.
+							</span>
+						</OverlayTrigger>
 					</p>
+
 					<Button variant="info" type="submit">
 						Register
 					</Button>

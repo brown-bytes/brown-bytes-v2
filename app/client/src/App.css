@@ -1,148 +1,151 @@
 body {
-  font-family: 'Raleway', sans-serif;
-  font-size: 1rem;
-  line-height: 1.6;
-  background-color: #fff;
-  color: #333;
+	font-family: "Raleway", sans-serif;
+	font-size: 1rem;
+	line-height: 1.6;
+	background-color: #fff;
+	color: #333;
 }
 
-
 .container {
-  max-width: 1100px;
-  margin: auto;
-  overflow: hidden;
-  padding: 0 2rem;
-  margin-top: 6rem;
-  margin-bottom: 3rem;
+	max-width: 1100px;
+	margin: auto;
+	overflow: hidden;
+	padding: 0 2rem;
+	margin-top: 6rem;
+	margin-bottom: 3rem;
 }
 
 .navbar {
-  position: fixed;
-  z-index: 1;
-  width: 100%;
-  border-bottom: solid 1px;
-  opacity: 0.9;
+	position: fixed;
+	z-index: 1;
+	width: 100%;
+	border-bottom: solid 1px;
+	opacity: 0.9;
 }
 
 .navbar a {
-  padding: 0.45rem;
-  margin: 0 0.25rem;
+	padding: 0.45rem;
+	margin: 0 0.25rem;
 }
 
 .login-signup-reset-heading {
-  font-weight: bold;
-  font-size: xx-large;
+	font-weight: bold;
+	font-size: xx-large;
 }
 
 #login-form {
-  padding-bottom: 10px;
+	padding-bottom: 10px;
 }
 
 .login-reset-form-label {
-  font-weight: bold;
-  font-size: larger;
+	font-weight: bold;
+	font-size: larger;
 }
 
 .login-signup-reset-plain-text {
-  font-size: large;
+	font-size: large;
 }
 
-#login-forgot-password-text{
-  font-weight: bold;
-  border-top: 20px;
+#login-forgot-password-text {
+	border-top: 20px;
 }
 
-#team-heading{
-  font-size: xx-large;
-  font-weight: bold;
+#team-heading {
+	font-size: xx-large;
+	font-weight: bold;
 }
 
-#team-text{
-  font-size: larger;
+#team-text {
+	font-size: larger;
 }
 
 #feedback-form {
-  padding-bottom: 10px;
+	padding-bottom: 10px;
 }
 
 .feedback-form-label {
-  font-size: larger;
+	font-size: larger;
 }
 
 .about-first-heading {
-  font-weight: bolder;
-  font-size: xx-large;
+	font-weight: bolder;
+	font-size: xx-large;
 }
 
 .about-second-heading {
-  font-weight: bold;
-  font-size: x-large;
+	font-weight: bold;
+	font-size: x-large;
 }
 
 .about-text {
-  font-size: larger;
+	font-size: larger;
 }
 
 #forgot-password-form {
-  padding-bottom: 10px;
+	padding-bottom: 10px;
 }
 
 #register-heading {
-  font-weight: bold;
-  font-size: xx-large;
+	font-weight: bold;
+	font-size: xx-large;
 }
 
 #signup-form {
-  padding-bottom: 10px;
+	padding-bottom: 10px;
 }
 
 .signup-form-label-top {
-  font-weight: bold;
-  font-size: larger;
+	font-weight: bold;
+	font-size: larger;
+}
+
+#terms-clickable-text {
+	color: #0066cc;
+	cursor: pointer;
 }
 
 .signup-form-label-bottom {
-  font-size: medium;
+	font-size: medium;
 }
 
 .calendar-heading1 {
-  font-weight: bold;
-  font-size: xx-large;
+	font-weight: bold;
+	font-size: xx-large;
 }
 
 .calendar-heading2 {
-  font-weight: bold;
-  font-size: x-large;
+	font-weight: bold;
+	font-size: x-large;
 }
 
 .calendar-text {
-  font-size: large;
+	font-size: large;
 }
 
 #new-event-heading {
-  font-weight: bold;
-  font-size: xx-large;
+	font-weight: bold;
+	font-size: xx-large;
 }
 
 .new-event-asterisk {
-  color: red;
+	color: red;
 }
 
 .new-event-text {
-  font-size: larger;
-  font-weight: normal;
+	font-size: larger;
+	font-weight: normal;
 }
 
 #new-event-form {
-  padding-bottom: 10px;
+	padding-bottom: 10px;
 }
 
-.new-event-form-label{
-  font-size: larger;
-  font-weight: bold;
+.new-event-form-label {
+	font-size: larger;
+	font-weight: bold;
 }
 
-.new-event-form-label-eg{
-  font-size: large;
-  font-weight: normal;
+.new-event-form-label-eg {
+	font-size: large;
+	font-weight: normal;
 }
