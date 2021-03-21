@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -10,12 +10,17 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 import { register } from "../../actions/auth";
+import { clearAlerts } from "../../actions/alert";
 
 const mapStateToProps = (state) => ({
 	alerts: state.alert,
 });
 
 const SignUp = ({ register }) => {
+	useEffect(() => {
+		clearAlerts();
+	}, []);
+
 	const [formData, setFormData] = useState({
 		name: "",
 		email: "",

@@ -30,20 +30,6 @@ const NewEvent = ({ createEvent }) => {
 		otherInfo: "",
 	});
 
-	const {
-		title,
-		location,
-		date,
-		startTime,
-		endTime,
-		eventType,
-		hostGroup,
-		whoCanCome,
-		foodType,
-		foodAmount,
-		otherInfo,
-	} = formData;
-
 	const onChange = (e) => {
 		setFormData({ ...formData, [e.target.id]: e.target.value });
 	};
