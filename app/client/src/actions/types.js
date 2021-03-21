@@ -24,3 +24,9 @@ export const GET_POSTS = "GET_POSTS";
 
 export const ADD_COMMENT = "ADD_COMMENT";
 export const REMOVE_COMMENT = "REMOVE_COMMENT";
+
+export const GET_EVENTS = "GET_EVENTS";
+export const ADD_EVENT = "ADD_EVENT";
+export const DELETE_EVENT = "DELETE_EVENT";
+export const UPDATE_WATCHES = "UPDATE_WATCHES";
+export const ADD_EVENT_ERROR = "ADD_EVENT_ERROR";

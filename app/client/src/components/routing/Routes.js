@@ -32,7 +32,7 @@ const Routes = () => {
 				<Route exact path="/signup" component={SignUp} />
 				<Route exact path="/team" component={Team} />
 
-				<PrivateRoute exact path="/newevent" component={NewEvent} />
+				<PrivateRoute exact path="/NewEvent" component={NewEvent} />
 			</Switch>
 		</section>
 	);

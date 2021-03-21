@@ -78,3 +78,7 @@ export const createEvent = (info) => async (dispatch) => {
 	);
 	toTop();
 };
+
+export const getEvents = () => {
+	return;
+};

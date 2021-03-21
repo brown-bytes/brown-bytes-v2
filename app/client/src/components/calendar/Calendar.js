@@ -10,6 +10,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 import { clearAlerts } from "../../actions/alert";
+import EventList from "../event/EventList";
 
 const Calendar = ({ isAuthenticated }) => {
 	useEffect(() => {
@@ -26,7 +27,7 @@ const Calendar = ({ isAuthenticated }) => {
 			</p>
 			<p className="calendar-heading2">Actions</p>
 			{isAuthenticated ? (
-				<Link to="/newevent">
+				<Link to="/NewEvent">
 					<Button variant="success">Create Event</Button>
 				</Link>
 			) : (
@@ -36,6 +37,7 @@ const Calendar = ({ isAuthenticated }) => {
 				</p>
 			)}
 			<hr></hr>
+			<EventList></EventList>
 		</Fragment>
 	);
 };
