@@ -179,3 +179,19 @@ body {
 	color: #2f7ef6;
 	cursor: pointer;
 }
+
+#notfound-heading {
+	font-weight: bolder;
+	font-size: xx-large;
+}
+
+.notfound-bold-text {
+	font-weight: bold;
+	font-size: x-large;
+}
+
+.notfound-plain-text {
+	font-size: x-large;
+	padding-left: 15px;
+	padding-right: 15px;
+}

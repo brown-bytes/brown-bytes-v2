@@ -10,11 +10,11 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 
 const toggleMoreInfo = (e) => {
-	console.log(e.target);
 	const class_suffix = e.target.id;
 	let info_items = document.getElementsByClassName(
 		`event-card-${class_suffix}`
 	);
+	// use for loop here to make sure it works in IE
 	for (let i = 0; i < info_items.length; ++i) {
 		info_items[i].style.display =
 			info_items[i].style.display == "block" ? "none" : "block";

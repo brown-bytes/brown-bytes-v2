@@ -13,6 +13,7 @@ import ForgotPassword from "../login/ForgotPassword";
 import SignUp from "../login/SignUp";
 import Team from "../team/Team";
 import NewEvent from "../event/NewEvent";
+import NotFound from "../layout/NotFound";
 
 const Routes = () => {
 	return (
@@ -33,6 +34,7 @@ const Routes = () => {
 				<Route exact path="/team" component={Team} />
 
 				<PrivateRoute exact path="/NewEvent" component={NewEvent} />
+				<Route component={NotFound} />
 			</Switch>
 		</section>
 	);

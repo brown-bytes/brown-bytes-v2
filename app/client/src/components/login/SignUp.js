@@ -63,7 +63,7 @@ const SignUp = ({ register }) => {
 				<hr></hr>
 				<Form onSubmit={(e) => onSubmit(e)} id="signup-form">
 					<Form.Group>
-						<Form.Label className="feedback-form-label">
+						<Form.Label className="signup-form-label-top">
 							Your full name
 						</Form.Label>
 						<Form.Control
