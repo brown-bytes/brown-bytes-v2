@@ -131,6 +131,8 @@ const NewEvent = ({ createEvent }) => {
 							id="startTime"
 							onChange={onChange}
 							placeholder="--:-- --"
+							minLength={8}
+							maxLength={8}
 							required
 						/>
 					</Form.Group>
@@ -151,6 +153,8 @@ const NewEvent = ({ createEvent }) => {
 							id="endTime"
 							onChange={onChange}
 							placeholder="--:-- --"
+							minLength={8}
+							maxLength={8}
 							required
 						/>
 					</Form.Group>
