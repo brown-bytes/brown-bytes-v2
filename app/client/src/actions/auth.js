@@ -106,7 +106,4 @@ export const resetPassword = (email) => (dispatch) => {
 	dispatch({
 		type: "reset",
 	});
-	dispatch({
-		type: "reset",
-	});
 };
