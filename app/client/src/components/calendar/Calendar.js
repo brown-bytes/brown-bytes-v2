@@ -11,6 +11,7 @@ import Button from "react-bootstrap/Button";
 
 import { clearAlerts } from "../../actions/alert";
 import EventList from "../event/EventList";
+import SearchBar from "../event/SearchBar";
 
 const Calendar = ({ isAuthenticated }) => {
 	useEffect(() => {
@@ -37,6 +38,7 @@ const Calendar = ({ isAuthenticated }) => {
 				</p>
 			)}
 			<hr></hr>
+			<SearchBar></SearchBar>
 			<EventList></EventList>
 		</Fragment>
 	);

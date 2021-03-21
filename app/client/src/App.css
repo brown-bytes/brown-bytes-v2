@@ -100,7 +100,7 @@ body {
 }
 
 #terms-clickable-text {
-	color: #0066cc;
+	color: #2f7ef6;
 	cursor: pointer;
 }
 
@@ -148,4 +148,34 @@ body {
 .new-event-form-label-eg {
 	font-size: large;
 	font-weight: normal;
+}
+
+.event-card-title {
+	font-size: x-large;
+	font-weight: bolder;
+	margin-bottom: 0;
+}
+
+.event-card-keyinfo {
+	font-size: larger;
+	margin-bottom: 0;
+}
+
+.event-card-moreinfo {
+	font-size: larger;
+	margin-bottom: 0;
+	display: none;
+}
+
+.event-card-boldtext {
+	font-weight: bold;
+}
+
+.event-card-italictext {
+	font-style: italic;
+}
+
+.event-more-text {
+	color: #2f7ef6;
+	cursor: pointer;
 }

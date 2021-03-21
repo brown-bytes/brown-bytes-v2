@@ -5,19 +5,9 @@ import { RED_ALERT, GREEN_ALERT } from "../components/layout/AlertTypes";
 import toTop from "../utils/scrollToTop";
 
 export const createEvent = (info) => async (dispatch) => {
-	let {
-		title,
-		location,
-		date,
-		startTime,
-		endTime,
-		eventType,
-		hostGroup,
-		whoCanCome,
-		foodType,
-		foodAmount,
-		otherInfo,
-	} = info;
+	let date = info.date;
+	let startTime = info.startTime;
+	let endTime = info.endTime;
 
 	//dispatch(clearAlerts());
 	clearAlerts();
@@ -80,5 +70,18 @@ export const createEvent = (info) => async (dispatch) => {
 };
 
 export const getEvents = () => {
+	return;
+};
+
+export const watch = () => {
+	return;
+};
+export const unwatch = () => {
+	return;
+};
+export const deleteEvent = () => {
+	return;
+};
+export const postComment = () => {
 	return;
 };

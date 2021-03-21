@@ -33,8 +33,31 @@ const initialState = {
 				},
 			],
 		},
+		{
+			id: "2",
+			title: "Jazz Night",
+			location: "CIT",
+			date: "2021-03-23",
+			startTime: "9:00 PM",
+			endTime: "10:00 PM",
+			hostGroup: "",
+			whoCanCome: "Anyone",
+			foodType: "Pizza",
+			foodAmount: "",
+			OtherInfo: "Welcome!",
+			creator: "Amy",
+			creatTime: "2021-03-21 21:21",
+			watches: "6",
+			comments: [
+				{
+					user: "Jack",
+					content: "Cool!",
+					postTime: "2021-03-21 21:48",
+				},
+			],
+		},
 	],
-	loading: true,
+	loading: false,
 	queryString: "",
 };
 

@@ -11,6 +11,7 @@ import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
 
 import { getEvents } from "../../actions/event";
+import SingleEvent from "./SingleEvent";
 
 const EventList = ({ getEvents, events, loading, queryString }) => {
 	return loading ? (
@@ -20,6 +21,9 @@ const EventList = ({ getEvents, events, loading, queryString }) => {
 	) : (
 		<Fragment>
 			<h1>list</h1>
+			{events.map((event) => (
+				<SingleEvent key={event.id} event={event}></SingleEvent>
+			))}
 		</Fragment>
 	);
 };
