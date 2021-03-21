@@ -51,7 +51,6 @@ const NewEvent = ({ createEvent }) => {
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		createEvent(formData);
-		console.log(formData);
 	};
 
 	return (
@@ -59,7 +58,7 @@ const NewEvent = ({ createEvent }) => {
 			<Container fluid>
 				<p id="new-event-heading">New Event</p>
 				<p className="new-event-text">
-					Before creating a custom event please check that it does not
+					Before creating an event please check that it does not
 					already exist.
 				</p>
 				<p className="new-event-text">
@@ -131,7 +130,6 @@ const NewEvent = ({ createEvent }) => {
 							type="time"
 							id="startTime"
 							onChange={onChange}
-							minLength={8}
 							placeholder="--:-- --"
 							required
 						/>
@@ -152,7 +150,6 @@ const NewEvent = ({ createEvent }) => {
 							type="time"
 							id="endTime"
 							onChange={onChange}
-							minLength={8}
 							placeholder="--:-- --"
 							required
 						/>
