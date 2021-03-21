@@ -1,6 +1,7 @@
 import axios from "axios";
 import { setAlert } from "./alert";
 import setAuthToken from "../utils/setAuthToken";
+import { RED_ALERT, GREEN_ALERT } from "../components/layout/AlertTypes";
 import {
 	REGISTER_SUCCESS,
 	REGISTER_FAIL,
@@ -99,6 +100,7 @@ export const logout = () => (dispatch) => {
 	dispatch({
 		type: LOGOUT,
 	});
+	dispatch(setAlert("Logged out", GREEN_ALERT));
 };
 
 export const resetPassword = (email) => (dispatch) => {
