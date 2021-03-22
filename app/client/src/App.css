@@ -152,7 +152,7 @@ body {
 
 .event-card-title {
 	font-size: x-large;
-	font-weight: bolder;
+	font-weight: double;
 	margin-bottom: 0;
 }
 
@@ -178,6 +178,45 @@ body {
 .event-more-text {
 	color: #2f7ef6;
 	cursor: pointer;
+}
+
+.event-ongoing-badge {
+	width: 140px;
+	display: block;
+	border: thin solid #0070f9;
+	font-weight: bold;
+	font-size: x-large;
+}
+
+.event-ongoing-text {
+	padding-left: 18px;
+	color: #0070f9;
+}
+
+.event-upcoming-badge {
+	width: 140px;
+	display: block;
+	border: thin solid #ff892e;
+	font-weight: bold;
+	font-size: x-large;
+}
+
+.event-upcoming-text {
+	padding-left: 11px;
+	color: #ff892e;
+}
+
+.event-ended-badge {
+	width: 140px;
+	display: block;
+	border: thin solid #606a71;
+	font-weight: bold;
+	font-size: x-large;
+}
+
+.event-ended-text {
+	padding-left: 32px;
+	color: #606a71;
 }
 
 #notfound-heading {

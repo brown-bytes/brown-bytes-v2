@@ -58,8 +58,6 @@ export const createEvent = (info) => async (dispatch) => {
 		return;
 	}
 
-	console.log(startDateTime);
-	console.log(endDateTime);
 	dispatch(
 		setAlert(
 			"Successfully created an event. Check it out in calendar",

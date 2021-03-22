@@ -8,6 +8,10 @@ import { watch, unwatch, deleteEvent, postComment } from "../../actions/event";
 import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+
+import EventBadge from "./EventBadge";
 
 const toggleMoreInfo = (e) => {
 	const class_suffix = e.target.id;
@@ -36,7 +40,18 @@ const SingleEvent = ({
 			<Accordion>
 				<Card>
 					<Card.Header>
-						<p className="event-card-title">{event.title}</p>
+						<Row>
+							<Col xs={6} sm={6} md={9} lg={10}>
+								<p className="event-card-title">
+									{event.title}
+								</p>
+							</Col>
+							<Col xs={6} sm={6} md={3} lg={2}>
+								<EventBadge
+									startTime={`${event.date} ${event.startTime}`}
+									endTime={`${event.date} ${event.endTime}`}></EventBadge>
+							</Col>
+						</Row>
 					</Card.Header>
 					<Card.Body>
 						<p className="event-card-keyinfo">
@@ -113,6 +128,7 @@ const SingleEvent = ({
 							onClick={toggleMoreInfo}>
 							Show more info
 						</a>
+
 						{/* <Accordion.Toggle
 							as={Button}
 							variant="link"

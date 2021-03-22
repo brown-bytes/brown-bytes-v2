@@ -20,7 +20,6 @@ const EventList = ({ getEvents, events, loading, queryString }) => {
 		</Spinner>
 	) : (
 		<Fragment>
-			<h1>list</h1>
 			{events.map((event) => (
 				<SingleEvent key={event.id} event={event}></SingleEvent>
 			))}

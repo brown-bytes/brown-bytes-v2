@@ -16,7 +16,7 @@ const SearchBar = () => {
 	return (
 		<InputGroup className="mb-3">
 			<FormControl
-				placeholder="Search event title, location, time, or other keywords"
+				placeholder="Event title, location, or other keywords"
 				aria-label="Event search bar"
 			/>
 			<InputGroup.Append>
