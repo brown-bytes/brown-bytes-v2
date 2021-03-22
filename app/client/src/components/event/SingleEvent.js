@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import Moment from "react-moment";
+import moment from "moment";
 import { connect } from "react-redux";
 import { watch, unwatch, deleteEvent, postComment } from "../../actions/event";
 
@@ -35,6 +35,12 @@ const SingleEvent = ({
 	auth,
 	event,
 }) => {
+	const eventDate = moment(event.date).format("dddd, MMMM DD, YYYY");
+	console.log(event.startTime);
+	const startTime = moment(`${event.date} ${event.startTime}`).format(
+		"HH:mm A"
+	);
+	const endTime = moment(`${event.date} ${event.endTime}`).format("HH:mm A");
 	return (
 		<Fragment>
 			<Accordion>
@@ -62,11 +68,11 @@ const SingleEvent = ({
 						</p>
 						<p className="event-card-keyinfo">
 							<span className="event-card-boldtext">Date: </span>
-							{event.date}
+							{eventDate}
 						</p>
 						<p className="event-card-keyinfo">
 							<span className="event-card-boldtext">Time:</span>{" "}
-							{event.startTime} - {event.endTime}
+							{startTime} - {endTime}
 						</p>
 						{event.hostGroup && (
 							<p
