@@ -19,9 +19,7 @@ const SearchBar = () => {
 				placeholder="Event title, location, or other keywords"
 				aria-label="Event search bar"
 			/>
-			<InputGroup.Append>
-				<Button>Search</Button>
-			</InputGroup.Append>
+			<Button>Search</Button>
 		</InputGroup>
 	);
 };
