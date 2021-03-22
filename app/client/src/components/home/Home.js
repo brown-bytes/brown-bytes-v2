@@ -10,8 +10,8 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 import { clearAlerts } from "../../actions/alert";
-import EventList from "../event/EventList";
-import SearchBar from "../event/SearchBar";
+import EventList from "../calendar/event/EventList";
+import SearchBar from "../calendar/event/SearchBar";
 
 const Home = ({ isAuthenticated }) => {
 	useEffect(() => {

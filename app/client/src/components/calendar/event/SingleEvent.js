@@ -3,7 +3,12 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import { connect } from "react-redux";
-import { watch, unwatch, deleteEvent, postComment } from "../../actions/event";
+import {
+	watch,
+	unwatch,
+	deleteEvent,
+	postComment,
+} from "../../../actions/event";
 
 import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
@@ -149,7 +154,7 @@ const SingleEvent = ({
 										authedUser &&
 										authedUser.userid == event.creator && (
 											<Button
-												className="px-3"
+												className="px-4"
 												variant="outline-link"
 												size="lg">
 												<i className="fas fa-trash-alt"></i>

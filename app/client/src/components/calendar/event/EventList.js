@@ -10,7 +10,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
 
-import { getEvents } from "../../actions/event";
+import { getEvents } from "../../../actions/event";
 import SingleEvent from "./SingleEvent";
 
 const EventList = ({ getEvents, events, loading, queryString }) => {

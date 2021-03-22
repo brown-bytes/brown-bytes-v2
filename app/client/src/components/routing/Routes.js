@@ -12,7 +12,7 @@ import Profile from "../profile/Profile";
 import ForgotPassword from "../login/ForgotPassword";
 import SignUp from "../login/SignUp";
 import Team from "../team/Team";
-import NewEvent from "../event/NewEvent";
+import NewEvent from "../calendar/event/NewEvent";
 import NotFound from "../layout/NotFound";
 
 const Routes = () => {

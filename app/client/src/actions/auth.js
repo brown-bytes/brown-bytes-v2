@@ -36,7 +36,7 @@ export const register = (name, email, password, passwordRepeat) => async (
 	dispatch
 ) => {
 	clearAlerts();
-	if (passwordRepeat != password) {
+	if (passwordRepeat !== password) {
 		dispatch(setAlert("Passwords should match", RED_ALERT));
 		return;
 	}
