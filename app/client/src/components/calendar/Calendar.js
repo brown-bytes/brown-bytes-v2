@@ -33,8 +33,8 @@ const Calendar = ({ isAuthenticated }) => {
 				</Link>
 			) : (
 				<p className="calendar-text">
-					You are not logged in. Plearse log in to add events to the
-					calendar.
+					You are not logged in. Please log in to add events or
+					comments.
 				</p>
 			)}
 			<hr></hr>

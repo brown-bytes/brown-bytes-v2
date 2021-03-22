@@ -22,9 +22,9 @@ const initialState = {
 			foodType: "Pizza",
 			foodAmount: "Many",
 			OtherInfo: "Welcome!",
-			creator: "Amy",
+			creator: "eric",
 			creatTime: "2021-03-21 21:21",
-			watches: "6",
+			watches: ["1", "2", "3"],
 			comments: [
 				{
 					user: "Jack",
@@ -47,7 +47,7 @@ const initialState = {
 			OtherInfo: "Welcome!",
 			creator: "Amy",
 			creatTime: "2021-03-21 21:21",
-			watches: "6",
+			watches: ["1", "2", "3"],
 			comments: [
 				{
 					user: "Jack",
@@ -70,7 +70,7 @@ const initialState = {
 			OtherInfo: "Welcome!",
 			creator: "Amy",
 			creatTime: "2021-03-21 21:21",
-			watches: "6",
+			watches: [],
 			comments: [
 				{
 					user: "Jack",

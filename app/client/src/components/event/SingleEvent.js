@@ -23,8 +23,7 @@ const toggleMoreInfo = (e) => {
 		info_items[i].style.display =
 			info_items[i].style.display == "block" ? "none" : "block";
 	}
-	e.target.text =
-		e.target.text == "Show more info" ? "Show less info" : "Show more info";
+	e.target.text = e.target.text == "More info" ? "Less info" : "More info";
 };
 
 const SingleEvent = ({
@@ -32,11 +31,12 @@ const SingleEvent = ({
 	unwatch,
 	deleteEvent,
 	postComment,
-	auth,
+	isAuthenticated,
+	authedUser,
+	loadingUser,
 	event,
 }) => {
 	const eventDate = moment(event.date).format("dddd, MMMM DD, YYYY");
-	console.log(event.startTime);
 	const startTime = moment(`${event.date} ${event.startTime}`).format(
 		"HH:mm A"
 	);
@@ -47,12 +47,12 @@ const SingleEvent = ({
 				<Card>
 					<Card.Header>
 						<Row>
-							<Col xs={6} sm={6} md={9} lg={10}>
+							<Col xs={6} sm={8} md={9} lg={10}>
 								<p className="event-card-title">
 									{event.title}
 								</p>
 							</Col>
-							<Col xs={6} sm={6} md={3} lg={2}>
+							<Col xs={6} sm={4} md={3} lg={2}>
 								<EventBadge
 									startTime={`${event.date} ${event.startTime}`}
 									endTime={`${event.date} ${event.endTime}`}></EventBadge>
@@ -128,19 +128,62 @@ const SingleEvent = ({
 								<span>at {event.creatTime}</span>
 							)}
 						</p>
-						<a
-							className={`event-more-text`}
-							id={`moreinfo-class-${event.id}`}
-							onClick={toggleMoreInfo}>
-							Show more info
-						</a>
 
-						{/* <Accordion.Toggle
-							as={Button}
-							variant="link"
-							eventKey="comment">
-							Click me!
-						</Accordion.Toggle> */}
+						<Row noGutters="true">
+							<Col xs={3} sm={3} md={8} lg={9}>
+								<a
+									className={`event-more-text`}
+									id={`moreinfo-class-${event.id}`}
+									onClick={toggleMoreInfo}>
+									More info
+								</a>
+							</Col>
+							{isAuthenticated && (
+								<Col
+									xs={9}
+									sm={9}
+									md={4}
+									lg={3}
+									className="justify-content-end d-flex">
+									{!loadingUser &&
+										authedUser &&
+										authedUser.userid == event.creator && (
+											<Button
+												className="px-3"
+												variant="outline-link"
+												size="lg">
+												<i className="fas fa-trash-alt"></i>
+											</Button>
+										)}
+									<Button
+										className="px-2"
+										variant="outline-link"
+										size="lg">
+										<i className="fas fa-eye" />{" "}
+										{event.watches.length > 0 && (
+											<span>{event.watches.length}</span>
+										)}
+									</Button>
+									<Button
+										className="px-3"
+										variant="outline-link"
+										size="lg">
+										<i className="fas fa-eye-slash" />
+									</Button>
+									<Accordion.Toggle
+										as={Button}
+										className="px-2"
+										variant="outline-link"
+										eventKey="comment"
+										size="lg">
+										<i className="far fa-comment"></i>{" "}
+										{event.comments.length > 0 && (
+											<span>{event.comments.length}</span>
+										)}
+									</Accordion.Toggle>
+								</Col>
+							)}
+						</Row>
 					</Card.Body>
 					<Accordion.Collapse eventKey="comment">
 						<Card.Body>Hello! I'm the body</Card.Body>
@@ -152,7 +195,9 @@ const SingleEvent = ({
 };
 
 const mapStateToProps = (state) => ({
-	auth: state.auth,
+	isAuthenticated: state.auth.isAuthenticated,
+	authedUser: state.auth.user,
+	loadingUser: state.auth.loading,
 });
 
 export default connect(mapStateToProps, {
