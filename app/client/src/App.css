@@ -252,8 +252,8 @@ body {
 	border-top: 0 !important;
 	border-top-left-radius: 0 !important;
 	border-top-right-radius: 0 !important;
-	border-bottom-left-radius: 0.25rem !important;
-	border-bottom-right-radius: 0.25rem !important;
+	border-bottom-left-radius: 0 !important;
+	border-bottom-right-radius: 0 !important;
 }
 
 .comment-area {
@@ -276,6 +276,7 @@ body {
 }
 
 .comment-content {
+	font-size: larger;
 	margin-bottom: 0;
 	padding-left: 5px;
 }
@@ -285,4 +286,19 @@ body {
 	margin-left: auto;
 	margin-right: auto;
 	border: 1px solid gray;
+}
+
+.post-comment-input-overriding-bootstrap {
+	border-radius: 0 !important;
+	border-bottom-left-radius: 0.25rem !important;
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+}
+
+.post-comment-button-overriding-bootstrap {
+	border-radius: 0 !important;
+	border-bottom-right-radius: 0.25rem !important;
+	border-right: 1px solid black;
+	border-bottom: 1px solid black;
+	border-left: 0;
 }

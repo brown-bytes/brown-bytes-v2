@@ -11,6 +11,7 @@ import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
 
 import SingleComment from "./SingleComment";
+import PostComment from "./PostComment";
 
 const CommentArea = ({ comments }) => {
 	return (
@@ -20,6 +21,7 @@ const CommentArea = ({ comments }) => {
 					key={comment.id}
 					comment={comment}></SingleComment>
 			))}
+			<PostComment></PostComment>
 		</Fragment>
 	);
 };
