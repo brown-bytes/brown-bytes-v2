@@ -26,12 +26,17 @@ const NewOffer = ({ createOffer }) => {
 	});
 
 	const onChange = (e) => {
-		console.log(e.target.value);
-		setFormData({ ...formData, [e.target.id]: e.target.value });
+		//console.log(e.target.checked);
+		setFormData({
+			...formData,
+			[e.target.id]:
+				e.target.id != "anonymous" ? e.target.value : e.target.checked,
+		});
 	};
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
+
 		createOffer(formData);
 	};
 
@@ -166,7 +171,11 @@ const NewOffer = ({ createOffer }) => {
 							onChange={onChange}
 						/>
 					</Form.Group>
-
+					<Form.Check
+						label="Anonymous"
+						id="anonymous"
+						onChange={onChange}
+					/>
 					<Button variant="info" type="submit">
 						Create
 					</Button>
