@@ -28,7 +28,7 @@ const DashBoard = () => {
 			<Tab eventKey="profile" title="Profile">
 				<Profile></Profile>
 			</Tab>
-			<Tab eventKey="myEvents" title="My Events">
+			<Tab eventKey="myEvents" title="My Events" className="pl-2">
 				<MyEvents></MyEvents>
 			</Tab>
 			<Tab eventKey="myOffer" title="My Offers">

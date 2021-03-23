@@ -320,6 +320,12 @@ body {
 	margin-bottom: 0;
 }
 
-.profile-form-label {
+.dashboard-profile-form-label {
 	font-size: larger;
+}
+
+.dashboard-my-events-heading {
+	font-weight: bold;
+	font-size: x-large;
+	margin-bottom: 0;
 }

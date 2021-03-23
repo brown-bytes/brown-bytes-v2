@@ -159,7 +159,7 @@ const SingleEvent = ({
 										authedUser &&
 										authedUser.userid == event.creator && (
 											<Button
-												className="pr-4"
+												className="pr-3"
 												variant="outline-link"
 												size="lg">
 												<i className="fas fa-trash-alt"></i>

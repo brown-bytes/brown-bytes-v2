@@ -47,7 +47,7 @@ const Profile = () => {
 					onClick={() => setModalShow(true)}></Image>
 				<Form>
 					<Form.Group>
-						<Form.Label className="profile-form-label">
+						<Form.Label className="dashboard-profile-form-label">
 							Bio
 						</Form.Label>
 						<Form.Control
@@ -58,7 +58,7 @@ const Profile = () => {
 					</Form.Group>
 
 					<Form.Group>
-						<Form.Label className="profile-form-label">
+						<Form.Label className="dashboard-profile-form-label">
 							Facebook
 						</Form.Label>
 						<Form.Control
@@ -67,7 +67,7 @@ const Profile = () => {
 						/>
 					</Form.Group>
 					<Form.Group>
-						<Form.Label className="profile-form-label">
+						<Form.Label className="dashboard-profile-form-label">
 							Twitter
 						</Form.Label>
 						<Form.Control
@@ -76,7 +76,7 @@ const Profile = () => {
 						/>
 					</Form.Group>
 					<Form.Group>
-						<Form.Label className="profile-form-label">
+						<Form.Label className="dashboard-profile-form-label">
 							Instagram
 						</Form.Label>
 						<Form.Control
