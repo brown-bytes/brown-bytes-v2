@@ -8,9 +8,93 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Image from "react-bootstrap/Image";
+import Modal from "react-bootstrap/Modal";
+
+function ChangeAvatarModal(props) {
+	return (
+		<Modal
+			{...props}
+			size="lg"
+			aria-labelledby="modal-for-changing-avatar"
+			centered>
+			<Modal.Header closeButton>
+				<Modal.Title>Change you avatar</Modal.Title>
+			</Modal.Header>
+			<Modal.Body>
+				<span>Select an image: </span>
+				<input type="file" id="avatar-img" name="avatar-img" />
+			</Modal.Body>
+			<Modal.Footer>
+				<Button onClick={props.onHide}>Upload</Button>
+			</Modal.Footer>
+		</Modal>
+	);
+}
 
 const Profile = () => {
-	return <h1>profile</h1>;
+	const [modalShow, setModalShow] = React.useState(false);
+
+	return (
+		<Fragment>
+			<Container fluid className="pt-2">
+				<Image
+					className="comment-favicon"
+					src="favicon-96x96.png"
+					fluid
+					roundedCircle
+					thumbnail
+					onClick={() => setModalShow(true)}></Image>
+				<Form>
+					<Form.Group>
+						<Form.Label className="profile-form-label">
+							Bio
+						</Form.Label>
+						<Form.Control
+							id="bio"
+							as="textarea"
+							placeholder="A short bio of yourself"
+						/>
+					</Form.Group>
+
+					<Form.Group>
+						<Form.Label className="profile-form-label">
+							Facebook
+						</Form.Label>
+						<Form.Control
+							id="facebook"
+							placeholder="Link to Your Facebook account"
+						/>
+					</Form.Group>
+					<Form.Group>
+						<Form.Label className="profile-form-label">
+							Twitter
+						</Form.Label>
+						<Form.Control
+							id="twitter"
+							placeholder="Link to Your Twitter account"
+						/>
+					</Form.Group>
+					<Form.Group>
+						<Form.Label className="profile-form-label">
+							Instagram
+						</Form.Label>
+						<Form.Control
+							id="instagram"
+							placeholder="Link to Your Instagram account"
+						/>
+					</Form.Group>
+					<Button variant="info" type="submit">
+						Save
+					</Button>
+				</Form>
+			</Container>
+			<ChangeAvatarModal
+				show={modalShow}
+				onHide={() => setModalShow(false)}
+			/>
+		</Fragment>
+	);
 };
 
 export default Profile;
