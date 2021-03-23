@@ -17,6 +17,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 import EventBadge from "./EventBadge";
+import CommentArea from "../comment/CommentArea";
 
 const toggleMoreInfo = (e) => {
 	const class_suffix = e.target.id;
@@ -49,7 +50,9 @@ const SingleEvent = ({
 	return (
 		<Fragment>
 			<Accordion>
-				<Card>
+				<Card
+					border="secondary"
+					className="event-card-class-overriding-bootstrap">
 					<Card.Header>
 						<Row>
 							<Col xs={6} sm={8} md={9} lg={10}>
@@ -64,7 +67,7 @@ const SingleEvent = ({
 							</Col>
 						</Row>
 					</Card.Header>
-					<Card.Body>
+					<Card.Body border="secondary">
 						<p className="event-card-keyinfo">
 							<span className="event-card-boldtext">
 								Location:{" "}
@@ -154,7 +157,7 @@ const SingleEvent = ({
 										authedUser &&
 										authedUser.userid == event.creator && (
 											<Button
-												className="px-4"
+												className="pr-4"
 												variant="outline-link"
 												size="lg">
 												<i className="fas fa-trash-alt"></i>
@@ -190,10 +193,10 @@ const SingleEvent = ({
 							)}
 						</Row>
 					</Card.Body>
-					<Accordion.Collapse eventKey="comment">
-						<Card.Body>Hello! I'm the body</Card.Body>
-					</Accordion.Collapse>
 				</Card>
+				<Accordion.Collapse eventKey="comment" className="comment-area">
+					<CommentArea comments={event.comments}></CommentArea>
+				</Accordion.Collapse>
 			</Accordion>
 		</Fragment>
 	);

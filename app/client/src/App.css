@@ -236,3 +236,22 @@ body {
 	padding-left: 15px;
 	padding-right: 15px;
 }
+
+.event-card-class-overriding-bootstrap {
+	border-bottom: 1px solid #6c757d !important;
+	border-bottom-left-radius: 0.25rem !important;
+	margin-bottom: 5px;
+}
+
+.comment-card-overriding-bootstrap {
+	border-top: 0 !important;
+	border-top-left-radius: 0 !important;
+	border-top-right-radius: 0 !important;
+	border-bottom-left-radius: 0.25rem !important;
+	border-bottom-right-radius: 0.25rem !important;
+}
+
+.comment-area {
+	position: relative;
+	top: -5px;
+}

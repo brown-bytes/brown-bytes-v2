@@ -27,6 +27,7 @@ const initialState = {
 			watches: ["1", "2", "3"],
 			comments: [
 				{
+					id: 1,
 					user: "Jack",
 					content: "Cool!",
 					postTime: "2021-03-21 21:48",
@@ -50,6 +51,7 @@ const initialState = {
 			watches: ["1", "2", "3"],
 			comments: [
 				{
+					id: 1,
 					user: "Jack",
 					content: "Cool!",
 					postTime: "2021-03-21 21:48",
@@ -73,6 +75,13 @@ const initialState = {
 			watches: [],
 			comments: [
 				{
+					id: 1,
+					user: "Jack",
+					content: "Cool!",
+					postTime: "2021-03-21 21:48",
+				},
+				{
+					id: 2,
 					user: "Jack",
 					content: "Cool!",
 					postTime: "2021-03-21 21:48",
