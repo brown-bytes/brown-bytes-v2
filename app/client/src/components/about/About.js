@@ -25,6 +25,26 @@ const About = () => {
 				with the goal of building a community to help fix a flawed
 				meal-plan system.
 			</p>
+			<ul>
+				<li>
+					Built to help Brown students support each other through
+					giving meal swipes and credits.
+				</li>
+				<li>
+					Learn and contribute to our vision by joining our{" "}
+					<a href="https://discord.gg/FuVWu8K">Discord</a>.
+				</li>
+				<li>
+					Never waste a swipe by giving to your fellow hungry
+					Brunonians.
+				</li>
+				<li>
+					Give and receive: A new payment method (Coming Soon to Brown
+					Bytes!)
+				</li>
+				<li>Meet other hungry people!</li>
+				<li>Brown Bytes was built for fun by a Brown student!</li>
+			</ul>
 			<p className="about-second-heading">
 				Join the Fight Against Food Insecurity
 			</p>
