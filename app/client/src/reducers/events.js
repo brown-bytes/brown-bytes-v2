@@ -83,7 +83,8 @@ const initialState = {
 				{
 					id: 2,
 					user: "Jack",
-					content: "Cool!",
+					content:
+						"Cool!Y was added in 2.11.1. It will match any number, signed or unsigned. It is useful for years that are not 4 digits or are before the common era. It can be used for any year.",
 					postTime: "2021-03-21 21:48",
 				},
 			],

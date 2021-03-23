@@ -67,7 +67,9 @@ const SingleEvent = ({
 							</Col>
 						</Row>
 					</Card.Header>
-					<Card.Body border="secondary">
+					<Card.Body
+						border="secondary"
+						className="event-card-overriding-bootstrap">
 						<p className="event-card-keyinfo">
 							<span className="event-card-boldtext">
 								Location:{" "}
