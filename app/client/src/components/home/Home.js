@@ -12,6 +12,7 @@ import Button from "react-bootstrap/Button";
 import { clearAlerts } from "../../actions/alert";
 import EventList from "../calendar/event/EventList";
 import SearchBar from "../calendar/event/SearchBar";
+import Image from "react-bootstrap/Image";
 
 const Home = ({ isAuthenticated }) => {
 	useEffect(() => {
@@ -20,26 +21,30 @@ const Home = ({ isAuthenticated }) => {
 
 	return (
 		<Fragment>
-			<p className="calendar-heading1">Free Food Calendar</p>
-			<p className="calendar-text">
-				The following list of free food events were compiled by Brown
-				Bytes users and ML algorithms. <br></br> Make sure to ensure the
-				type of food available fits your dietary restrictions.
-			</p>
-			<p className="calendar-heading2">Actions</p>
-			{isAuthenticated ? (
-				<Link to="/NewEvent">
-					<Button variant="success">Create Event</Button>
-				</Link>
-			) : (
-				<p className="calendar-text">
-					You are not logged in. Please log in to add events to the
-					calendar.
-				</p>
-			)}
-			<hr></hr>
-			<SearchBar></SearchBar>
-			<EventList></EventList>
+			<Container fluid>
+				<Row noGutters className="mb-2">
+					<Col lg={8}>
+						<p className="home-heading">Welcome to Brown Bytes</p>
+						<p className="home-heading2">
+							Brown Bytes has all the free food on campus just for
+							you!
+						</p>
+						<p className="home-text">
+							Check out the upcoming free food events below.
+						</p>
+
+						<p className="home-text">
+							{" "}
+							To filter events or add a new event, click{" "}
+							<Link to="/calendar">calendar</Link>
+						</p>
+					</Col>
+					<Col lg={4}>
+						<Image src="brownbytes-logo.png" fluid></Image>
+					</Col>
+				</Row>
+				<EventList></EventList>
+			</Container>
 		</Fragment>
 	);
 };

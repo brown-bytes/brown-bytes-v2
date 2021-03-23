@@ -14,12 +14,14 @@ import FormControl from "react-bootstrap/FormControl";
 
 const SearchBar = () => {
 	return (
-		<InputGroup className="mb-3">
+		<InputGroup className="mb-1">
 			<FormControl
+				className="mr-1"
+				size="sm"
 				placeholder="Event title, location, or other keywords"
 				aria-label="Event search bar"
 			/>
-			<Button>Search</Button>
+			<Button size="sm">Search</Button>
 		</InputGroup>
 	);
 };

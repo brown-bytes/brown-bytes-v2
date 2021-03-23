@@ -26,7 +26,7 @@ const PostComment = () => {
 				aria-label="Comment input"
 			/>
 			<Button
-				variant="info"
+				variant="dark"
 				className="post-comment-button-overriding-bootstrap">
 				Post
 			</Button>

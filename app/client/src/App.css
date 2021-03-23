@@ -302,3 +302,20 @@ body {
 	border-bottom: 1px solid black;
 	border-left: 0;
 }
+
+.home-heading {
+	font-size: xx-large;
+	font-weight: bolder;
+	margin-bottom: 0;
+}
+
+.home-heading2 {
+	font-size: x-large;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+.home-text {
+	font-size: larger;
+	margin-bottom: 0;
+}
