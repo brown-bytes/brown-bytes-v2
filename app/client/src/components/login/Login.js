@@ -75,6 +75,31 @@ const Login = ({ login, isAuthenticated }) => {
 							id="login-forgot-password-text">
 							Forgot your Password?
 						</Link>
+
+						<Row>
+							<Col
+								xs={12}
+								sm={12}
+								md={12}
+								lg={6}
+								className="pt-2">
+								<Button variant="outline-primary">
+									<i class="fab fa-google"></i> Login with
+									Google
+								</Button>
+							</Col>
+							<Col
+								xs={12}
+								sm={12}
+								md={12}
+								lg={6}
+								className="pt-2">
+								<Button variant="outline-primary">
+									<i class="fab fa-facebook-square"></i> Login
+									with Facebook
+								</Button>
+							</Col>
+						</Row>
 					</Col>
 					<Col xs={12} sm={12} md={6}>
 						<p className="login-signup-reset-heading">
