@@ -329,3 +329,45 @@ body {
 	font-size: x-large;
 	margin-bottom: 0;
 }
+
+#dashboard-profile-favicon {
+	cursor: pointer;
+}
+
+#new-event-heading {
+	font-weight: bold;
+	font-size: xx-large;
+}
+
+.new-offer-asterisk {
+	color: red;
+}
+
+.new-offer-text {
+	font-size: larger;
+	font-weight: normal;
+}
+
+#new-offer-form {
+	padding-bottom: 10px;
+}
+
+.new-offer-form-label {
+	font-size: larger;
+	font-weight: bold;
+}
+
+.new-offer-form-label {
+	font-size: larger;
+	font-weight: bold;
+}
+
+.new-offer-form-label-eg {
+	font-size: large;
+	font-weight: normal;
+}
+
+#new-offer-heading {
+	font-weight: bold;
+	font-size: xx-large;
+}

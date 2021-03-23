@@ -40,6 +40,7 @@ const Profile = () => {
 			<Container fluid className="pt-2">
 				<Image
 					className="comment-favicon"
+					id="dashboard-profile-favicon"
 					src="favicon-96x96.png"
 					fluid
 					roundedCircle

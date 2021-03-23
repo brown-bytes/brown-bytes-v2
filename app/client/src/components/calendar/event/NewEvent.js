@@ -48,6 +48,10 @@ const NewEvent = ({ createEvent }) => {
 					already exist.
 				</p>
 				<p className="new-event-text">
+					Events posted will appear in the{" "}
+					<Link to="/calendar">calendar</Link> section.
+				</p>
+				<p className="new-event-text">
 					<span className="new-event-asterisk new-event-text">*</span>{" "}
 					indicates required information
 				</p>

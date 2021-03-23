@@ -73,6 +73,12 @@ const NavBar = ({ isAuthenticated, loading, logout }) => {
 						<Nav.Link
 							as={NavLink}
 							activeClassName="active"
+							to="/offers">
+							Offers
+						</Nav.Link>
+						<Nav.Link
+							as={NavLink}
+							activeClassName="active"
 							to="/about">
 							About
 						</Nav.Link>

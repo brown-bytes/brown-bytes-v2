@@ -14,6 +14,8 @@ import SignUp from "../login/SignUp";
 import Team from "../team/Team";
 import NewEvent from "../calendar/event/NewEvent";
 import NotFound from "../layout/NotFound";
+import Offers from "../offers/Offers";
+import NewOffer from "../offers/offer/NewOffer";
 
 const Routes = () => {
 	return (
@@ -22,6 +24,7 @@ const Routes = () => {
 			<Switch>
 				<Route exact path="/" component={Home} />
 				<Route exact path="/calendar" component={Calendar} />
+				<Route exact path="/offers" component={Offers} />
 				<Route exact path="/about" component={About} />
 				<Route exact path="/dashboard" component={DashBoard} />
 				<Route exact path="/login" component={Login} />
@@ -34,6 +37,7 @@ const Routes = () => {
 				<Route exact path="/team" component={Team} />
 
 				<PrivateRoute exact path="/NewEvent" component={NewEvent} />
+				<PrivateRoute exact path="/NewOffer" component={NewOffer} />
 				<Route component={NotFound} />
 			</Switch>
 		</section>
