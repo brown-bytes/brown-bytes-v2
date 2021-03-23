@@ -79,8 +79,8 @@ const NavBar = ({ isAuthenticated, loading, logout }) => {
 						<Nav.Link
 							as={NavLink}
 							activeClassName="active"
-							to="/profile">
-							Profile
+							to="/dashboard">
+							Dashboard
 						</Nav.Link>
 					</Nav>
 					<Nav className="justify-content-end">

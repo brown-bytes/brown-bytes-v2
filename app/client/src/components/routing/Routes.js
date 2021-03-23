@@ -8,7 +8,7 @@ import Home from "../home/Home";
 import Calendar from "../calendar/Calendar";
 import About from "../about/About";
 import Login from "../login/Login";
-import Profile from "../profile/Profile";
+import DashBoard from "../dashboard/Dashboard";
 import ForgotPassword from "../login/ForgotPassword";
 import SignUp from "../login/SignUp";
 import Team from "../team/Team";
@@ -23,7 +23,7 @@ const Routes = () => {
 				<Route exact path="/" component={Home} />
 				<Route exact path="/calendar" component={Calendar} />
 				<Route exact path="/about" component={About} />
-				<Route exact path="/profile" component={Profile} />
+				<Route exact path="/dashboard" component={DashBoard} />
 				<Route exact path="/login" component={Login} />
 				<Route
 					exact
