@@ -12,25 +12,25 @@ import Button from "react-bootstrap/Button";
 import { clearAlerts } from "../../actions/alert";
 import SearchBar from "./offer/SearchBar";
 
-const Calendar = ({ isAuthenticated }) => {
+const Offers = ({ isAuthenticated }) => {
 	useEffect(() => {
 		clearAlerts();
 	}, []);
 
 	return (
 		<Fragment>
-			<p className="calendar-heading1">Offers</p>
-			<p className="calendar-text">
-				Offers are a way for you to publicize swipes or points that you
+			<p className="offers-heading1">Offers</p>
+			<p className="offers-text">
+				Offer are a way for you to publicize swipes or points that you
 				would like to give away.
 			</p>
-			<p className="calendar-heading2">Actions</p>
+			<p className="offers-heading2">Actions</p>
 			{isAuthenticated ? (
 				<Link to="/NewOffer">
 					<Button variant="success">New Offer</Button>
 				</Link>
 			) : (
-				<p className="calendar-text">
+				<p className="offers-text">
 					You are not logged in. Please log in to create new offers.
 				</p>
 			)}
@@ -45,4 +45,4 @@ const mapStateToProps = (state) => ({
 	isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps)(Calendar);
+export default connect(mapStateToProps)(Offers);

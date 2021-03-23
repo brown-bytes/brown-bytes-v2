@@ -116,9 +116,16 @@ body {
 .calendar-heading2 {
 	font-weight: bold;
 	font-size: x-large;
+	margin-bottom: 0;
 }
 
 .calendar-text {
+	font-size: large;
+}
+
+#calendar-past-events-toggle {
+	color: #2f7ef6;
+	cursor: pointer;
 	font-size: large;
 }
 
@@ -334,9 +341,19 @@ body {
 	cursor: pointer;
 }
 
-#new-event-heading {
+.offers-heading1 {
 	font-weight: bold;
 	font-size: xx-large;
+}
+
+.offers-heading2 {
+	font-weight: bold;
+	font-size: x-large;
+	margin-bottom: 0;
+}
+
+.offers-text {
+	font-size: large;
 }
 
 .new-offer-asterisk {

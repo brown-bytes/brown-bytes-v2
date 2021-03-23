@@ -18,6 +18,18 @@ const Calendar = ({ isAuthenticated }) => {
 		clearAlerts();
 	}, []);
 
+	const [showPreviousEvents, setShowPreviousEvents] = useState(false);
+
+	const togglePreviousEvents = (e) => {
+		setShowPreviousEvents(showPreviousEvents ? false : true);
+		console.log(showPreviousEvents);
+		console.log(e.target);
+		e.target.text =
+			e.target.text == "Show past events"
+				? "Hide past events"
+				: "Show past events";
+	};
+
 	return (
 		<Fragment>
 			<p className="calendar-heading1">Free Food Calendar</p>
@@ -40,6 +52,15 @@ const Calendar = ({ isAuthenticated }) => {
 			<hr></hr>
 			<SearchBar></SearchBar>
 			<EventList></EventList>
+			<a id="calendar-past-events-toggle" onClick={togglePreviousEvents}>
+				Show past events
+			</a>
+			{showPreviousEvents && (
+				<Fragment>
+					<p className="calendar-heading2">Past Events</p>
+					<EventList></EventList>
+				</Fragment>
+			)}
 		</Fragment>
 	);
 };
