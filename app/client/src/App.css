@@ -388,3 +388,24 @@ body {
 	font-weight: bold;
 	font-size: xx-large;
 }
+
+.offer-card-class-overriding-bootstrap {
+	border-bottom: 1px solid #6c757d !important;
+	border-bottom-left-radius: 0.25rem !important;
+	margin-bottom: 5px;
+}
+
+.offer-card-title {
+	font-size: x-large;
+	font-weight: double;
+	margin-bottom: 0;
+}
+
+.offer-card-keyinfo {
+	font-size: larger;
+	margin-bottom: 0;
+}
+
+.offer-card-boldtext {
+	font-weight: bold;
+}

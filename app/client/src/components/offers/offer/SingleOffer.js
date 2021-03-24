@@ -38,9 +38,9 @@ const SingleOffer = ({
 			<Accordion>
 				<Card
 					border="secondary"
-					className="event-card-class-overriding-bootstrap">
+					className="offer-card-class-overriding-bootstrap">
 					<Card.Header>
-						<p className="event-card-title">{offer.description}</p>
+						<p className="offer-card-title">{offer.description}</p>
 					</Card.Header>
 
 					<Card.Body className="py-1 px-1">
@@ -60,34 +60,34 @@ const SingleOffer = ({
 										thumbnail></Image>
 								</Col>
 								<Col xs={10} sm={10} md={10} lg={10}>
-									<p className="event-card-keyinfo">
-										<span className="event-card-boldtext">
+									<p className="offer-card-keyinfo">
+										<span className="offer-card-boldtext">
 											Creator:{" "}
 										</span>
 										{offer.creator}
 									</p>
 
-									<p className="event-card-keyinfo">
-										<span className="event-card-boldtext">
+									<p className="offer-card-keyinfo">
+										<span className="offer-card-boldtext">
 											Location:{" "}
 										</span>
 										{offer.location}
 									</p>
-									<p className="event-card-keyinfo">
-										<span className="event-card-boldtext">
+									<p className="offer-card-keyinfo">
+										<span className="offer-card-boldtext">
 											Date:{" "}
 										</span>
 										{offerDate}
 									</p>
-									<p className="event-card-keyinfo">
-										<span className="event-card-boldtext">
+									<p className="offer-card-keyinfo">
+										<span className="offer-card-boldtext">
 											Time:
 										</span>{" "}
 										{startTime} - {endTime}
 									</p>
 									{offer.otherInfo && (
-										<p className="event-card-keyinfo">
-											<span className="event-card-boldtext">
+										<p className="offer-card-keyinfo">
+											<span className="offer-card-boldtext">
 												Other information:
 											</span>{" "}
 											{offer.otherInfo}
@@ -97,6 +97,7 @@ const SingleOffer = ({
 							</Row>
 							<Row className="justify-content-end d-flex">
 								{!loadingUser &&
+									isAuthenticated &&
 									authedUser &&
 									authedUser.userid == offer.creator && (
 										<Button

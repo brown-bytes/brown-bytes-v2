@@ -22,7 +22,7 @@ const Offers = ({ isAuthenticated }) => {
 		<Fragment>
 			<p className="offers-heading1">Offers</p>
 			<p className="offers-text">
-				Offer are a way for you to publicize swipes or points that you
+				Offers are a way for you to publicize swipes or points that you
 				would like to give away.
 			</p>
 			<p className="offers-heading2">Actions</p>

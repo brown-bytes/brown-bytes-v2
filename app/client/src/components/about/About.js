@@ -1,10 +1,4 @@
 import React, { Fragment, useEffect } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 
 import { clearAlerts } from "../../actions/alert";
 
