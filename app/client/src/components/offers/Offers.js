@@ -11,6 +11,7 @@ import Button from "react-bootstrap/Button";
 
 import { clearAlerts } from "../../actions/alert";
 import SearchBar from "./offer/SearchBar";
+import OfferList from "./offer/OfferList";
 
 const Offers = ({ isAuthenticated }) => {
 	useEffect(() => {
@@ -36,7 +37,7 @@ const Offers = ({ isAuthenticated }) => {
 			)}
 			<hr></hr>
 			<SearchBar></SearchBar>
-			{/* <EventList></EventList> */}
+			<OfferList></OfferList>
 		</Fragment>
 	);
 };

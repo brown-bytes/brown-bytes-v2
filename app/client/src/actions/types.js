@@ -30,3 +30,7 @@ export const ADD_EVENT = "ADD_EVENT";
 export const DELETE_EVENT = "DELETE_EVENT";
 export const UPDATE_WATCHES = "UPDATE_WATCHES";
 export const ADD_EVENT_ERROR = "ADD_EVENT_ERROR";
+
+export const GET_OFFERS = "GET_OFFERS";
+export const ADD_OFFER = "ADD_OFFER";
+export const DELETE_OFFER = "DELETE_OFFER";
