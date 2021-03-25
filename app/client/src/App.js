@@ -5,7 +5,6 @@ import Routes from "./components/routing/Routes";
 // Components
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
-// import Landing from "./components/layout/Landing";
 
 // Redux
 import { Provider } from "react-redux";
