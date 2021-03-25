@@ -10,6 +10,7 @@ import About from "../about/About";
 import Login from "../login/Login";
 import DashBoard from "../dashboard/Dashboard";
 import ForgotPassword from "../login/ForgotPassword";
+import ResetPassword from "../login/ResetPassword";
 import SignUp from "../login/SignUp";
 import Team from "../team/Team";
 import NewEvent from "../calendar/event/NewEvent";
@@ -38,6 +39,8 @@ const Routes = () => {
 
 				<PrivateRoute exact path="/NewEvent" component={NewEvent} />
 				<PrivateRoute exact path="/NewOffer" component={NewOffer} />
+
+				<Route exact path="/resetpassword" component={ResetPassword} />
 				<Route component={NotFound} />
 			</Switch>
 		</section>
