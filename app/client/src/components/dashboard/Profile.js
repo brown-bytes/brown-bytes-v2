@@ -11,26 +11,7 @@ import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
 import Modal from "react-bootstrap/Modal";
 
-function ChangeAvatarModal(props) {
-	return (
-		<Modal
-			{...props}
-			size="lg"
-			aria-labelledby="modal-for-changing-avatar"
-			centered>
-			<Modal.Header closeButton>
-				<Modal.Title>Change you avatar</Modal.Title>
-			</Modal.Header>
-			<Modal.Body>
-				<span>Select an image: </span>
-				<input type="file" id="avatar-img" name="avatar-img" />
-			</Modal.Body>
-			<Modal.Footer>
-				<Button onClick={props.onHide}>Upload</Button>
-			</Modal.Footer>
-		</Modal>
-	);
-}
+import ChangeAvatarModal from "./ChangeAvatarModal";
 
 const Profile = () => {
 	const [modalShow, setModalShow] = React.useState(false);

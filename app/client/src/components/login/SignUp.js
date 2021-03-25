@@ -64,7 +64,7 @@ const SignUp = ({ register }) => {
 				<Form onSubmit={(e) => onSubmit(e)} id="signup-form">
 					<Form.Group>
 						<Form.Label className="signup-form-label-top">
-							Your full name
+							Username
 						</Form.Label>
 						<Form.Control
 							id="name"
@@ -72,6 +72,9 @@ const SignUp = ({ register }) => {
 							onChange={onChange}
 							required
 						/>
+						<Form.Label className="signup-form-label-bottom">
+							(required)
+						</Form.Label>
 					</Form.Group>
 
 					<Form.Group>

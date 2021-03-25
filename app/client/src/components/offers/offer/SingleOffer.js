@@ -113,7 +113,10 @@ const SingleOffer = ({
 									variant="outline-link"
 									eventKey="comment"
 									size="lg">
-									<i className="far fa-comment"></i>
+									<i className="far fa-comment"></i>{" "}
+									{offer.comments.length > 0 && (
+										<span>{offer.comments.length}</span>
+									)}
 								</Accordion.Toggle>
 							</Row>
 						</Container>

@@ -23,8 +23,8 @@ const SingleComment = ({ comment }) => {
 				{/* <Container fluid="true"> */}
 				<Row noGutters="true">
 					<Col
-						xs={3}
-						sm={3}
+						xs={2}
+						sm={2}
 						md={2}
 						lg={2}
 						className="comment-favicon-container">
@@ -35,7 +35,7 @@ const SingleComment = ({ comment }) => {
 							roundedCircle
 							thumbnail></Image>
 					</Col>
-					<Col xs={9} sm={9} md={10} lg={10}>
+					<Col xs={10} sm={10} md={10} lg={10}>
 						<p className="comment-head">
 							<span className="comment-user">{comment.user}</span>{" "}
 							posted at{" "}
