@@ -18,8 +18,6 @@ const Calendar = ({ isAuthenticated }) => {
 
 	const togglePreviousEvents = (e) => {
 		setShowPreviousEvents(showPreviousEvents ? false : true);
-		console.log(showPreviousEvents);
-		console.log(e.target);
 		e.target.text =
 			e.target.text == "Show past events"
 				? "Hide past events"

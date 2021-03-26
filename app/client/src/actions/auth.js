@@ -45,7 +45,6 @@ export const register = (userName, email, password, passwordRepeat) => async (
 		);
 		return;
 	}
-	console.log("signing up with ", userName, email, password);
 	const config = {
 		headers: {
 			"Content-Type": "application/json",
@@ -99,7 +98,6 @@ export const login = (email, password) => async (dispatch) => {
 		dispatch(setAlert("Successfully logged in!", GREEN_ALERT));
 	} catch (err) {
 		const errorMessage = err.response.data.error;
-		console.log(errorMessage);
 		dispatch(setAlert(errorMessage, RED_ALERT));
 		dispatch({
 			type: LOGIN_FAIL,
@@ -118,7 +116,6 @@ export const logout = () => (dispatch) => {
 };
 
 export const resetPassword = (email) => (dispatch) => {
-	console.log("resetting password for ", email);
 	dispatch({
 		type: "reset",
 	});

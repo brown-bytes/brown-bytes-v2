@@ -23,7 +23,6 @@ const SingleOffer = ({
 	loadingUser,
 	offer,
 }) => {
-	console.log(authedUser);
 	const offerDate = moment(offer.date).format("dddd, MMMM DD, YYYY");
 	const startTime = moment(`${offer.date} ${offer.startTime}`).format(
 		"HH:mm A"
