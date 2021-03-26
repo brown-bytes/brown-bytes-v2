@@ -1,5 +1,5 @@
 //import { v4 as uuidv4 } from "uuid";
-import { SET_ALERT, REMOVE_ALERT } from "./types";
+import { SET_ALERT, CLEAR_ALERT } from "./types";
 import store from "../store";
 
 export const setAlert = (msg, alertType) => (dispatch) => {
@@ -12,7 +12,7 @@ export const setAlert = (msg, alertType) => (dispatch) => {
 
 export const clearAlerts = () => {
 	store.dispatch({
-		type: REMOVE_ALERT,
+		type: CLEAR_ALERT,
 		payload: null,
 	});
 };

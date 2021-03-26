@@ -78,6 +78,7 @@ export const register = (userName, email, password, passwordRepeat) => async (
 };
 
 export const login = (email, password) => async (dispatch) => {
+	clearAlerts();
 	const config = {
 		headers: {
 			"Content-Type": "application/json",
@@ -87,7 +88,7 @@ export const login = (email, password) => async (dispatch) => {
 	const body = JSON.stringify({ email, password });
 
 	try {
-		const res = await axios.post("/api/auth", body, config);
+		const res = await axios.post("user/login", body, config);
 
 		dispatch({
 			type: LOGIN_SUCCESS,
@@ -95,11 +96,11 @@ export const login = (email, password) => async (dispatch) => {
 		});
 
 		dispatch(loadUser());
+		dispatch(setAlert("Successfully logged in!", GREEN_ALERT));
 	} catch (err) {
-		const errors = err.response.data.errors;
-		if (errors) {
-			errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
-		}
+		const errorMessage = err.response.data.error;
+		console.log(errorMessage);
+		dispatch(setAlert(errorMessage, RED_ALERT));
 		dispatch({
 			type: LOGIN_FAIL,
 		});

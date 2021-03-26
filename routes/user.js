@@ -58,7 +58,11 @@ router.post("/login", async (req, res) => {
 			if (!auth.verifyPassword(req.body.password, user.password)) {
 				res.statusCode = 401;
 				res.setHeader("Content-Type", "application/json");
-				res.json({ success: false, status: "Incorrect password" });
+				//	res.json({ success: false, status: "Incorrect password" }); //combine this with line 74
+				return res.json({
+					success: false,
+					error: "Incorrect password",
+				});
 			}
 			let token = auth.getToken({ id: user.id });
 			res.statusCode = 200;
@@ -71,12 +75,12 @@ router.post("/login", async (req, res) => {
 		} else {
 			res.statusCode = 400;
 			res.setHeader("Content-Type", "application/json");
-			res.json({ success: false, status: "Account not found" });
+			res.json({ success: false, error: "Account not found" });
 		}
 	} else {
 		res.statusCode = 400;
 		res.setHeader("Content-Type", "application/json");
-		res.json({ success: false, status: "Missing email or password" });
+		res.json({ success: false, error: "Missing email or password" });
 	}
 });
 
