@@ -42,7 +42,8 @@ router
 					userName: user.userName,
 					avatar: user.avatar,
 					bio: user.bio,
-					fackbook: user.facebookLink,
+					//fackbook: user.facebookLink,
+					facebook: user.facebookLink,
 					twitter: user.twitterLink,
 					instagram: user.instagramLink,
 				},
@@ -82,7 +83,7 @@ router
 				data: {
 					avatar: user.avatar,
 					bio: user.bio,
-					fackbook: user.facebookLink,
+					facebook: user.facebookLink,
 					twitter: user.twitterLink,
 					instagram: user.instagramLink,
 				},

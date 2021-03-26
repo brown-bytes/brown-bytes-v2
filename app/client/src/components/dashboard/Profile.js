@@ -9,20 +9,36 @@ import Image from "react-bootstrap/Image";
 
 import ChangeAvatarModal from "./ChangeAvatarModal";
 
-const Profile = () => {
+const Profile = ({
+	avatarURL,
+	userName,
+	bio,
+	faceBookLink,
+	twitterLink,
+	instagramLink,
+}) => {
 	const [modalShow, setModalShow] = React.useState(false);
 
+	console.log(
+		avatarURL,
+		userName,
+		bio,
+		faceBookLink,
+		twitterLink,
+		instagramLink
+	);
 	return (
 		<Fragment>
 			<Container fluid className="pt-2">
 				<Image
 					className="comment-favicon"
 					id="dashboard-profile-favicon"
-					src="favicon-96x96.png"
+					src={avatarURL}
 					fluid
 					roundedCircle
 					thumbnail
 					onClick={() => setModalShow(true)}></Image>
+				<span id="dashboard-username">{userName}</span>
 				<Form>
 					<Form.Group>
 						<Form.Label className="dashboard-profile-form-label">
@@ -75,4 +91,22 @@ const Profile = () => {
 	);
 };
 
-export default Profile;
+Profile.propTypes = {
+	avatarURL: PropTypes.string.isRequired,
+	userName: PropTypes.string.isRequired,
+	bio: PropTypes.string,
+	faceBookLink: PropTypes.string,
+	twitterLink: PropTypes.string,
+	instagramLink: PropTypes.string,
+};
+
+const mapStateToProps = (state) => ({
+	avatarURL: state.auth.user.data.avatar,
+	userName: state.auth.user.data.userName,
+	bio: state.auth.user.data.bio,
+	faceBookLink: state.auth.user.data.facebook,
+	twitterLink: state.auth.user.data.twitter,
+	instagramLink: state.auth.user.data.instagram,
+});
+
+export default connect(mapStateToProps)(Profile);

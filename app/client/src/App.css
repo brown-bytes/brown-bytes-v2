@@ -326,6 +326,13 @@ body {
 	margin-bottom: 0;
 }
 
+#dashboard-username {
+	font-size: x-large;
+	font-weight: bold;
+	display: table;
+	margin: 0 auto;
+}
+
 .dashboard-profile-form-label {
 	font-size: larger;
 }

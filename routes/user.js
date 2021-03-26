@@ -14,7 +14,7 @@ router.post("/signup", (req, res, next) => {
 				req.protocol +
 				"://" +
 				req.get("host") +
-				"/public/images/default_avatar.png";
+				"/images/default_avatar.png";
 			const user = await User.create({
 				email: req.body.email,
 				password: hash,
