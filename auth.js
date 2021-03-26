@@ -17,23 +17,20 @@ opts.secretOrKey = config.secretKey;
 exports.jwtPassport = passport.use(new JwtStrategy(opts, 
     (jwt_payload, done) => {
         console.log('JWT payload: ', jwt_payload);
-        User.findOne({id: jwt_payload.id}, (err, user) => {
-            if (err) {
-                return done(err, false);
-            }
-            else if (user) {
-                return done(null, user);
-            }
-            else {
-                return done(null, false);
-            }
+        const user = User.findOne({ where:
+            {id: jwt_payload.id}
         });
+        if (user) {
+            return done(null, user);
+        } else {
+            return done(null, false);
+        }
     }));
 
 exports.verifyUser = passport.authenticate('jwt', {session: false});
 
-let checkToken = (req, res, next) => {
-    let token = req.headers['x-access-token'] || req.headers['authorization']; // Express headers are auto converted to lowercase
+let parseToken = (req, res, next) => {
+    let token = req.headers['x-auth-token'] || req.headers['authorization']; // Express headers are auto converted to lowercase
     if (token.startsWith('Bearer ')) {
         // Remove Bearer from string
         token = token.slice(7, token.length);
@@ -71,7 +68,7 @@ let verifyPassword = (passAttempt, hash) => {
 
 module.exports = {
     getToken: getToken,
-    checkToken: checkToken,
+    parseToken: parseToken,
     hashPassword: hashPassword,
     verifyPassword: verifyPassword
 }

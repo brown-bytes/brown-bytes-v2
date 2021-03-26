@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       references: {
         model: {
-          tableName: 'Users'
+          tableName: 'users'
         },
         key: 'id'
       },
@@ -50,10 +50,13 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
       allowNull: false
     },
-    link: DataTypes.STRING,
     foodType: DataTypes.STRING,
     admittance: DataTypes.STRING,
-    otherInfo: DataTypes.STRING
+    otherInfo: DataTypes.STRING,
+    hostGroup: DataTypes.STRING,
+    eventType: DataTypes.STRING,
+    foodType: DataTypes.STRING,
+    foodAmount: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Event',

@@ -15,9 +15,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      nickName: {
-        allowNull: false,
-        type: Sequelize.STRING
+      userName: {
+        type: Sequelize.STRING,
+        allowNull: false
       },
       email: {
         allowNull: false,
@@ -28,10 +28,19 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      realName: {
+      avatar: {
         type: Sequelize.STRING
       },
-      avatar: {
+      bio: {
+        type: Sequelize.STRING
+      },
+      facebookLink: {
+        type: Sequelize.STRING
+      },
+      twitterLink: {
+        type: Sequelize.STRING
+      },
+      instagramLink: {
         type: Sequelize.STRING
       },
       createdAt: {
