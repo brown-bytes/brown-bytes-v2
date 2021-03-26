@@ -19,8 +19,7 @@ export const loadUser = () => async (dispatch) => {
 	}
 
 	try {
-		const res = await axios.get("api/auth");
-		//const res = await axios.get("api/auth_fail");
+		const res = await axios.get("profile/");
 		dispatch({
 			type: USER_LOADED,
 			payload: res.data,
@@ -32,7 +31,7 @@ export const loadUser = () => async (dispatch) => {
 	}
 };
 
-export const register = (name, email, password, passwordRepeat) => async (
+export const register = (userName, email, password, passwordRepeat) => async (
 	dispatch
 ) => {
 	clearAlerts();
@@ -46,18 +45,23 @@ export const register = (name, email, password, passwordRepeat) => async (
 		);
 		return;
 	}
-	console.log("signing up with ", name, email, password);
+	console.log("signing up with ", userName, email, password);
 	const config = {
 		headers: {
 			"Content-Type": "application/json",
 		},
 	};
 
-	const body = JSON.stringify({ name, email, password });
+	const body = JSON.stringify({ userName, email, password });
 
 	try {
-		const res = await axios.post("/api/users", body, config);
-
+		const res = await axios.post("user/signup", body, config);
+		dispatch(
+			setAlert(
+				"Registeration succeeded! You are now logged in.",
+				GREEN_ALERT
+			)
+		);
 		dispatch({
 			type: REGISTER_SUCCESS,
 			payload: res.data,
@@ -65,12 +69,8 @@ export const register = (name, email, password, passwordRepeat) => async (
 
 		dispatch(loadUser());
 	} catch (err) {
-		const errors = err.response.data.errors;
-
-		if (errors) {
-			errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
-		}
-
+		const errorMessage = err.response.data.error;
+		dispatch(setAlert(errorMessage, RED_ALERT));
 		dispatch({
 			type: REGISTER_FAIL,
 		});

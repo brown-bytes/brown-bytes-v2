@@ -37,13 +37,13 @@ const SignUp = ({ register }) => {
 	}, []);
 
 	const [formData, setFormData] = useState({
-		name: "",
+		userName: "",
 		email: "",
 		password: "",
 		passwordRepeat: "",
 	});
 
-	const { name, email, password, passwordRepeat } = formData;
+	const { userName, email, password, passwordRepeat } = formData;
 
 	const onChange = (e) => {
 		setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -51,7 +51,7 @@ const SignUp = ({ register }) => {
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
-		register(name, email, password, passwordRepeat);
+		register(userName, email, password, passwordRepeat);
 	};
 
 	return (
@@ -65,7 +65,7 @@ const SignUp = ({ register }) => {
 							Username
 						</Form.Label>
 						<Form.Control
-							id="name"
+							id="userName"
 							size="lg"
 							onChange={onChange}
 							required

@@ -12,10 +12,6 @@ import MyEvents from "./MyEvents";
 import MyOffers from "./MyOffers";
 
 const DashBoard = () => {
-	useEffect(() => {
-		clearAlerts();
-	}, []);
-
 	return (
 		<Tabs defaultActiveKey="profile" id="noanim-tab-example">
 			<Tab eventKey="profile" title="Profile">

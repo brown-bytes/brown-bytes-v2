@@ -84,7 +84,7 @@ const Login = ({ login, isAuthenticated }) => {
 								lg={6}
 								className="pt-2">
 								<Button variant="outline-primary">
-									<i class="fab fa-google"></i> Login with
+									<i className="fab fa-google"></i> Login with
 									Google
 								</Button>
 							</Col>
@@ -95,8 +95,8 @@ const Login = ({ login, isAuthenticated }) => {
 								lg={6}
 								className="pt-2">
 								<Button variant="outline-primary">
-									<i class="fab fa-facebook-square"></i> Login
-									with Facebook
+									<i className="fab fa-facebook-square"></i>{" "}
+									Login with Facebook
 								</Button>
 							</Col>
 						</Row>

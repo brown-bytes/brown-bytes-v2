@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
+import NotLoggedInRoute from "./NotLoggedInRoute";
 
 import Alert from "../layout/Alert";
 
@@ -27,14 +28,14 @@ const Routes = () => {
 				<Route exact path="/calendar" component={Calendar} />
 				<Route exact path="/offers" component={Offers} />
 				<Route exact path="/about" component={About} />
-				<Route exact path="/dashboard" component={DashBoard} />
-				<Route exact path="/login" component={Login} />
+				<PrivateRoute exact path="/dashboard" component={DashBoard} />
+				<NotLoggedInRoute exact path="/login" component={Login} />
 				<Route
 					exact
 					path="/forgotpassword"
 					component={ForgotPassword}
 				/>
-				<Route exact path="/signup" component={SignUp} />
+				<NotLoggedInRoute exact path="/signup" component={SignUp} />
 				<Route exact path="/team" component={Team} />
 
 				<PrivateRoute exact path="/NewEvent" component={NewEvent} />
