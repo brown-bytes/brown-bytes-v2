@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-import PropTypes from "prop-types";
 import moment from "moment";
 import { connect } from "react-redux";
 import {
@@ -26,9 +25,9 @@ const toggleMoreInfo = (e) => {
 	// use for loop here to make sure it works in IE
 	for (let i = 0; i < info_items.length; ++i) {
 		info_items[i].style.display =
-			info_items[i].style.display == "block" ? "none" : "block";
+			info_items[i].style.display === "block" ? "none" : "block";
 	}
-	e.target.text = e.target.text == "More info" ? "Less info" : "More info";
+	e.target.text = e.target.text === "More info" ? "Less info" : "More info";
 };
 
 const SingleEvent = ({
@@ -156,7 +155,7 @@ const SingleEvent = ({
 									className="justify-content-end d-flex">
 									{!loadingUser &&
 										authedUser &&
-										authedUser.userid == event.creator && (
+										authedUser.userid === event.creator && (
 											<Button
 												className="pr-3"
 												variant="outline-link"

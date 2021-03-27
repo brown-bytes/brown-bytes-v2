@@ -66,7 +66,7 @@ const Login = ({ login, isAuthenticated }) => {
 								/>
 							</Form.Group>
 							<Button variant="info" type="submit">
-								Submit
+								Log in
 							</Button>
 						</Form>
 

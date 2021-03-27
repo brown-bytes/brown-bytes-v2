@@ -1,5 +1,4 @@
 import axios from "axios";
-import { setAlert } from "./alert";
 
 const sendFeedBack = (name, email, comments) => async (dispatch) => {
 	console.log("sending ", name, email, comments, " to server");

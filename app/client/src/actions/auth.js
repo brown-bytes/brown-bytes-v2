@@ -16,6 +16,10 @@ import {
 export const loadUser = () => async (dispatch) => {
 	if (localStorage.token) {
 		setAuthToken(localStorage.token);
+	} else {
+		dispatch({
+			type: AUTH_ERROR,
+		});
 	}
 
 	try {
@@ -88,6 +92,7 @@ export const login = (email, password) => async (dispatch) => {
 
 	try {
 		const res = await axios.post("user/login", body, config);
+		dispatch(setAlert("Successfully logged in!", GREEN_ALERT));
 
 		dispatch({
 			type: LOGIN_SUCCESS,
@@ -95,7 +100,6 @@ export const login = (email, password) => async (dispatch) => {
 		});
 
 		dispatch(loadUser());
-		dispatch(setAlert("Successfully logged in!", GREEN_ALERT));
 	} catch (err) {
 		const errorMessage = err.response.data.error;
 		dispatch(setAlert(errorMessage, RED_ALERT));

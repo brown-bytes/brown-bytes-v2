@@ -1,12 +1,12 @@
-import {
-	GET_EVENTS,
-	ADD_EVENT,
-	DELETE_EVENT,
-	UPDATE_WATCHES,
-	ADD_EVENT_ERROR,
-	ADD_COMMENT,
-	REMOVE_COMMENT,
-} from "../actions/types";
+// import {
+// 	GET_EVENTS,
+// 	ADD_EVENT,
+// 	DELETE_EVENT,
+// 	UPDATE_WATCHES,
+// 	ADD_EVENT_ERROR,
+// 	ADD_COMMENT,
+// 	REMOVE_COMMENT,
+// } from "../actions/types";
 
 const initialState = {
 	events: [
@@ -14,9 +14,9 @@ const initialState = {
 			id: "1",
 			title: "Jazz Night",
 			location: "CIT",
-			date: "2021-03-23",
+			date: "2021-03-26",
 			startTime: "09:00",
-			endTime: "10:00",
+			endTime: "23:59",
 			hostGroup: "GSC",
 			whoCanCome: "Anyone",
 			foodType: "Pizza",
@@ -38,7 +38,7 @@ const initialState = {
 			id: "2",
 			title: "Jazz Night",
 			location: "CIT",
-			date: "2021-02-23",
+			date: "2021-03-31",
 			startTime: "09:00",
 			endTime: "10:00",
 			hostGroup: "",

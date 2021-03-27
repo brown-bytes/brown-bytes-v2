@@ -1,4 +1,3 @@
-import axios from "axios";
 import moment from "moment";
 import { setAlert, clearAlerts } from "./alert";
 import { RED_ALERT, GREEN_ALERT } from "../components/layout/AlertTypes";
