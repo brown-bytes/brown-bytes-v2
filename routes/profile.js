@@ -29,21 +29,33 @@ router.route('/')
     console.log(req.decoded);
     const user = await User.findOne({ where: {
         id: req.decoded.id
-    }});
+    }})
+    .catch((err) => {
+        console.log(err);
+        res.statusCode = 400;
+        res.setHeader('Content-Type', 'application/json');
+        if (err.hasOwnProperty('errors')) {
+            res.json({error: err.errors[0].message});
+        } else if (err.hasOwnProperty('original') && err.original.hasOwnProperty('sqlMessage')) {
+            res.json({error: err.original.sqlMessage});
+        } else {
+            res.json({error: ''});
+        }
+    });
     if (user) {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
         res.json({success: true, data: {
             avatar: user.avatar,
             bio: user.bio,
-            fackbook: user.facebookLink,
+            facebook: user.facebookLink,
             twitter: user.twitterLink,
             instagram: user.instagramLink
         }});
     } else {
         res.statusCode = 404;
         res.setHeader('Content-Type', 'application/json');
-        res.json({success: false, status: 'User not found'});
+        res.json({success: false, error: 'User not found'});
     }
 })
 .patch(auth.parseToken, async (req, res) => {
@@ -60,7 +72,19 @@ router.route('/')
     });
     const user = await User.findOne({ where: {
         id: req.decoded.id
-    }});
+    }})
+    .catch((err) => {
+        console.log(err);
+        res.statusCode = 400;
+        res.setHeader('Content-Type', 'application/json');
+        if (err.hasOwnProperty('errors')) {
+            res.json({error: err.errors[0].message});
+        } else if (err.hasOwnProperty('original') && err.original.hasOwnProperty('sqlMessage')) {
+            res.json({error: err.original.sqlMessage});
+        } else {
+            res.json({error: ''});
+        }
+    });
     if (user) {
         // console.log(user);
         res.statusCode = 200;
@@ -68,19 +92,19 @@ router.route('/')
         res.json({success: true, data: {
             avatar: user.avatar,
             bio: user.bio,
-            fackbook: user.facebookLink,
+            facebook: user.facebookLink,
             twitter: user.twitterLink,
             instagram: user.instagramLink
         }});
     } else {
         res.statusCode = 404;
         res.setHeader('Content-Type', 'application/json');
-        res.json({success: false, status: 'User not found'});
+        res.json({success: false, error: 'User not found'});
     }
 });
 
 router.post('/avatar', auth.parseToken, upload.single('imageFile'), async (req, res) => {
-    const avatarUrl = req.protocol + '://' + req.get('host') + '/' + req.file.destination;
+    const avatarUrl = req.protocol + '://' + req.get('host') + '/images/' + req.file.filename;
     await User.update({
         avatar: avatarUrl
     }, {
@@ -90,7 +114,10 @@ router.post('/avatar', auth.parseToken, upload.single('imageFile'), async (req, 
     });
     const user = await User.findOne({ where: {
         id: req.decoded.id
-    }});
+    }})
+    .catch((err) => {
+        console.log(err);
+    });
     if (user) {
         if (user.avatar === avatarUrl) {
             res.statusCode = 200;
@@ -99,12 +126,12 @@ router.post('/avatar', auth.parseToken, upload.single('imageFile'), async (req, 
         } else {
             res.statusCode = 400;
             res.setHeader('Content-Type', 'application/json');
-            res.json({success: false, status: "Upload failed"});
+            res.json({success: false, error: "Upload failed"});
         }
     } else {
         res.statusCode = 404;
         res.setHeader('Content-Type', 'application/json');
-        res.json({success: false, status: 'User not found'});
+        res.json({success: false, error: 'User not found'});
     }
 });
 

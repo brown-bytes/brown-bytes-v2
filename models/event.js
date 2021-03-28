@@ -50,7 +50,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
       allowNull: false
     },
-    foodType: DataTypes.STRING,
     admittance: DataTypes.STRING,
     otherInfo: DataTypes.STRING,
     hostGroup: DataTypes.STRING,

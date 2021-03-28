@@ -45,10 +45,20 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: false
       },
-      link: Sequelize.STRING,
-      foodType: Sequelize.STRING,
       admittance: Sequelize.STRING,
-      otherInfo: Sequelize.STRING
+      otherInfo: Sequelize.STRING,
+      hostGroup: Sequelize.STRING,
+      eventType: Sequelize.STRING,
+      foodType: Sequelize.STRING,
+      foodAmount: Sequelize.STRING,
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      }
     });
   },
 

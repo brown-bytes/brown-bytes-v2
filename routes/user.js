@@ -5,18 +5,18 @@ const auth = require('../auth');
 
 router.use(bodyParser.json());
 
-router.post('/signup', (req, res, next) => {
+router.post('/signup', async (req, res) => {
     console.log(req.body);
-    (async () => {
-        if (req.body.email && req.body.password && req.body.userName) {
-            const hash = auth.hashPassword(req.body.password);
-            const avatarUrl = req.protocol + '://' + req.get('host') + '/public/images/default_avatar.png';
-            const user = await User.create({
-                email: req.body.email,
-                password: hash,
-                userName: req.body.userName,
-                avatar: avatarUrl
-            });
+    if (req.body.email && req.body.password && req.body.userName) {
+        const hash = auth.hashPassword(req.body.password);
+        const avatarUrl = req.protocol + '://' + req.get('host') + '/images/default_avatar.png';
+        await User.create({
+            email: req.body.email,
+            password: hash,
+            userName: req.body.userName,
+            avatar: avatarUrl
+        })
+        .then((user) => {
             if (user) {
                 console.log(user.id);
                 res.statusCode = 200;
@@ -27,46 +27,67 @@ router.post('/signup', (req, res, next) => {
                 res.setHeader('Content-Type', 'application/json');
                 res.json({error: "Sign up failed"});
             }
-        }
-        else {
+        })
+        .catch((err) => {
+            console.log(err);
             res.statusCode = 400;
             res.setHeader('Content-Type', 'application/json');
-            res.json({error: "Not all fields are specified"});
-        }
-    })()
-    .catch((err) => {
-        console.log(err);
+            if (err.hasOwnProperty('errors')) {
+                res.json({error: err.errors[0].message});
+            } else if (err.hasOwnProperty('original') && err.original.hasOwnProperty('sqlMessage')) {
+                res.json({error: err.original.sqlMessage});
+            } else {
+                res.json({error: ''});
+            }
+        });
+    }
+    else {
         res.statusCode = 400;
         res.setHeader('Content-Type', 'application/json');
-        res.json({error: "Sign up failed"});
-    });
+        res.json({error: "Not all fields are specified"});
+    }
 });
 
 router.post('/login', async (req, res) => {
     console.log(req.body);
     if (req.body.email && req.body.password) {
-        const user = await User.findOne({ where: {
+        await User.findOne({ where: {
             email: req.body.email
-        }});
-        if (user) {
-            if (!auth.verifyPassword(req.body.password, user.password)) {
-                res.statusCode = 401;
+        }})
+        .then((user) => {
+            if (user) {
+                if (!auth.verifyPassword(req.body.password, user.password)) {
+                    res.statusCode = 401;
+                    res.setHeader('Content-Type', 'application/json');
+                    res.json({success: false, error: 'Incorrect password'});
+                } else {
+                    let token = auth.getToken({id: user.id});
+                    res.statusCode = 200;
+                    res.setHeader('Content-Type', 'application/json');
+                    res.json({success: true, status: 'Login Successful!', token: token});
+                }
+            } else {
+                res.statusCode = 400;
                 res.setHeader('Content-Type', 'application/json');
-                res.json({success: false, status: 'Incorrect password'});
+                res.json({success: false, error: 'Account not found'});
             }
-            let token = auth.getToken({id: user.id});
-            res.statusCode = 200;
-            res.setHeader('Content-Type', 'application/json');
-            res.json({success: true, status: 'Login Successful!', token: token});
-        } else {
+        })
+        .catch((err) => {
+            console.log(err);
             res.statusCode = 400;
             res.setHeader('Content-Type', 'application/json');
-            res.json({success: false, status: 'Account not found'});
-        }
+            if (err.hasOwnProperty('errors')) {
+                res.json({error: err.errors[0].message});
+            } else if (err.hasOwnProperty('original') && err.original.hasOwnProperty('sqlMessage')) {
+                res.json({error: err.original.sqlMessage});
+            } else {
+                res.json({error: ''});
+            }
+        });
     } else {
         res.statusCode = 400;
         res.setHeader('Content-Type', 'application/json');
-        res.json({success: false, status: 'Missing email or password'});
+        res.json({success: false, error: 'Missing email or password'});
     }
 });
 

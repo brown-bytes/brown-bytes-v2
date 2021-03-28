@@ -44,8 +44,18 @@ let parseToken = (req, res, next) => {
                     message: 'Token is not valid'
                 });
             } else {
-                req.decoded = decoded;
-                next();
+                const user = User.findOne({ where:
+                    {id: decoded.id}
+                });
+                if (user) {
+                    req.decoded = decoded;
+                    next();
+                } else {
+                    return res.json({
+                        success: false,
+                        message: 'Token is not valid'
+                    });
+                }
             }
         });
     } else {
