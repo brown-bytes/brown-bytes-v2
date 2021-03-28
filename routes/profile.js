@@ -27,9 +27,26 @@ const upload = multer({ storage: storage, fileFilter: imageFileFilter });
 router.route('/')
 .get(auth.parseToken, async (req, res) => {
     console.log(req.decoded);
-    const user = await User.findOne({ where: {
+    await User.findOne({ where: {
         id: req.decoded.id
     }})
+    .then((user) => {
+        if (user) {
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/json');
+            res.json({success: true, data: {
+                avatar: user.avatar,
+                bio: user.bio,
+                facebook: user.facebookLink,
+                twitter: user.twitterLink,
+                instagram: user.instagramLink
+            }});
+        } else {
+            res.statusCode = 404;
+            res.setHeader('Content-Type', 'application/json');
+            res.json({success: false, error: 'User not found'});
+        }
+    })
     .catch((err) => {
         console.log(err);
         res.statusCode = 400;
@@ -42,21 +59,6 @@ router.route('/')
             res.json({error: ''});
         }
     });
-    if (user) {
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-        res.json({success: true, data: {
-            avatar: user.avatar,
-            bio: user.bio,
-            facebook: user.facebookLink,
-            twitter: user.twitterLink,
-            instagram: user.instagramLink
-        }});
-    } else {
-        res.statusCode = 404;
-        res.setHeader('Content-Type', 'application/json');
-        res.json({success: false, error: 'User not found'});
-    }
 })
 .patch(auth.parseToken, async (req, res) => {
     console.log(req.decoded);
@@ -70,9 +72,27 @@ router.route('/')
             id: req.decoded.id
         }
     });
-    const user = await User.findOne({ where: {
+    await User.findOne({ where: {
         id: req.decoded.id
     }})
+    .then((user) => {
+        if (user) {
+            // console.log(user);
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/json');
+            res.json({success: true, data: {
+                avatar: user.avatar,
+                bio: user.bio,
+                facebook: user.facebookLink,
+                twitter: user.twitterLink,
+                instagram: user.instagramLink
+            }});
+        } else {
+            res.statusCode = 404;
+            res.setHeader('Content-Type', 'application/json');
+            res.json({success: false, error: 'User not found'});
+        }
+    })
     .catch((err) => {
         console.log(err);
         res.statusCode = 400;
@@ -85,22 +105,6 @@ router.route('/')
             res.json({error: ''});
         }
     });
-    if (user) {
-        // console.log(user);
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-        res.json({success: true, data: {
-            avatar: user.avatar,
-            bio: user.bio,
-            facebook: user.facebookLink,
-            twitter: user.twitterLink,
-            instagram: user.instagramLink
-        }});
-    } else {
-        res.statusCode = 404;
-        res.setHeader('Content-Type', 'application/json');
-        res.json({success: false, error: 'User not found'});
-    }
 });
 
 router.post('/avatar', auth.parseToken, upload.single('imageFile'), async (req, res) => {
@@ -112,27 +116,38 @@ router.post('/avatar', auth.parseToken, upload.single('imageFile'), async (req, 
             id: req.decoded.id
         }
     });
-    const user = await User.findOne({ where: {
+    await User.findOne({ where: {
         id: req.decoded.id
     }})
+    .then((user) => {
+        if (user) {
+            if (user.avatar === avatarUrl) {
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                res.json({success: true, avatar: user.avatar});
+            } else {
+                res.statusCode = 400;
+                res.setHeader('Content-Type', 'application/json');
+                res.json({success: false, error: "Upload failed"});
+            }
+        } else {
+            res.statusCode = 404;
+            res.setHeader('Content-Type', 'application/json');
+            res.json({success: false, error: 'User not found'});
+        }
+    })
     .catch((err) => {
         console.log(err);
-    });
-    if (user) {
-        if (user.avatar === avatarUrl) {
-            res.statusCode = 200;
-            res.setHeader('Content-Type', 'application/json');
-            res.json({success: true, avatar: user.avatar});
-        } else {
-            res.statusCode = 400;
-            res.setHeader('Content-Type', 'application/json');
-            res.json({success: false, error: "Upload failed"});
-        }
-    } else {
-        res.statusCode = 404;
+        res.statusCode = 400;
         res.setHeader('Content-Type', 'application/json');
-        res.json({success: false, error: 'User not found'});
-    }
+        if (err.hasOwnProperty('errors')) {
+            res.json({error: err.errors[0].message});
+        } else if (err.hasOwnProperty('original') && err.original.hasOwnProperty('sqlMessage')) {
+            res.json({error: err.original.sqlMessage});
+        } else {
+            res.json({error: ''});
+        }
+    });
 });
 
 module.exports = router;
