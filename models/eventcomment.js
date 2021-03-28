@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       allowNull: false
     },
-    posterID: {
+    posterId: {
       type: DataTypes.INTEGER,
       references: {
         model: {
@@ -40,7 +40,6 @@ module.exports = (sequelize, DataTypes) => {
       },
       allowNull: false
     },
-    postTime: DataTypes.DATE,
     content: DataTypes.STRING
   }, {
     sequelize,

@@ -107,6 +107,44 @@ router.route('/')
     });
 });
 
+router.get('/:userId', auth.parseToken, async (req, res) => {
+    await User.findOne({
+        where: {
+            id: req.params.userId
+        }
+    })
+    .then((user) => {
+        if (user) {
+            // console.log(user);
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/json');
+            res.json({success: true, data: {
+                avatar: user.avatar,
+                bio: user.bio,
+                facebook: user.facebookLink,
+                twitter: user.twitterLink,
+                instagram: user.instagramLink
+            }});
+        } else {
+            res.statusCode = 404;
+            res.setHeader('Content-Type', 'application/json');
+            res.json({success: false, error: 'User not found'});
+        }
+    })
+    .catch((err) => {
+        console.log(err);
+        res.statusCode = 400;
+        res.setHeader('Content-Type', 'application/json');
+        if (err.hasOwnProperty('errors')) {
+            res.json({error: err.errors[0].message});
+        } else if (err.hasOwnProperty('original') && err.original.hasOwnProperty('sqlMessage')) {
+            res.json({error: err.original.sqlMessage});
+        } else {
+            res.json({error: ''});
+        }
+    });
+});
+
 router.post('/avatar', auth.parseToken, upload.single('imageFile'), async (req, res) => {
     const avatarUrl = req.protocol + '://' + req.get('host') + '/images/' + req.file.filename;
     await User.update({
