@@ -138,7 +138,7 @@ const SingleEvent = ({
 						</p>
 
 						<Row noGutters="true">
-							<Col xs={2} sm={3} md={8} lg={9}>
+							<Col xs={3} sm={3} md={8} lg={9}>
 								<a
 									className={`event-more-text`}
 									id={`moreinfo-class-${event.id}`}
@@ -148,7 +148,7 @@ const SingleEvent = ({
 							</Col>
 							{isAuthenticated && (
 								<Col
-									xs={10}
+									xs={9}
 									sm={9}
 									md={4}
 									lg={3}

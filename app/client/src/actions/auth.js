@@ -23,7 +23,8 @@ export const loadUser = () => async (dispatch) => {
 	}
 
 	try {
-		const res = await axios.get("profile/");
+		const res = await axios.get("profile");
+		console.log(res.data);
 		dispatch({
 			type: USER_LOADED,
 			payload: res.data,
@@ -58,7 +59,7 @@ export const register = (userName, email, password, passwordRepeat) => async (
 	const body = JSON.stringify({ userName, email, password });
 
 	try {
-		const res = await axios.post("user/signup", body, config);
+		const res = await axios.post("users/signup", body, config);
 		dispatch(
 			setAlert(
 				"Registeration succeeded! You are now logged in.",
@@ -91,7 +92,7 @@ export const login = (email, password) => async (dispatch) => {
 	const body = JSON.stringify({ email, password });
 
 	try {
-		const res = await axios.post("user/login", body, config);
+		const res = await axios.post("users/login", body, config);
 		dispatch(setAlert("Successfully logged in!", GREEN_ALERT));
 
 		dispatch({
@@ -102,6 +103,7 @@ export const login = (email, password) => async (dispatch) => {
 		dispatch(loadUser());
 	} catch (err) {
 		const errorMessage = err.response.data.error;
+		console.log(err.response);
 		dispatch(setAlert(errorMessage, RED_ALERT));
 		dispatch({
 			type: LOGIN_FAIL,

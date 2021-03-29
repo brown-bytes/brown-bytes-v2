@@ -19,7 +19,6 @@ const Profile = ({
 }) => {
 	const [modalShow, setModalShow] = React.useState(false);
 
-	console.log(bio);
 	const [formData, setFormData] = useState({
 		formbio: bio,
 		formfaceBookLink: faceBookLink,
@@ -29,7 +28,6 @@ const Profile = ({
 
 	const onChange = (e) => {
 		setFormData({ ...formData, [e.target.id]: e.target.value });
-		console.log(formData);
 	};
 
 	const onSubmit = async (e) => {

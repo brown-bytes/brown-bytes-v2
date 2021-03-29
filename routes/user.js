@@ -23,9 +23,10 @@ router.post("/signup", async (req, res) => {
 			.then((user) => {
 				if (user) {
 					console.log(user.id);
+					let token = auth.getToken({ id: user.id });
 					res.statusCode = 200;
 					res.setHeader("Content-Type", "application/json");
-					res.json({ message: "Registration success" });
+					res.json({ message: "Registration success", token: token });
 				} else {
 					res.statusCode = 400;
 					res.setHeader("Content-Type", "application/json");
