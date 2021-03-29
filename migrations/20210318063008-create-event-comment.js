@@ -18,7 +18,7 @@ module.exports = {
         },
         allowNull: false
       },
-      posterID: {
+      posterId: {
         type: Sequelize.INTEGER,
         references: {
           model: {
@@ -28,8 +28,15 @@ module.exports = {
         },
         allowNull: false
       },
-      postTime: Sequelize.DATE,
-      content: Sequelize.STRING
+      content: Sequelize.STRING,
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      }
     });
   },
   down: async (queryInterface, Sequelize) => {

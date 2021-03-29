@@ -28,10 +28,6 @@ module.exports = {
         },
         allowNull: false
       },
-      postTime: {
-        type: Sequelize.DATE,
-        allowNull: false
-      },
       content: {
         type: Sequelize.STRING,
         allowNull: false
