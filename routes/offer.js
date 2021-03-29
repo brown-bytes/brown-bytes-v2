@@ -1,12 +1,55 @@
 const router = require('express').Router();
+const User = require('../models').User;
 const Offer = require('../models').Offer;
 const OfferComment = require('../models').OfferComment;
+const OfferWatch = require('../models').OfferWatch;
 const bodyParser = require('body-parser');
 const auth = require('../auth');
+const { Op } = require('sequelize');
 
 router.use(bodyParser.json());
 
 router.route('/')
+.get(async (req, res) => {
+    let currentTime = new Date();
+    await Offer.findAll({
+        where: {
+            endTime: {
+                [Op.gt]: currentTime
+            }
+        },
+        include: [
+            {model: User, as: 'creator', attributes: ['username', 'avatar']},
+            {model: OfferComment, as: 'comments', include: {
+                model: User, as: 'poster', attributes: ['username', 'avatar']
+            }},
+            {model: OfferWatch, as: 'watches'}
+        ]
+    })
+    .then((offers) => {
+        console.log(offers);
+        for (let i = 0; i < offers.length; i++) {
+            offers[i] = offers[i].get({plain: true});
+            offers[i].numWatches = offers[i].watches.length;
+            delete offers[i].watches;
+        }
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json({success: true, offers: offers});
+    })
+    .catch((err) => {
+        console.log(err);
+        res.statusCode = 400;
+        res.setHeader('Content-Type', 'application/json');
+        if (err.hasOwnProperty('errors')) {
+            res.json({error: err.errors[0].message});
+        } else if (err.hasOwnProperty('original') && err.original.hasOwnProperty('sqlMessage')) {
+            res.json({error: err.original.sqlMessage});
+        } else {
+            res.json({error: ''});
+        }
+    });
+})
 .post(auth.parseToken, async (req, res) => {
     await Offer.create({
         creatorId: req.decoded.id,

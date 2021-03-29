@@ -1,13 +1,55 @@
 const router = require('express').Router();
+const User = require('../models').User;
 const Event = require('../models').Event;
 const EventWatch = require('../models').EventWatch;
 const EventComment = require('../models').EventComment;
 const bodyParser = require('body-parser');
 const auth = require('../auth');
+const { Op } = require('sequelize');
 
 router.use(bodyParser.json());
 
 router.route('/')
+.get(async (req, res) => {
+    let currentTime = new Date();
+    await Event.findAll({
+        where: {
+            endTime: {
+                [Op.gt]: currentTime
+            }
+        },
+        include: [
+            {model: User, as: 'creator', attributes: ['username', 'avatar']},
+            {model: EventComment, as: 'comments', include: {
+                model: User, as: 'poster', attributes: ['username', 'avatar']
+            }},
+            {model: EventWatch, as: 'watches'}
+        ]
+    })
+    .then((events) => {
+        console.log(events);
+        for (let i = 0; i < events.length; i++) {
+            events[i] = events[i].get({plain: true});
+            events[i].numWatches = events[i].watches.length;
+            delete events[i].watches;
+        }
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json({success: true, events: events});
+    })
+    .catch((err) => {
+        console.log(err);
+        res.statusCode = 400;
+        res.setHeader('Content-Type', 'application/json');
+        if (err.hasOwnProperty('errors')) {
+            res.json({error: err.errors[0].message});
+        } else if (err.hasOwnProperty('original') && err.original.hasOwnProperty('sqlMessage')) {
+            res.json({error: err.original.sqlMessage});
+        } else {
+            res.json({error: ''});
+        }
+    });
+})
 .post(auth.parseToken, async (req, res) => {
     await Event.create({
         creatorId: req.decoded.id,
@@ -176,6 +218,58 @@ router.post('/comment/:eventId', auth.parseToken, async (req, res) => {
             res.json({error: ''});
         }
     });
+});
+
+router.get('/past', async (req, res) => {
+    console.log(req.query.fetched);
+    if (req.query.fetched) {
+        let currentTime = new Date();
+        await Event.findAll({
+            where: {
+                endTime: {
+                    [Op.lt]: currentTime
+                }
+            },
+            order: [
+                ['endTime', 'DESC']
+            ],
+            limit: 10,
+            include: [
+                {model: User, as: 'creator', attributes: ['username', 'avatar']},
+                {model: EventComment, as: 'comments', include: {
+                    model: User, as: 'poster', attributes: ['username', 'avatar']
+                }},
+                {model: EventWatch, as: 'watches'}
+            ]
+        })
+        .then((events) => {
+            events = events.slice(req.query.fetched);
+            for (let i = 0; i < events.length; i++) {
+                events[i] = events[i].get({plain: true});
+                events[i].numWatches = events[i].watches.length;
+                delete events[i].watches;
+            }
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/json');
+            res.json({success: true, events: events});
+        })
+        .catch((err) => {
+            console.log(err);
+            res.statusCode = 400;
+            res.setHeader('Content-Type', 'application/json');
+            if (err.hasOwnProperty('errors')) {
+                res.json({error: err.errors[0].message});
+            } else if (err.hasOwnProperty('original') && err.original.hasOwnProperty('sqlMessage')) {
+                res.json({error: err.original.sqlMessage});
+            } else {
+                res.json({error: ''});
+            }
+        });
+    } else {
+        res.statusCode = 400;
+        res.setHeader('Content-Type', 'application/json');
+        res.json({success: false, error: "Fetched number not supplied"});
+    }
 });
 
 module.exports = router;

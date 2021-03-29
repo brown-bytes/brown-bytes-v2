@@ -11,15 +11,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.belongsTo(models.Offer, {as: 'offer'});
+      this.belongsTo(models.User, {as: 'watcher'});
     }
   };
   OfferWatch.init({
-    id: {
-      allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
-      type: DataTypes.INTEGER
-    },
     offerId: {
       type: DataTypes.INTEGER,
       references: {
