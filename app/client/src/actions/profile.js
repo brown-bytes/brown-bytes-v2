@@ -12,6 +12,8 @@ import {
 import setAuthToken from "../utils/setAuthToken";
 
 export const updateSocialLinks = (data) => async (dispatch) => {
+	clearAlerts();
+
 	const bio = data.formbio;
 	const facebook = data.formfaceBookLink;
 	const twitter = data.formtwitterLink;
@@ -23,6 +25,7 @@ export const updateSocialLinks = (data) => async (dispatch) => {
 		dispatch({
 			type: AUTH_ERROR,
 		});
+		return;
 	}
 
 	const config = {
@@ -38,24 +41,52 @@ export const updateSocialLinks = (data) => async (dispatch) => {
 		instagram,
 	});
 
-	console.log("body:", body);
-
 	try {
 		const res = await axios.patch("profile/", body, config);
 		dispatch(setAlert("Successfully updated profile!", GREEN_ALERT));
-
-		// dispatch({
-		// 	type: LOGIN_SUCCESS,
-		// 	payload: res.data,
-		// });
-
 		dispatch(loadUser());
+		dispatch({
+			type: UPDATE_SOCIAL_LINKS_SUCCESS,
+		});
 	} catch (err) {
 		const errorMessage = err.response.data.error;
-		console.log(err.response);
 		dispatch(setAlert(errorMessage, RED_ALERT));
-		// dispatch({
-		// 	type: LOGIN_FAIL,
-		// });
+		dispatch({
+			type: UPDATE_SOCIAL_LINKS_FAILED,
+		});
+	}
+};
+
+export const updateAvatar = (image) => async (dispatch) => {
+	clearAlerts();
+
+	if (localStorage.token) {
+		setAuthToken(localStorage.token);
+	} else {
+		dispatch({
+			type: AUTH_ERROR,
+		});
+		return;
+	}
+
+	const body = image;
+	try {
+		const res = await axios.post("profile/avatar", body);
+		dispatch(
+			setAlert(
+				"Successfully updated avatar! Reload this page to see your new avatar.",
+				GREEN_ALERT
+			)
+		);
+		dispatch(loadUser());
+		dispatch({
+			type: UPDATE_AVATAR_SUCCESS,
+		});
+	} catch (err) {
+		const errorMessage = err.response.data.error;
+		dispatch(setAlert(errorMessage, RED_ALERT));
+		dispatch({
+			type: UPDATE_AVATAR_FAILED,
+		});
 	}
 };

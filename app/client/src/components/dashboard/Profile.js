@@ -35,8 +35,6 @@ const Profile = ({
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
-		console.log("updating with:");
-		console.log(formData);
 		updateSocialLinks(formData);
 	};
 
@@ -151,7 +149,7 @@ Profile.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-	if (state.auth.user)
+	if (state.auth.isAuthenticated)
 		return {
 			avatarURL: state.auth.user.data.avatar,
 			userName: state.auth.user.data.userName,
