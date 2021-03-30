@@ -18,7 +18,7 @@ router.post("/signup", async (req, res) => {
 			email: req.body.email,
 			password: hash,
 			userName: req.body.userName,
-			avatar: avatarUrl,
+			avatar: req.body.avatarUrl ? req.body.avatarUrl : avatarUrl,
 		})
 			.then((user) => {
 				if (user) {

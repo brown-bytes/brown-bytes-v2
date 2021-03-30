@@ -3,16 +3,18 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
+import GoogleLogin from "react-google-login";
+
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-import { login } from "../../actions/auth";
+import { login, loginGoogle } from "../../actions/auth";
 import { clearAlerts } from "../../actions/alert";
 
-const Login = ({ login, isAuthenticated }) => {
+const Login = ({ login, loginGoogle }) => {
 	useEffect(() => {
 		clearAlerts();
 	}, []);
@@ -83,10 +85,18 @@ const Login = ({ login, isAuthenticated }) => {
 								md={12}
 								lg={6}
 								className="pt-2">
-								<Button variant="outline-primary">
-									<i className="fab fa-google"></i> Login with
-									Google
-								</Button>
+								<GoogleLogin
+									clientId="852502263308-8anqhhr6s7bqqnjoegolvqmuolv4h1k2.apps.googleusercontent.com"
+									buttonText="Login with Google"
+									theme="dark"
+									onSuccess={loginGoogle}
+									onFailure={(res) => {
+										console.log(
+											"Google log in failed",
+											res
+										);
+									}}
+								/>
 							</Col>
 							<Col
 								xs={12}
@@ -132,8 +142,4 @@ const Login = ({ login, isAuthenticated }) => {
 	);
 };
 
-const mapStateToProps = (state) => ({
-	isAuthenticated: state.auth.isAuthenticated,
-});
-
-export default connect(mapStateToProps, { login })(Login);
+export default connect(null, { login, loginGoogle })(Login);

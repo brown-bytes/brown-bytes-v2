@@ -149,7 +149,7 @@ Profile.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-	if (state.auth.isAuthenticated)
+	if (state.auth.isAuthenticated && state.auth.user && state.auth.user.data)
 		return {
 			avatarURL: state.auth.user.data.avatar,
 			userName: state.auth.user.data.userName,

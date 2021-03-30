@@ -125,3 +125,56 @@ export const resetPassword = (email) => (dispatch) => {
 		type: "reset",
 	});
 };
+
+export const loginGoogle = (data) => async (dispatch) => {
+	//console.log(data);
+	const userName = data.profileObj.name;
+	const email = data.profileObj.email;
+	const avatarUrl = data.profileObj.imageUrl;
+	// temororily use googleId to "sign up" on our sever, will be improved later
+	const password = data.googleId;
+
+	const config = {
+		headers: {
+			"Content-Type": "application/json",
+		},
+	};
+
+	try {
+		const trySignUp = JSON.stringify({
+			userName,
+			email,
+			password,
+			avatarUrl,
+		});
+		const res = await axios.post("users/signup", trySignUp, config);
+		dispatch(setAlert("Successfully logged in!", GREEN_ALERT));
+		dispatch({
+			type: REGISTER_SUCCESS,
+			payload: res.data,
+		});
+
+		dispatch(loadUser());
+	} catch (err) {
+		const tryLogIn = JSON.stringify({ email, password });
+
+		try {
+			const res = await axios.post("users/login", tryLogIn, config);
+			dispatch(setAlert("Successfully logged in!", GREEN_ALERT));
+
+			dispatch({
+				type: LOGIN_SUCCESS,
+				payload: res.data,
+			});
+
+			dispatch(loadUser());
+		} catch (err) {
+			const errorMessage = err.response.data.error;
+			console.log(err.response);
+			dispatch(setAlert(errorMessage, RED_ALERT));
+			dispatch({
+				type: LOGIN_FAIL,
+			});
+		}
+	}
+};
