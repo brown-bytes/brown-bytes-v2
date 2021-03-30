@@ -1,0 +1,8 @@
+POST http://localhost:8080/users/signup
+content-type: application/json
+
+{
+    "email":"qiaonanh@uci.edu",
+    "password": "test",
+    "userName": "hugo"
+}
