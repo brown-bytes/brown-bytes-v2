@@ -178,3 +178,55 @@ export const loginGoogle = (data) => async (dispatch) => {
 		}
 	}
 };
+
+export const loginFacebook = (data) => async (dispatch) => {
+	const userName = data.name;
+	const email = data.email + ".facebook";
+	const avatarUrl = data.picture.data.url;
+	// temororily use facebookId to "sign up" on our sever, will be improved later
+	const password = data.id;
+
+	const config = {
+		headers: {
+			"Content-Type": "application/json",
+		},
+	};
+	console.log(userName, email, avatarUrl, password);
+	try {
+		const trySignUp = JSON.stringify({
+			userName,
+			email,
+			password,
+			avatarUrl,
+		});
+		const res = await axios.post("users/signup", trySignUp, config);
+		dispatch(setAlert("Successfully logged in!", GREEN_ALERT));
+		dispatch({
+			type: REGISTER_SUCCESS,
+			payload: res.data,
+		});
+
+		dispatch(loadUser());
+	} catch (err) {
+		const tryLogIn = JSON.stringify({ email, password });
+
+		try {
+			const res = await axios.post("users/login", tryLogIn, config);
+			dispatch(setAlert("Successfully logged in!", GREEN_ALERT));
+
+			dispatch({
+				type: LOGIN_SUCCESS,
+				payload: res.data,
+			});
+
+			dispatch(loadUser());
+		} catch (err) {
+			const errorMessage = err.response.data.error;
+			console.log(err.response);
+			dispatch(setAlert(errorMessage, RED_ALERT));
+			dispatch({
+				type: LOGIN_FAIL,
+			});
+		}
+	}
+};

@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 import GoogleLogin from "react-google-login";
+import FacebookLogin from "react-facebook-login";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -11,10 +12,10 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-import { login, loginGoogle } from "../../actions/auth";
+import { login, loginGoogle, loginFacebook } from "../../actions/auth";
 import { clearAlerts } from "../../actions/alert";
 
-const Login = ({ login, loginGoogle }) => {
+const Login = ({ login, loginGoogle, loginFacebook }) => {
 	useEffect(() => {
 		clearAlerts();
 	}, []);
@@ -104,10 +105,24 @@ const Login = ({ login, loginGoogle }) => {
 								md={12}
 								lg={6}
 								className="pt-2">
-								<Button variant="outline-primary">
-									<i className="fab fa-facebook-square"></i>{" "}
-									Login with Facebook
-								</Button>
+								<FacebookLogin
+									size="small"
+									textButton={
+										<div>
+											<i
+												className="fab fa-facebook-square"
+												id="facebook-login-icon"></i>{" "}
+											<span id="facebook-login-text">
+												Login with FaceBook
+											</span>
+										</div>
+									}
+									appId="125349069552826"
+									fields="name,email,picture"
+									callback={(response) => {
+										loginFacebook(response);
+									}}
+								/>
 							</Col>
 						</Row>
 					</Col>
@@ -142,4 +157,4 @@ const Login = ({ login, loginGoogle }) => {
 	);
 };
 
-export default connect(null, { login, loginGoogle })(Login);
+export default connect(null, { login, loginGoogle, loginFacebook })(Login);

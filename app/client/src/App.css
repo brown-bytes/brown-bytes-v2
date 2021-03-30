@@ -419,3 +419,37 @@ body {
 #change-avatar-label {
 	font-size: large;
 }
+
+.kep-login-facebook {
+	width: 172px !important;
+	height: 42px !important;
+
+	padding: 0 !important;
+	background-color: rgb(66, 133, 244);
+	display: inline-flex;
+	align-items: center;
+	color: rgb(255, 255, 255);
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px,
+		rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
+	padding: 0px;
+	border-radius: 2px;
+	border: 1px solid transparent;
+	font-size: 14px;
+	font-weight: 500;
+	font-family: Roboto, sans-serif;
+}
+
+#facebook-login-icon {
+	font-size: 34px;
+	position: relative;
+	top: 1px;
+	left: 1px;
+}
+
+#facebook-login-text {
+	font-size: 14px !important;
+	font-weight: 500 !important;
+	text-transform: none !important;
+	position: relative;
+	bottom: 7px;
+}
