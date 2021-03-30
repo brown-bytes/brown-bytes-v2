@@ -24,7 +24,6 @@ export const loadUser = () => async (dispatch) => {
 
 	try {
 		const res = await axios.get("profile");
-		console.log(res.data);
 		dispatch({
 			type: USER_LOADED,
 			payload: res.data,

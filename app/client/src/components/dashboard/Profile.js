@@ -9,6 +9,8 @@ import Image from "react-bootstrap/Image";
 
 import ChangeAvatarModal from "./ChangeAvatarModal";
 
+import { updateSocialLinks } from "../../actions/profile";
+
 const Profile = ({
 	avatarURL,
 	userName,
@@ -16,6 +18,7 @@ const Profile = ({
 	faceBookLink,
 	twitterLink,
 	instagramLink,
+	updateSocialLinks,
 }) => {
 	const [modalShow, setModalShow] = React.useState(false);
 
@@ -34,6 +37,7 @@ const Profile = ({
 		e.preventDefault();
 		console.log("updating with:");
 		console.log(formData);
+		updateSocialLinks(formData);
 	};
 
 	return (
@@ -161,4 +165,4 @@ const mapStateToProps = (state) => {
 	}
 };
 
-export default connect(mapStateToProps)(Profile);
+export default connect(mapStateToProps, { updateSocialLinks })(Profile);
