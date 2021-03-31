@@ -100,13 +100,17 @@ Profile.propTypes = {
 	instagramLink: PropTypes.string,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state) => {
+	if(state.auth.user) {return {
 	avatarURL: state.auth.user.data.avatar,
 	userName: state.auth.user.data.userName,
 	bio: state.auth.user.data.bio,
 	faceBookLink: state.auth.user.data.facebook,
 	twitterLink: state.auth.user.data.twitter,
 	instagramLink: state.auth.user.data.instagram,
-});
+} }else{
+	return Object();
+}
+};
 
 export default connect(mapStateToProps)(Profile);
