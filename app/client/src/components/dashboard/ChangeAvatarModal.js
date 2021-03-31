@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 
@@ -7,14 +9,12 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
+import { updateAvatar } from "../../actions/profile";
+
 const defaultSrc = "favicon-196x196.png";
 
-function updateAvatar(data) {
-	console.log(data);
-}
-const ChangeAvatarModal = (props) => {
+const ChangeAvatarModal = ({ show, onHide, updateAvatar }) => {
 	const [image, setImage] = useState(defaultSrc);
-	const [cropData, setCropData] = useState();
 	const [cropper, setCropper] = useState();
 
 	const onChange = (e) => {
@@ -34,7 +34,7 @@ const ChangeAvatarModal = (props) => {
 
 	const getCropData = () => {
 		if (typeof cropper !== "undefined") {
-			let croppedAvatar = cropper
+			cropper
 				.getCroppedCanvas({
 					width: 96,
 					height: 96,
@@ -43,14 +43,22 @@ const ChangeAvatarModal = (props) => {
 					maxWidth: 96,
 					maxHeight: 96,
 				})
-				.toDataURL();
-			updateAvatar(croppedAvatar);
+				.toBlob((blob) => {
+					const formData = new FormData();
+					const fileName = localStorage.token;
+					formData.append("imageFile", blob, fileName + ".png");
+					for (var key of formData.entries()) {
+						console.log(key[0] + ", " + key[1]);
+					}
+					updateAvatar(formData);
+				});
 		}
 	};
 
 	return (
 		<Modal
-			{...props}
+			show={show}
+			onHide={onHide}
 			size="lg"
 			aria-labelledby="modal-for-changing-avatar"
 			centered>
@@ -92,7 +100,7 @@ const ChangeAvatarModal = (props) => {
 				<Button
 					onClick={() => {
 						getCropData();
-						props.onHide();
+						onHide();
 					}}>
 					Upload
 				</Button>
@@ -101,4 +109,8 @@ const ChangeAvatarModal = (props) => {
 	);
 };
 
-export default ChangeAvatarModal;
+ChangeAvatarModal.propTypes = {
+	updateAvatar: PropTypes.func,
+};
+
+export default connect(null, { updateAvatar })(ChangeAvatarModal);

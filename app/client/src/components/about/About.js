@@ -55,7 +55,8 @@ const About = () => {
 				See more about the Brown Bytes project on{" "}
 				<a
 					href="https://github.com/brown-bytes/brown-bytes"
-					target="_blank">
+					target="_blank"
+					rel="noreferrer">
 					<i className="fab fa-github"></i>GitHub
 				</a>
 			</p>
@@ -65,18 +66,24 @@ const About = () => {
 			<p className="about-text">
 				Brown Bytes is in not associated with, sponsored by, or built in
 				coordination with{" "}
-				<a href="https://www.brown.edu/" target="_blank">
+				<a
+					href="https://www.brown.edu/"
+					target="_blank"
+					rel="noreferrer">
 					Brown University
 				</a>
 				.
 			</p>
 			<p className="about-text">
 				Brown Bytes is an application built with{" "}
-				<a href="https://reactjs.org/" target="_blank">
+				<a href="https://reactjs.org/" target="_blank" rel="noreferrer">
 					React
 				</a>{" "}
 				and{" "}
-				<a href="https://redux.js.org/" target="_blank">
+				<a
+					href="https://redux.js.org/"
+					target="_blank"
+					rel="noreferrer">
 					Redux
 				</a>
 				.

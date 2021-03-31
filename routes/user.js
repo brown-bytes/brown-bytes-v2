@@ -5,78 +5,106 @@ const auth = require("../auth");
 
 router.use(bodyParser.json());
 
-router.post("/signup", (req, res, next) => {
+router.post("/signup", async (req, res) => {
 	console.log(req.body);
-	(async () => {
-		if (req.body.email && req.body.password && req.body.userName) {
-			const hash = auth.hashPassword(req.body.password);
-			const avatarUrl =
-				req.protocol +
-				"://" +
-				req.get("host") +
-				"/images/default_avatar.png";
-			const user = await User.create({
-				email: req.body.email,
-				password: hash,
-				userName: req.body.userName,
-				avatar: avatarUrl,
-			});
-			if (user) {
-				console.log(user.id);
-				let token = auth.getToken({ id: user.id });
-				res.statusCode = 200;
-				res.setHeader("Content-Type", "application/json");
-				res.json({ token: token });
-			} else {
+	if (req.body.email && req.body.password && req.body.userName) {
+		const hash = auth.hashPassword(req.body.password);
+		const avatarUrl =
+			req.protocol +
+			"://" +
+			req.get("host") +
+			"/images/default_avatar.png";
+		await User.create({
+			email: req.body.email,
+			password: hash,
+			userName: req.body.userName,
+			avatar: req.body.avatarUrl ? req.body.avatarUrl : avatarUrl,
+		})
+			.then((user) => {
+				if (user) {
+					console.log(user.id);
+					let token = auth.getToken({ id: user.id });
+					res.statusCode = 200;
+					res.setHeader("Content-Type", "application/json");
+					res.json({ message: "Registration success", token: token });
+				} else {
+					res.statusCode = 400;
+					res.setHeader("Content-Type", "application/json");
+					res.json({ error: "Sign up failed" });
+				}
+			})
+			.catch((err) => {
+				console.log(err);
 				res.statusCode = 400;
 				res.setHeader("Content-Type", "application/json");
-				res.json({ error: "Sign up failed" });
-				//Please return more specific error like "An account already exists with this e-mail address"
-			}
-		} else {
-			res.statusCode = 400;
-			res.setHeader("Content-Type", "application/json");
-			res.json({ error: "Not all fields are specified" });
-		}
-	})().catch((err) => {
-		console.log(err);
+				if (err.hasOwnProperty("errors")) {
+					res.json({ error: err.errors[0].message });
+				} else if (
+					err.hasOwnProperty("original") &&
+					err.original.hasOwnProperty("sqlMessage")
+				) {
+					res.json({ error: err.original.sqlMessage });
+				} else {
+					res.json({ error: "" });
+				}
+			});
+	} else {
 		res.statusCode = 400;
 		res.setHeader("Content-Type", "application/json");
-		res.json({ error: "Sign up failed" });
-	});
+		res.json({ error: "Not all fields are specified" });
+	}
 });
 
 router.post("/login", async (req, res) => {
 	console.log(req.body);
 	if (req.body.email && req.body.password) {
-		const user = await User.findOne({
+		await User.findOne({
 			where: {
 				email: req.body.email,
 			},
-		});
-		if (user) {
-			if (!auth.verifyPassword(req.body.password, user.password)) {
-				res.statusCode = 401;
+		})
+			.then((user) => {
+				if (user) {
+					if (
+						!auth.verifyPassword(req.body.password, user.password)
+					) {
+						res.statusCode = 401;
+						res.setHeader("Content-Type", "application/json");
+						res.json({
+							success: false,
+							error: "Incorrect password",
+						});
+					} else {
+						let token = auth.getToken({ id: user.id });
+						res.statusCode = 200;
+						res.setHeader("Content-Type", "application/json");
+						res.json({
+							success: true,
+							status: "Login Successful!",
+							token: token,
+						});
+					}
+				} else {
+					res.statusCode = 400;
+					res.setHeader("Content-Type", "application/json");
+					res.json({ success: false, error: "Account not found" });
+				}
+			})
+			.catch((err) => {
+				console.log(err);
+				res.statusCode = 400;
 				res.setHeader("Content-Type", "application/json");
-				//	res.json({ success: false, status: "Incorrect password" }); //combine this with line 74
-				return res.json({
-					success: false,
-					error: "Incorrect password",
-				});
-			}
-			let token = auth.getToken({ id: user.id });
-			res.statusCode = 200;
-			res.setHeader("Content-Type", "application/json");
-			res.json({
-				success: true,
-				status: "Login Successful!",
-				token: token,
+				if (err.hasOwnProperty("errors")) {
+					res.json({ error: err.errors[0].message });
+				} else if (
+					err.hasOwnProperty("original") &&
+					err.original.hasOwnProperty("sqlMessage")
+				) {
+					res.json({ error: err.original.sqlMessage });
+				} else {
+					res.json({ error: "" });
+				}
 			});
-		} else {
-			res.statusCode = 400;
-			res.setHeader("Content-Type", "application/json");
-			res.json({ success: false, error: "Account not found" });
-		}
 	} else {
 		res.statusCode = 400;
 		res.setHeader("Content-Type", "application/json");

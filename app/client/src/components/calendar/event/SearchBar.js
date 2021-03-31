@@ -1,5 +1,4 @@
-import React, { Fragment, useState } from "react";
-import PropTypes from "prop-types";
+import React from "react";
 import { connect } from "react-redux";
 
 import Button from "react-bootstrap/Button";

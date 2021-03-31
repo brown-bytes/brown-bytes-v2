@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class offerComment extends Model {
+  class OfferComment extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,15 +11,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.belongsTo(models.Offer, {as: 'offer'});
+      this.belongsTo(models.User, {as: 'poster'});
     }
   };
-  offerComment.init({
-    id: {
-      allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
-      type: DataTypes.INTEGER
-    },
+  OfferComment.init({
     offerId: {
       type: DataTypes.INTEGER,
       references: {
@@ -40,17 +36,13 @@ module.exports = (sequelize, DataTypes) => {
       },
       allowNull: false
     },
-    postTime: {
-      type: DataTypes.DATE,
-      allowNull: false
-    },
     content: {
       type: DataTypes.STRING,
       allowNull: false
     }
   }, {
     sequelize,
-    modelName: 'offerComment',
+    modelName: 'OfferComment',
   });
-  return offerComment;
+  return OfferComment;
 };

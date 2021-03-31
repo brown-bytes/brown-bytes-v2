@@ -1,5 +1,4 @@
 import React, { Fragment, useState, useEffect } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -19,7 +18,7 @@ const Calendar = ({ isAuthenticated }) => {
 	const togglePreviousEvents = (e) => {
 		setShowPreviousEvents(showPreviousEvents ? false : true);
 		e.target.text =
-			e.target.text == "Show past events"
+			e.target.text === "Show past events"
 				? "Hide past events"
 				: "Show past events";
 	};

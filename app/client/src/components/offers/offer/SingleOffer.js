@@ -95,7 +95,7 @@ const SingleOffer = ({
 								{!loadingUser &&
 									isAuthenticated &&
 									authedUser &&
-									authedUser.userid == offer.creator && (
+									authedUser.userid === offer.creator && (
 										<Button
 											className="pr-3"
 											variant="outline-link"

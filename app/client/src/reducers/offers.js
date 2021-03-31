@@ -1,10 +1,10 @@
-import {
-	GET_OFFERS,
-	ADD_OFFER,
-	DELETE_OFFER,
-	ADD_COMMENT,
-	REMOVE_COMMENT,
-} from "../actions/types";
+// import {
+// 	GET_OFFERS,
+// 	ADD_OFFER,
+// 	DELETE_OFFER,
+// 	ADD_COMMENT,
+// 	REMOVE_COMMENT,
+// } from "../actions/types";
 
 const initialState = {
 	offers: [

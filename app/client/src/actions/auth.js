@@ -16,10 +16,14 @@ import {
 export const loadUser = () => async (dispatch) => {
 	if (localStorage.token) {
 		setAuthToken(localStorage.token);
+	} else {
+		dispatch({
+			type: AUTH_ERROR,
+		});
 	}
 
 	try {
-		const res = await axios.get("profile/");
+		const res = await axios.get("profile");
 		dispatch({
 			type: USER_LOADED,
 			payload: res.data,
@@ -54,7 +58,7 @@ export const register = (userName, email, password, passwordRepeat) => async (
 	const body = JSON.stringify({ userName, email, password });
 
 	try {
-		const res = await axios.post("user/signup", body, config);
+		const res = await axios.post("users/signup", body, config);
 		dispatch(
 			setAlert(
 				"Registeration succeeded! You are now logged in.",
@@ -87,7 +91,8 @@ export const login = (email, password) => async (dispatch) => {
 	const body = JSON.stringify({ email, password });
 
 	try {
-		const res = await axios.post("user/login", body, config);
+		const res = await axios.post("users/login", body, config);
+		dispatch(setAlert("Successfully logged in!", GREEN_ALERT));
 
 		dispatch({
 			type: LOGIN_SUCCESS,
@@ -95,9 +100,9 @@ export const login = (email, password) => async (dispatch) => {
 		});
 
 		dispatch(loadUser());
-		dispatch(setAlert("Successfully logged in!", GREEN_ALERT));
 	} catch (err) {
 		const errorMessage = err.response.data.error;
+		console.log(err.response);
 		dispatch(setAlert(errorMessage, RED_ALERT));
 		dispatch({
 			type: LOGIN_FAIL,
@@ -119,4 +124,109 @@ export const resetPassword = (email) => (dispatch) => {
 	dispatch({
 		type: "reset",
 	});
+};
+
+export const loginGoogle = (data) => async (dispatch) => {
+	//console.log(data);
+	const userName = data.profileObj.name;
+	const email = data.profileObj.email;
+	const avatarUrl = data.profileObj.imageUrl;
+	// temororily use googleId to "sign up" on our sever, will be improved later
+	const password = data.googleId;
+
+	const config = {
+		headers: {
+			"Content-Type": "application/json",
+		},
+	};
+
+	try {
+		const trySignUp = JSON.stringify({
+			userName,
+			email,
+			password,
+			avatarUrl,
+		});
+		const res = await axios.post("users/signup", trySignUp, config);
+		dispatch(setAlert("Successfully logged in!", GREEN_ALERT));
+		dispatch({
+			type: REGISTER_SUCCESS,
+			payload: res.data,
+		});
+
+		dispatch(loadUser());
+	} catch (err) {
+		const tryLogIn = JSON.stringify({ email, password });
+
+		try {
+			const res = await axios.post("users/login", tryLogIn, config);
+			dispatch(setAlert("Successfully logged in!", GREEN_ALERT));
+
+			dispatch({
+				type: LOGIN_SUCCESS,
+				payload: res.data,
+			});
+
+			dispatch(loadUser());
+		} catch (err) {
+			const errorMessage = err.response.data.error;
+			console.log(err.response);
+			dispatch(setAlert(errorMessage, RED_ALERT));
+			dispatch({
+				type: LOGIN_FAIL,
+			});
+		}
+	}
+};
+
+export const loginFacebook = (data) => async (dispatch) => {
+	const userName = data.name;
+	const email = data.email + ".facebook";
+	const avatarUrl = data.picture.data.url;
+	// temororily use facebookId to "sign up" on our sever, will be improved later
+	const password = data.id;
+
+	const config = {
+		headers: {
+			"Content-Type": "application/json",
+		},
+	};
+	console.log(userName, email, avatarUrl, password);
+	try {
+		const trySignUp = JSON.stringify({
+			userName,
+			email,
+			password,
+			avatarUrl,
+		});
+		const res = await axios.post("users/signup", trySignUp, config);
+		dispatch(setAlert("Successfully logged in!", GREEN_ALERT));
+		dispatch({
+			type: REGISTER_SUCCESS,
+			payload: res.data,
+		});
+
+		dispatch(loadUser());
+	} catch (err) {
+		const tryLogIn = JSON.stringify({ email, password });
+
+		try {
+			const res = await axios.post("users/login", tryLogIn, config);
+			dispatch(setAlert("Successfully logged in!", GREEN_ALERT));
+
+			dispatch({
+				type: LOGIN_SUCCESS,
+				payload: res.data,
+			});
+
+			dispatch(loadUser());
+		} catch (err) {
+			const errorMessage = err.response.data.error;
+			console.log(err.response);
+			dispatch(setAlert(errorMessage, RED_ALERT));
+			dispatch({
+				type: LOGIN_FAIL,
+			});
+		}
+	}
 };

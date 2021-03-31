@@ -9,6 +9,8 @@ import Image from "react-bootstrap/Image";
 
 import ChangeAvatarModal from "./ChangeAvatarModal";
 
+import { updateSocialLinks } from "../../actions/profile";
+
 const Profile = ({
 	avatarURL,
 	userName,
@@ -16,17 +18,26 @@ const Profile = ({
 	faceBookLink,
 	twitterLink,
 	instagramLink,
+	updateSocialLinks,
 }) => {
 	const [modalShow, setModalShow] = React.useState(false);
 
-	console.log(
-		avatarURL,
-		userName,
-		bio,
-		faceBookLink,
-		twitterLink,
-		instagramLink
-	);
+	const [formData, setFormData] = useState({
+		formbio: bio,
+		formfaceBookLink: faceBookLink,
+		formtwitterLink: twitterLink,
+		forminstagramLink: instagramLink,
+	});
+
+	const onChange = (e) => {
+		setFormData({ ...formData, [e.target.id]: e.target.value });
+	};
+
+	const onSubmit = async (e) => {
+		e.preventDefault();
+		updateSocialLinks(formData);
+	};
+
 	return (
 		<Fragment>
 			<Container fluid className="pt-2">
@@ -39,44 +50,81 @@ const Profile = ({
 					thumbnail
 					onClick={() => setModalShow(true)}></Image>
 				<span id="dashboard-username">{userName}</span>
-				<Form>
+				<Form onSubmit={(e) => onSubmit(e)}>
 					<Form.Group>
 						<Form.Label className="dashboard-profile-form-label">
 							Bio
 						</Form.Label>
-						<Form.Control
-							id="bio"
-							as="textarea"
-							placeholder="A short bio of yourself"
-						/>
+						{bio ? (
+							<Form.Control
+								id="formbio"
+								as="textarea"
+								onChange={onChange}
+								defaultValue={bio}
+							/>
+						) : (
+							<Form.Control
+								id="formbio"
+								as="textarea"
+								onChange={onChange}
+								placeholder="A short bio of yourself"
+							/>
+						)}
 					</Form.Group>
 
 					<Form.Group>
 						<Form.Label className="dashboard-profile-form-label">
 							Facebook
 						</Form.Label>
-						<Form.Control
-							id="facebook"
-							placeholder="Link to Your Facebook account"
-						/>
+						{faceBookLink ? (
+							<Form.Control
+								id="formfaceBookLink"
+								onChange={onChange}
+								defaultValue={faceBookLink}
+							/>
+						) : (
+							<Form.Control
+								id="formfaceBookLink"
+								onChange={onChange}
+								placeholder="Link to Your Facebook account"
+							/>
+						)}
 					</Form.Group>
 					<Form.Group>
 						<Form.Label className="dashboard-profile-form-label">
 							Twitter
 						</Form.Label>
-						<Form.Control
-							id="twitter"
-							placeholder="Link to Your Twitter account"
-						/>
+						{twitterLink ? (
+							<Form.Control
+								id="formtwitterLink"
+								onChange={onChange}
+								defaultValue={twitterLink}
+							/>
+						) : (
+							<Form.Control
+								id="formtwitterLink"
+								onChange={onChange}
+								placeholder="Link to Your Twitter account"
+							/>
+						)}
 					</Form.Group>
 					<Form.Group>
 						<Form.Label className="dashboard-profile-form-label">
 							Instagram
 						</Form.Label>
-						<Form.Control
-							id="instagram"
-							placeholder="Link to Your Instagram account"
-						/>
+						{instagramLink ? (
+							<Form.Control
+								id="forminstagramLink"
+								onChange={onChange}
+								defaultValue={instagramLink}
+							/>
+						) : (
+							<Form.Control
+								id="forminstagramLink"
+								onChange={onChange}
+								placeholder="Link to Your Instagram account"
+							/>
+						)}
 					</Form.Group>
 					<Button variant="info" type="submit">
 						Save
@@ -92,8 +140,8 @@ const Profile = ({
 };
 
 Profile.propTypes = {
-	avatarURL: PropTypes.string.isRequired,
-	userName: PropTypes.string.isRequired,
+	avatarURL: PropTypes.string,
+	userName: PropTypes.string,
 	bio: PropTypes.string,
 	faceBookLink: PropTypes.string,
 	twitterLink: PropTypes.string,
@@ -101,16 +149,18 @@ Profile.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-	if(state.auth.user) {return {
-	avatarURL: state.auth.user.data.avatar,
-	userName: state.auth.user.data.userName,
-	bio: state.auth.user.data.bio,
-	faceBookLink: state.auth.user.data.facebook,
-	twitterLink: state.auth.user.data.twitter,
-	instagramLink: state.auth.user.data.instagram,
-} }else{
-	return Object();
-}
+	if (state.auth.isAuthenticated && state.auth.user && state.auth.user.data)
+		return {
+			avatarURL: state.auth.user.data.avatar,
+			userName: state.auth.user.data.userName,
+			bio: state.auth.user.data.bio,
+			faceBookLink: state.auth.user.data.facebook,
+			twitterLink: state.auth.user.data.twitter,
+			instagramLink: state.auth.user.data.instagram,
+		};
+	else {
+		return Object();
+	}
 };
 
-export default connect(mapStateToProps)(Profile);
+export default connect(mapStateToProps, { updateSocialLinks })(Profile);
