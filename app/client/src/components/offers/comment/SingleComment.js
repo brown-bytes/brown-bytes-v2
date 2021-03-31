@@ -23,17 +23,19 @@ const SingleComment = ({ comment }) => {
 						className="comment-favicon-container">
 						<Image
 							className="comment-favicon"
-							src="favicon-96x96.png"
+							src={comment.poster.avatar}
 							fluid
 							roundedCircle
 							thumbnail></Image>
 					</Col>
 					<Col xs={10} sm={10} md={10} lg={10}>
 						<p className="comment-head">
-							<span className="comment-user">{comment.user}</span>{" "}
+							<span className="comment-user">
+								{comment.poster.username}
+							</span>{" "}
 							posted at{" "}
 							<span className="comment-time">
-								{moment(comment.postTime).format(
+								{moment(comment.createdAt).format(
 									"HH:mm, DD/MM/YY"
 								)}
 							</span>

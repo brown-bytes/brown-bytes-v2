@@ -120,7 +120,9 @@ const SingleOffer = ({
 					</Card.Body>
 				</Card>
 				<Accordion.Collapse eventKey="comment" className="comment-area">
-					<CommentArea comments={offer.comments}></CommentArea>
+					<CommentArea
+						comments={offer.comments}
+						offerId={offer.id}></CommentArea>
 				</Accordion.Collapse>
 			</Accordion>
 		</Fragment>

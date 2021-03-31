@@ -9,7 +9,8 @@ import {
 	GET_OFFERS,
 	DELETE_OFFER_SUCCESS,
 	DELETE_OFFER_FAILED,
-	CHANGE_QUERY_STRING,
+	CHANGE_OFFER_QUERY_STRING,
+	POST_OFFER_COMMENT,
 } from "./types";
 
 export const createOffer = (info) => async (dispatch) => {
@@ -63,8 +64,6 @@ export const createOffer = (info) => async (dispatch) => {
 		toTop();
 		return;
 	}
-
-	console.log(startDateTime, endDateTime);
 
 	const config = {
 		headers: {
@@ -152,15 +151,40 @@ export const deleteOffer = (e) => async (dispatch) => {
 	return;
 };
 
-export const postComment = () => {
+export const postOfferComment = (comment, offerId) => async (dispatch) => {
+	console.log("sending comment", comment, offerId);
+
+	const config = {
+		headers: {
+			"Content-Type": "application/json",
+		},
+	};
+
+	const body = JSON.stringify({
+		content: comment,
+	});
+
+	try {
+		const res = await axios.post(`offers/comment/${offerId}`, body, config);
+		console.log(res.data);
+		// dispatch(setAlert("Successfully posted a new comment", GREEN_ALERT));
+		dispatch({
+			type: POST_OFFER_COMMENT,
+		});
+		dispatch(getOffers());
+	} catch (err) {
+		const errorMessage = err.response.data.error;
+		dispatch(setAlert(errorMessage, RED_ALERT));
+	}
 	return;
 };
 
 export const changeQueryString = (newQueryString) => async (dispatch) => {
 	console.log(newQueryString);
 	dispatch({
-		type: CHANGE_QUERY_STRING,
+		type: CHANGE_OFFER_QUERY_STRING,
 		payload: newQueryString,
 	});
+
 	return;
 };

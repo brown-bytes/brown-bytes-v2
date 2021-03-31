@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import SingleComment from "./SingleComment";
 import PostComment from "./PostComment";
 
-const CommentArea = ({ comments, isAuthenticated }) => {
+const CommentArea = ({ comments, isAuthenticated, offerId }) => {
 	return (
 		<Fragment>
 			{comments.map((comment) => (
@@ -14,7 +14,7 @@ const CommentArea = ({ comments, isAuthenticated }) => {
 					key={comment.id}
 					comment={comment}></SingleComment>
 			))}
-			{isAuthenticated && <PostComment></PostComment>}
+			{isAuthenticated && <PostComment offerId={offerId}></PostComment>}
 		</Fragment>
 	);
 };

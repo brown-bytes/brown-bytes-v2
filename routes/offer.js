@@ -171,8 +171,8 @@ router.post("/comment/:offerId", auth.parseToken, async (req, res) => {
 				res.setHeader("Content-Type", "application/json");
 				res.json({
 					success: true,
-					status: "Successfully posted comment",
-					commentTime: comment.createdAt,
+					status: "Successfully posted a comment",
+					comment: comment,
 				});
 			} else {
 				res.statusCode = 400;
