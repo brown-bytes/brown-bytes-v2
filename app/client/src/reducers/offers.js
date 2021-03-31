@@ -57,7 +57,7 @@ export default function (state = initialState, action) {
 		case GET_OFFERS:
 			return {
 				...state,
-				offers: [...payload, ...state.offers],
+				offers: [...payload],
 			};
 		default:
 			return state;

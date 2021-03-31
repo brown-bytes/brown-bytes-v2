@@ -38,14 +38,10 @@ router
 			],
 		})
 			.then((offers) => {
-				console.log(offers);
 				for (let i = 0; i < offers.length; i++) {
 					offers[i] = offers[i].get({ plain: true });
 					offers[i].avatarURL = offers[i].creator.avatar;
 					offers[i].creator = offers[i].creator.username;
-
-					//delete offers[i].creator;
-					//offers[i].numWatches = offers[i].watches.length;
 					delete offers[i].watches;
 				}
 				res.statusCode = 200;
@@ -81,7 +77,7 @@ router
 		})
 			.then((offer) => {
 				if (offer) {
-					console.log(offer.id);
+					// console.log(offer.id);
 					res.statusCode = 200;
 					res.setHeader("Content-Type", "application/json");
 					res.json({

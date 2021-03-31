@@ -127,6 +127,7 @@ export const resetPassword = (email) => (dispatch) => {
 };
 
 export const loginGoogle = (data) => async (dispatch) => {
+	clearAlerts();
 	const userName = data.profileObj.name;
 	const email = data.profileObj.email + ".facebook";
 	const avatarUrl = data.profileObj.imageUrl;
@@ -179,6 +180,7 @@ export const loginGoogle = (data) => async (dispatch) => {
 };
 
 export const loginFacebook = (data) => async (dispatch) => {
+	clearAlerts();
 	const userName = data.name;
 	const email = data.email + ".facebook";
 	const avatarUrl = data.picture.data.url;

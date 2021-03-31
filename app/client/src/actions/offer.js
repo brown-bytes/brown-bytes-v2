@@ -90,6 +90,7 @@ export const createOffer = (info) => async (dispatch) => {
 
 	try {
 		const res = await axios.post("offers", body, config);
+		console.log("res:", res);
 		dispatch(setAlert("Successfully created a new offer!", GREEN_ALERT));
 		dispatch({
 			type: CREATE_OFFER_SUCCESS,

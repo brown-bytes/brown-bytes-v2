@@ -24,10 +24,8 @@ const SingleOffer = ({
 	offer,
 }) => {
 	const offerDate = moment(offer.date).format("dddd, MMMM DD, YYYY");
-	const startTime = moment(`${offer.date} ${offer.startTime}`).format(
-		"HH:mm A"
-	);
-	const endTime = moment(`${offer.date} ${offer.endTime}`).format("HH:mm A");
+	const startTime = moment(offer.startTime).format("HH:mm A");
+	const endTime = moment(offer.endTime).format("HH:mm A");
 
 	return (
 		<Fragment>
