@@ -9,10 +9,6 @@ import Button from "react-bootstrap/Button";
 
 import { createOffer } from "../../../actions/offer";
 
-const mapStateToProps = (state) => ({
-	alerts: state.alert,
-});
-
 const NewOffer = ({ createOffer }) => {
 	const [formData, setFormData] = useState({
 		description: "",
@@ -34,7 +30,6 @@ const NewOffer = ({ createOffer }) => {
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
-
 		createOffer(formData);
 	};
 
@@ -183,4 +178,8 @@ const NewOffer = ({ createOffer }) => {
 	);
 };
 
-export default connect(mapStateToProps, { createOffer })(NewOffer);
+NewOffer.propTypes = {
+	createOffer: PropTypes.func.isRequired,
+};
+
+export default connect(null, { createOffer })(NewOffer);

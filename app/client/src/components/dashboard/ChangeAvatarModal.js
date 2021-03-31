@@ -45,7 +45,7 @@ const ChangeAvatarModal = ({ show, onHide, updateAvatar }) => {
 				})
 				.toBlob((blob) => {
 					const formData = new FormData();
-					const fileName = localStorage.token;
+					const fileName = localStorage.token + Date.now();
 					formData.append("imageFile", blob, fileName + ".png");
 					for (var key of formData.entries()) {
 						console.log(key[0] + ", " + key[1]);
