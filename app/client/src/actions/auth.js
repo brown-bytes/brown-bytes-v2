@@ -191,7 +191,6 @@ export const loginFacebook = (data) => async (dispatch) => {
 			"Content-Type": "application/json",
 		},
 	};
-	console.log(userName, email, avatarUrl, password);
 	try {
 		const trySignUp = JSON.stringify({
 			userName,
