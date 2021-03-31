@@ -10,7 +10,7 @@ import {
 	LOGIN_SUCCESS,
 	LOGIN_FAIL,
 	LOGOUT,
-	CLEAR_PROFILE,
+	REGISTER_EMAIL_SENT,
 } from "./types";
 
 export const loadUser = () => async (dispatch) => {
@@ -61,19 +61,28 @@ export const register = (userName, email, password, passwordRepeat) => async (
 		const res = await axios.post("users/signup", body, config);
 		dispatch(
 			setAlert(
-				"Registeration succeeded! You are now logged in.",
+				"Thank you for signing up, a verification link has been emailed to you.",
 				GREEN_ALERT
 			)
 		);
 		dispatch({
-			type: REGISTER_SUCCESS,
-			payload: res.data,
+			type: REGISTER_EMAIL_SENT,
 		});
 
-		dispatch(loadUser());
+		//dispatch(loadUser());
 	} catch (err) {
 		const errorMessage = err.response.data.error;
-		dispatch(setAlert(errorMessage, RED_ALERT));
+		if (errorMessage === "users.email must be unique") {
+			dispatch(
+				setAlert(
+					"There is already an account associated with this email.",
+					RED_ALERT
+				)
+			);
+		} else {
+			dispatch(setAlert(errorMessage, RED_ALERT));
+		}
+
 		dispatch({
 			type: REGISTER_FAIL,
 		});
@@ -112,9 +121,6 @@ export const login = (email, password) => async (dispatch) => {
 
 export const logout = () => (dispatch) => {
 	dispatch({
-		type: CLEAR_PROFILE,
-	});
-	dispatch({
 		type: LOGOUT,
 	});
 	dispatch(setAlert("Logged out", GREEN_ALERT));
@@ -147,7 +153,7 @@ export const loginGoogle = (data) => async (dispatch) => {
 			password,
 			avatarUrl,
 		});
-		const res = await axios.post("users/signup", trySignUp, config);
+		const res = await axios.post("users/signupsocial", trySignUp, config);
 		dispatch(setAlert("Successfully logged in!", GREEN_ALERT));
 		dispatch({
 			type: REGISTER_SUCCESS,
@@ -199,7 +205,7 @@ export const loginFacebook = (data) => async (dispatch) => {
 			password,
 			avatarUrl,
 		});
-		const res = await axios.post("users/signup", trySignUp, config);
+		const res = await axios.post("users/signupsocial", trySignUp, config);
 		dispatch(setAlert("Successfully logged in!", GREEN_ALERT));
 		dispatch({
 			type: REGISTER_SUCCESS,
