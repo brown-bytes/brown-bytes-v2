@@ -3,6 +3,7 @@ import {
 	CREATE_OFFER_FAILED,
 	GET_OFFERS,
 	DELETE_OFFER,
+	CHANGE_QUERY_STRING,
 } from "../actions/types";
 
 const initialState = {
@@ -47,7 +48,8 @@ const initialState = {
 		// },
 	],
 	//offers: [],
-	loading: false,
+	loading: true,
+	queryString: "",
 };
 
 export default function (state = initialState, action) {
@@ -58,6 +60,12 @@ export default function (state = initialState, action) {
 			return {
 				...state,
 				offers: [...payload],
+				loading: false,
+			};
+		case CHANGE_QUERY_STRING:
+			return {
+				...state,
+				queryString: payload,
 			};
 		default:
 			return state;

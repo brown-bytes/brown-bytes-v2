@@ -9,6 +9,7 @@ import {
 	CREATE_OFFER_FAILED,
 	GET_OFFERS,
 	DELETE_OFFER,
+	CHANGE_QUERY_STRING,
 } from "./types";
 
 export const createOffer = (info) => async (dispatch) => {
@@ -134,5 +135,14 @@ export const deleteOffer = () => {
 };
 
 export const postComment = () => {
+	return;
+};
+
+export const changeQueryString = (newQueryString) => async (dispatch) => {
+	console.log(newQueryString);
+	dispatch({
+		type: CHANGE_QUERY_STRING,
+		payload: newQueryString,
+	});
 	return;
 };
