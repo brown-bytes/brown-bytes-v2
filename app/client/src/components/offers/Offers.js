@@ -4,14 +4,15 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 import Button from "react-bootstrap/Button";
-
+import { getOffers } from "../../actions/offer";
 import { clearAlerts } from "../../actions/alert";
 import SearchBar from "./offer/SearchBar";
 import OfferList from "./offer/OfferList";
 
-const Offers = ({ isAuthenticated }) => {
+const Offers = ({ isAuthenticated, getOffers }) => {
 	useEffect(() => {
 		clearAlerts();
+		getOffers();
 	}, []);
 
 	return (
@@ -40,10 +41,11 @@ const Offers = ({ isAuthenticated }) => {
 
 Offers.propTypes = {
 	isAuthenticated: PropTypes.bool.isRequired,
+	getOffers: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
 	isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps)(Offers);
+export default connect(mapStateToProps, { getOffers })(Offers);

@@ -127,11 +127,10 @@ export const resetPassword = (email) => (dispatch) => {
 };
 
 export const loginGoogle = (data) => async (dispatch) => {
-	//console.log(data);
 	const userName = data.profileObj.name;
-	const email = data.profileObj.email;
+	const email = data.profileObj.email + ".facebook";
 	const avatarUrl = data.profileObj.imageUrl;
-	// temororily use googleId to "sign up" on our sever, will be improved later
+	// temororily use googleId as password to "sign up" on our sever, will be improved later
 	const password = data.googleId;
 
 	const config = {
@@ -183,7 +182,7 @@ export const loginFacebook = (data) => async (dispatch) => {
 	const userName = data.name;
 	const email = data.email + ".facebook";
 	const avatarUrl = data.picture.data.url;
-	// temororily use facebookId to "sign up" on our sever, will be improved later
+	// temororily use facebookId as password to "sign up" on our sever, will be improved later
 	const password = data.id;
 
 	const config = {

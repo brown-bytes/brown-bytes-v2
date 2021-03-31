@@ -88,7 +88,6 @@ export const createOffer = (info) => async (dispatch) => {
 		endTime,
 	});
 
-	console.log("body:", body);
 	try {
 		const res = await axios.post("offers", body, config);
 		dispatch(setAlert("Successfully created a new offer!", GREEN_ALERT));
@@ -96,6 +95,7 @@ export const createOffer = (info) => async (dispatch) => {
 			type: CREATE_OFFER_SUCCESS,
 			payload: res.data,
 		});
+		toTop();
 	} catch (err) {
 		const errorMessage = err.response.data.error;
 		dispatch(setAlert(errorMessage, RED_ALERT));
@@ -105,7 +105,26 @@ export const createOffer = (info) => async (dispatch) => {
 	}
 };
 
-export const getOffers = () => {
+export const getOffers = () => async (dispatch) => {
+	console.log("getting offers");
+
+	try {
+		const res = await axios.get("offers");
+		const offers = Object.values(res.data.offers);
+		//offers = Object.values(offers);
+		console.log(offers.length);
+		console.log(typeof offers);
+		dispatch({
+			type: GET_OFFERS,
+			payload: offers,
+		});
+	} catch (err) {
+		if (err.response) {
+			const errorMessage = err.response.data.error;
+			dispatch(setAlert(errorMessage, RED_ALERT));
+		}
+	}
+
 	return;
 };
 

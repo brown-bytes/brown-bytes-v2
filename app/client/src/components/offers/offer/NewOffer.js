@@ -17,6 +17,7 @@ const NewOffer = ({ createOffer }) => {
 		startTime: "",
 		endTime: "",
 		otherInfo: "",
+		anonymous: false,
 	});
 
 	const onChange = (e) => {

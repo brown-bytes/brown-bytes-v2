@@ -41,7 +41,11 @@ router
 				console.log(offers);
 				for (let i = 0; i < offers.length; i++) {
 					offers[i] = offers[i].get({ plain: true });
-					offers[i].numWatches = offers[i].watches.length;
+					offers[i].avatarURL = offers[i].creator.avatar;
+					offers[i].creator = offers[i].creator.username;
+
+					//delete offers[i].creator;
+					//offers[i].numWatches = offers[i].watches.length;
 					delete offers[i].watches;
 				}
 				res.statusCode = 200;
