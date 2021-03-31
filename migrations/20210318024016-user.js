@@ -28,6 +28,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
+      isActive: {
+        type: Sequelize.BOOLEAN,
+      },
       avatar: {
         type: Sequelize.STRING
       },
