@@ -2,8 +2,9 @@ import {
 	CREATE_OFFER_SUCCESS,
 	CREATE_OFFER_FAILED,
 	GET_OFFERS,
-	DELETE_OFFER,
 	CHANGE_QUERY_STRING,
+	DELETE_OFFER_SUCCESS,
+	DELETE_OFFER_FAILED,
 } from "../actions/types";
 
 const initialState = {
@@ -67,6 +68,10 @@ export default function (state = initialState, action) {
 				...state,
 				queryString: payload,
 			};
+		case CREATE_OFFER_SUCCESS:
+		case CREATE_OFFER_FAILED:
+		case DELETE_OFFER_SUCCESS:
+		case DELETE_OFFER_FAILED:
 		default:
 			return state;
 	}

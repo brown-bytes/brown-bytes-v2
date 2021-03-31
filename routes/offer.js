@@ -40,8 +40,14 @@ router
 			.then((offers) => {
 				for (let i = 0; i < offers.length; i++) {
 					offers[i] = offers[i].get({ plain: true });
-					offers[i].avatarURL = offers[i].creator.avatar;
-					offers[i].creator = offers[i].creator.username;
+					offers[i].avatarURL = offers[i].isAnonymous
+						? `${req.protocol}://${req.get(
+								"host"
+						  )}/images/default_avatar.png`
+						: offers[i].creator.avatar;
+					offers[i].creator = offers[i].isAnonymous
+						? "Anonymous"
+						: offers[i].creator.username;
 					delete offers[i].watches;
 				}
 				res.statusCode = 200;

@@ -68,8 +68,6 @@ export const register = (userName, email, password, passwordRepeat) => async (
 		dispatch({
 			type: REGISTER_EMAIL_SENT,
 		});
-
-		//dispatch(loadUser());
 	} catch (err) {
 		const errorMessage = err.response.data.error;
 		if (errorMessage === "users.email must be unique") {
@@ -135,7 +133,7 @@ export const resetPassword = (email) => (dispatch) => {
 export const loginGoogle = (data) => async (dispatch) => {
 	clearAlerts();
 	const userName = data.profileObj.name;
-	const email = data.profileObj.email + ".facebook";
+	const email = data.profileObj.email + ".google";
 	const avatarUrl = data.profileObj.imageUrl;
 	// temororily use googleId as password to "sign up" on our sever, will be improved later
 	const password = data.googleId;

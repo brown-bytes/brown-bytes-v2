@@ -2,13 +2,13 @@ import moment from "moment";
 import axios from "axios";
 import { setAlert, clearAlerts } from "./alert";
 import toTop from "../utils/scrollToTop";
-import setAuthToken from "../utils/setAuthToken";
 import { RED_ALERT, GREEN_ALERT } from "../components/layout/AlertTypes";
 import {
 	CREATE_OFFER_SUCCESS,
 	CREATE_OFFER_FAILED,
 	GET_OFFERS,
-	DELETE_OFFER,
+	DELETE_OFFER_SUCCESS,
+	DELETE_OFFER_FAILED,
 	CHANGE_QUERY_STRING,
 } from "./types";
 
@@ -113,9 +113,6 @@ export const getOffers = () => async (dispatch) => {
 	try {
 		const res = await axios.get("offers");
 		const offers = Object.values(res.data.offers);
-		//offers = Object.values(offers);
-		console.log(offers.length);
-		console.log(typeof offers);
 		dispatch({
 			type: GET_OFFERS,
 			payload: offers,
@@ -130,7 +127,28 @@ export const getOffers = () => async (dispatch) => {
 	return;
 };
 
-export const deleteOffer = () => {
+export const deleteOffer = (e) => async (dispatch) => {
+	console.log(e.target.id);
+	console.log("deleting offer");
+	const offerId = e.target.id;
+	try {
+		const res = await axios.delete(`offers/${offerId}`);
+		dispatch({
+			type: DELETE_OFFER_SUCCESS,
+		});
+		dispatch(setAlert("Successfully deleted your offer", GREEN_ALERT));
+		dispatch(getOffers());
+		toTop();
+	} catch (err) {
+		if (err.response) {
+			const errorMessage = err.response.data.error;
+			dispatch(setAlert(errorMessage, RED_ALERT));
+			dispatch({
+				type: DELETE_OFFER_FAILED,
+			});
+		}
+	}
+
 	return;
 };
 

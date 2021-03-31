@@ -40,6 +40,7 @@ router
 					res.json({
 						success: true,
 						data: {
+							userId: user.id,
 							userName: user.userName,
 							avatar: user.avatar,
 							bio: user.bio,

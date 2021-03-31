@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
@@ -11,13 +11,12 @@ import Image from "react-bootstrap/Image";
 import Card from "react-bootstrap/Card";
 import moment from "moment";
 
-import { deleteOffer, postComment } from "../../../actions/offer";
+import { deleteOffer } from "../../../actions/offer";
 import Accordion from "react-bootstrap/esm/Accordion";
 import CommentArea from "../comment/CommentArea";
 
 const SingleOffer = ({
 	deleteOffer,
-	postComment,
 	isAuthenticated,
 	authedUser,
 	loadingUser,
@@ -48,7 +47,7 @@ const SingleOffer = ({
 									className="pl-1 pr-0">
 									<Image
 										className="comment-favicon"
-										src="favicon-96x96.png"
+										src={offer.avatarURL}
 										fluid
 										roundedCircle
 										thumbnail></Image>
@@ -93,12 +92,16 @@ const SingleOffer = ({
 								{!loadingUser &&
 									isAuthenticated &&
 									authedUser &&
-									authedUser.userid === offer.creator && (
+									authedUser.userId === offer.creatorId && (
 										<Button
 											className="pr-3"
 											variant="outline-link"
-											size="lg">
-											<i className="fas fa-trash-alt"></i>
+											size="lg"
+											id={offer.id}
+											onClick={deleteOffer}>
+											<i
+												id={offer.id}
+												className="fas fa-trash-alt"></i>
 										</Button>
 									)}
 								<Accordion.Toggle
@@ -124,13 +127,29 @@ const SingleOffer = ({
 	);
 };
 
-const mapStateToProps = (state) => ({
-	isAuthenticated: state.auth.isAuthenticated,
-	authedUser: state.auth.user,
-	loadingUser: state.auth.loading,
-});
+const mapStateToProps = (state) => {
+	if (state.auth && state.auth.user) {
+		return {
+			isAuthenticated: state.auth.isAuthenticated,
+			authedUser: state.auth.user.data,
+			loadingUser: state.auth.loading,
+		};
+	} else {
+		return {
+			isAuthenticated: false,
+			authedUser: null,
+			loadingUser: null,
+		};
+	}
+};
+
+SingleOffer.propTypes = {
+	isAuthenticated: PropTypes.bool,
+	authedUser: PropTypes.object,
+	loadingUser: PropTypes.bool,
+	deleteOffer: PropTypes.func,
+};
 
 export default connect(mapStateToProps, {
 	deleteOffer,
-	postComment,
 })(SingleOffer);
