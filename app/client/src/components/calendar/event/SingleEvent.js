@@ -1,12 +1,7 @@
 import React, { Fragment } from "react";
 import moment from "moment";
 import { connect } from "react-redux";
-import {
-	watch,
-	unwatch,
-	deleteEvent,
-	postComment,
-} from "../../../actions/event";
+import { watch, unwatch, deleteEvent } from "../../../actions/event";
 
 import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
@@ -34,7 +29,6 @@ const SingleEvent = ({
 	watch,
 	unwatch,
 	deleteEvent,
-	postComment,
 	isAuthenticated,
 	authedUser,
 	loadingUser,
@@ -197,36 +191,44 @@ const SingleEvent = ({
 									md={4}
 									lg={3}
 									className="justify-content-end d-flex">
-									<Button
-										className="px-2"
-										variant="outline-link"
-										size="lg">
-										<i className="fas fa-eye" />{" "}
-										{event.numWatches.length > 0 && (
-											<span>
-												{event.numWatches.length}
-											</span>
-										)}
-									</Button>
+									{event.numWatches.length > 0 && (
+										<Button
+											className="px-2"
+											variant="outline-link"
+											size="lg">
+											<i className="fas fa-eye" />{" "}
+											{event.numWatches.length > 0 && (
+												<span>
+													{event.numWatches.length}
+												</span>
+											)}
+										</Button>
+									)}
 
-									<Accordion.Toggle
-										as={Button}
-										className="px-2"
-										variant="outline-link"
-										eventKey="comment"
-										size="lg">
-										<i className="far fa-comment"></i>{" "}
-										{event.comments.length > 0 && (
-											<span>{event.comments.length}</span>
-										)}
-									</Accordion.Toggle>
+									{event.comments.length > 0 && (
+										<Accordion.Toggle
+											as={Button}
+											className="px-2"
+											variant="outline-link"
+											eventKey="comment"
+											size="lg">
+											<i className="far fa-comment"></i>{" "}
+											{event.comments.length > 0 && (
+												<span>
+													{event.comments.length}
+												</span>
+											)}
+										</Accordion.Toggle>
+									)}
 								</Col>
 							)}
 						</Row>
 					</Card.Body>
 				</Card>
 				<Accordion.Collapse eventKey="comment" className="comment-area">
-					<CommentArea comments={event.comments}></CommentArea>
+					<CommentArea
+						comments={event.comments}
+						eventId={event.id}></CommentArea>
 				</Accordion.Collapse>
 			</Accordion>
 		</Fragment>
@@ -253,5 +255,4 @@ export default connect(mapStateToProps, {
 	watch,
 	unwatch,
 	deleteEvent,
-	postComment,
 })(SingleEvent);

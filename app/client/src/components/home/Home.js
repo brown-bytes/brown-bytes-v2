@@ -8,7 +8,6 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 import { clearAlerts } from "../../actions/alert";
-import EventList from "../calendar/event/EventList";
 import FutureEventList from "../calendar/event/FutureEventLIst";
 import Image from "react-bootstrap/Image";
 

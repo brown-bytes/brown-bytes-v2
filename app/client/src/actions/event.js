@@ -156,7 +156,29 @@ export const unwatch = () => async (dispatch) => {
 export const deleteEvent = () => async (dispatch) => {
 	return;
 };
-export const postComment = () => async (dispatch) => {
+
+export const postEventComment = (comment, eventId) => async (dispatch) => {
+	const config = {
+		headers: {
+			"Content-Type": "application/json",
+		},
+	};
+
+	const body = JSON.stringify({
+		content: comment,
+	});
+
+	try {
+		await axios.post(`events/comment/${eventId}`, body, config);
+		// dispatch(setAlert("Successfully posted a new comment", GREEN_ALERT));
+		// dispatch({
+		// 	type: POST_OFFER_COMMENT,
+		// });
+		// dispatch(getOffers());
+	} catch (err) {
+		const errorMessage = err.response.data.error;
+		dispatch(setAlert(errorMessage, RED_ALERT));
+	}
 	return;
 };
 
