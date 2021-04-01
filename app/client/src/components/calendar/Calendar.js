@@ -5,7 +5,9 @@ import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 
 import { clearAlerts } from "../../actions/alert";
-import EventList from "./event/EventList";
+// import EventList from "./event/EventList";
+import FutureEventList from "./event/FutureEventLIst";
+import PastEventList from "./event/PastEventList";
 import SearchBar from "./event/SearchBar";
 
 const Calendar = ({ isAuthenticated }) => {
@@ -44,14 +46,14 @@ const Calendar = ({ isAuthenticated }) => {
 			)}
 			<hr></hr>
 			<SearchBar></SearchBar>
-			<EventList></EventList>
+			<FutureEventList></FutureEventList>
 			<a id="calendar-past-events-toggle" onClick={togglePreviousEvents}>
 				Show past events
 			</a>
 			{showPreviousEvents && (
 				<Fragment>
 					<p className="calendar-heading2">Past Events</p>
-					<EventList></EventList>
+					<PastEventList></PastEventList>
 				</Fragment>
 			)}
 		</Fragment>

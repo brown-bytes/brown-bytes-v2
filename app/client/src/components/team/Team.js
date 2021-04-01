@@ -45,7 +45,7 @@ const Team = ({ sendFeedBack }) => {
 			</p>
 			<Form id="feedback-form" onSubmit={(e) => onSubmit(e)}>
 				<Form.Group>
-					<Form.Label className="feedback-form-label" for="name">
+					<Form.Label className="feedback-form-label" htmlFor="name">
 						Your full name
 					</Form.Label>
 					<Form.Control
@@ -57,7 +57,7 @@ const Team = ({ sendFeedBack }) => {
 				</Form.Group>
 
 				<Form.Group>
-					<Form.Label className="feedback-form-label" for="email">
+					<Form.Label className="feedback-form-label" htmlFor="email">
 						Email
 					</Form.Label>
 					<Form.Control
@@ -70,7 +70,9 @@ const Team = ({ sendFeedBack }) => {
 				</Form.Group>
 
 				<Form.Group>
-					<Form.Label className="feedback-form-label" for="comment">
+					<Form.Label
+						className="feedback-form-label"
+						htmlFor="comment">
 						Comments
 					</Form.Label>
 					<Form.Control

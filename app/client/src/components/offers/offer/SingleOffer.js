@@ -103,7 +103,9 @@ const SingleOffer = ({
 											<i
 												id={offer.id}
 												className="fas fa-trash-alt"></i>
-											<span class="sr-only">Close</span>
+											<span className="sr-only">
+												Close
+											</span>
 										</Button>
 									)}
 								<Accordion.Toggle
@@ -113,7 +115,7 @@ const SingleOffer = ({
 									eventKey="comment"
 									size="lg">
 									<i className="far fa-comment"></i>
-									<span class="sr-only">Close</span>{" "}
+									<span className="sr-only">Close</span>{" "}
 									{offer.comments.length > 0 && (
 										<span>{offer.comments.length}</span>
 									)}

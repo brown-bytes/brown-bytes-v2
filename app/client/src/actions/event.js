@@ -3,6 +3,18 @@ import axios from "axios";
 import { setAlert, clearAlerts } from "./alert";
 import { RED_ALERT, GREEN_ALERT } from "../components/layout/AlertTypes";
 import toTop from "../utils/scrollToTop";
+import {
+	CREATE_EVENT_SUCCESS,
+	CREATE_EVENT_FAILED,
+	GET_FUTURE_EVENTS,
+	GET_PAST_EVENTS,
+	DELETE_EVENT_SUCCESS,
+	DELETE_EVENT_FAILED,
+	CHANGE_EVENT_QUERY_STRING,
+	POST_EVENT_COMMENT,
+	WATCH_EVENT,
+	UNWATCH_EVENT,
+} from "./types";
 
 export const createEvent = (info) => async (dispatch) => {
 	let date = info.date;
@@ -70,7 +82,7 @@ export const createEvent = (info) => async (dispatch) => {
 	endTime = endDateTime;
 	const hostGroup = info.hostGroup;
 	const eventType = info.eventType;
-	const admittance = info.whoCanCome;
+	const whoCanCome = info.whoCanCome;
 	const foodType = info.foodType;
 	const foodAmount = info.foodAmount;
 	const otherInfo = info.otherInfo;
@@ -83,7 +95,7 @@ export const createEvent = (info) => async (dispatch) => {
 		endTime,
 		hostGroup,
 		eventType,
-		admittance,
+		whoCanCome,
 		foodType,
 		foodAmount,
 		otherInfo,
@@ -91,21 +103,23 @@ export const createEvent = (info) => async (dispatch) => {
 	console.log("sending body:", body);
 
 	try {
-		const res = await axios.post("events", body, config);
-
+		await axios.post("events", body, config);
 		dispatch(
 			setAlert(
 				"Successfully created an event. Check it out in calendar",
 				GREEN_ALERT
 			)
 		);
+		dispatch({
+			type: CREATE_EVENT_SUCCESS,
+		});
 		toTop();
 	} catch (err) {
 		const errorMessage = err.response.data.error;
 		dispatch(setAlert(errorMessage, RED_ALERT));
-		// dispatch({
-		// 	type: CREATE_OFFER_FAILED,
-		// });
+		dispatch({
+			type: CREATE_EVENT_FAILED,
+		});
 	}
 };
 

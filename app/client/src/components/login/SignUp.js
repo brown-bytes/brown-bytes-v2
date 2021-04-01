@@ -61,7 +61,9 @@ const SignUp = ({ register }) => {
 				<hr></hr>
 				<Form onSubmit={(e) => onSubmit(e)} id="signup-form">
 					<Form.Group>
-						<Form.Label className="signup-form-label-top" for="userName">
+						<Form.Label
+							className="signup-form-label-top"
+							htmlFor="userName">
 							Username
 						</Form.Label>
 						<Form.Control
@@ -76,7 +78,9 @@ const SignUp = ({ register }) => {
 					</Form.Group>
 
 					<Form.Group>
-						<Form.Label className="signup-form-label-top" for="email">
+						<Form.Label
+							className="signup-form-label-top"
+							htmlFor="email">
 							Email
 						</Form.Label>
 						<Form.Control
@@ -92,7 +96,9 @@ const SignUp = ({ register }) => {
 					</Form.Group>
 
 					<Form.Group>
-						<Form.Label className="signup-form-label-top" for="password">
+						<Form.Label
+							className="signup-form-label-top"
+							htmlFor="password">
 							Password
 						</Form.Label>
 						<Form.Control
@@ -109,7 +115,9 @@ const SignUp = ({ register }) => {
 					</Form.Group>
 
 					<Form.Group>
-						<Form.Label className="signup-form-label-top" for="passwordRepeat">
+						<Form.Label
+							className="signup-form-label-top"
+							htmlFor="passwordRepeat">
 							Repeat Password
 						</Form.Label>
 						<Form.Control

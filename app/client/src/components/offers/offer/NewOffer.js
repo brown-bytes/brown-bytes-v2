@@ -57,7 +57,9 @@ const NewOffer = ({ createOffer }) => {
 				<hr></hr>
 				<Form onSubmit={(e) => onSubmit(e)} id="new-offer-form">
 					<Form.Group>
-						<Form.Label className="new-offer-form-label" for="description">
+						<Form.Label
+							className="new-offer-form-label"
+							htmlFor="description">
 							<span className="new-offer-asterisk new-offer-text">
 								*
 							</span>{" "}
@@ -72,7 +74,9 @@ const NewOffer = ({ createOffer }) => {
 					</Form.Group>
 
 					<Form.Group>
-						<Form.Label className="new-offer-form-label" for="location">
+						<Form.Label
+							className="new-offer-form-label"
+							htmlFor="location">
 							<span className="new-offer-asterisk new-offer-text">
 								*
 							</span>{" "}
@@ -100,7 +104,9 @@ const NewOffer = ({ createOffer }) => {
 					</Form.Group>
 
 					<Form.Group>
-						<Form.Label className="new-offer-form-label" for="date">
+						<Form.Label
+							className="new-offer-form-label"
+							htmlFor="date">
 							<span className="new-offer-asterisk new-offer-text">
 								*
 							</span>{" "}
@@ -118,7 +124,9 @@ const NewOffer = ({ createOffer }) => {
 					</Form.Group>
 
 					<Form.Group>
-						<Form.Label className="new-offer-form-label" for="startTime">
+						<Form.Label
+							className="new-offer-form-label"
+							htmlFor="startTime">
 							<span className="new-offer-asterisk new-offer-text">
 								*
 							</span>{" "}
@@ -140,7 +148,9 @@ const NewOffer = ({ createOffer }) => {
 					</Form.Group>
 
 					<Form.Group>
-						<Form.Label className="new-offer-form-label" for="endTime">
+						<Form.Label
+							className="new-offer-form-label"
+							htmlFor="endTime">
 							<span className="new-offer-asterisk new-offer-text">
 								*
 							</span>{" "}
@@ -162,7 +172,9 @@ const NewOffer = ({ createOffer }) => {
 					</Form.Group>
 
 					<Form.Group>
-						<Form.Label className="new-offer-form-label" for="otherInfo">
+						<Form.Label
+							className="new-offer-form-label"
+							htmlFor="otherInfo">
 							Other information:
 						</Form.Label>
 						<Form.Control
