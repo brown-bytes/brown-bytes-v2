@@ -3,10 +3,9 @@ import { connect } from "react-redux";
 
 import Spinner from "react-bootstrap/Spinner";
 
-import { getEvents } from "../../../actions/event";
 import SingleEvent from "./SingleEvent";
 
-const EventList = ({ getEvents, events, loading, queryString }) => {
+const EventList = ({ events, loading, queryString }) => {
 	return loading ? (
 		<Spinner animation="border" role="status">
 			<span className="sr-only">Loading...</span>
@@ -26,4 +25,4 @@ const mapStateToProps = (state) => ({
 	queryString: state.events.queryString,
 });
 
-export default connect(mapStateToProps, { getEvents })(EventList);
+export default connect(mapStateToProps)(EventList);
