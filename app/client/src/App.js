@@ -14,6 +14,9 @@ import setAuthToken from "./utils/setAuthToken";
 
 import "./App.css";
 
+import { SkipNavLink, SkipNavContent } from "@reach/skip-nav";
+import "@reach/skip-nav/styles.css";
+
 if (localStorage.token) {
 	setAuthToken(localStorage.token);
 }
@@ -27,11 +30,14 @@ const App = () => {
 		<Provider store={store}>
 			<Router>
 				<Fragment>
+					<SkipNavLink contentId="mainContent">Skip Nav</SkipNavLink>
 					<Navbar />
-					<Switch>
-						<Route component={Routes} />
-					</Switch>
-					<Footer />
+					<SkipNavContent id="mainContent">
+						<Switch>
+							<Route component={Routes} />
+						</Switch>
+						<Footer />
+					</SkipNavContent>
 				</Fragment>
 			</Router>
 		</Provider>

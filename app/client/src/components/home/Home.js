@@ -37,7 +37,7 @@ const Home = ({ isAuthenticated }) => {
 						</p>
 					</Col>
 					<Col lg={4}>
-						<Image src="brownbytes-logo.png" fluid></Image>
+						<Image src="brownbytes-logo.png" alt="brownbytes_logo" fluid></Image>
 					</Col>
 				</Row>
 				<EventList></EventList>

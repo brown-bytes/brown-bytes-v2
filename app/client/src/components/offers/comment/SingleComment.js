@@ -24,6 +24,7 @@ const SingleComment = ({ comment }) => {
 						<Image
 							className="comment-favicon"
 							src={comment.poster.avatar}
+							alt="image_logo"
 							fluid
 							roundedCircle
 							thumbnail></Image>

@@ -47,6 +47,7 @@ const SingleOffer = ({
 									className="pl-1 pr-0">
 									<Image
 										className="comment-favicon"
+										alt="image_logo"
 										src={offer.avatarURL}
 										fluid
 										roundedCircle
@@ -102,6 +103,7 @@ const SingleOffer = ({
 											<i
 												id={offer.id}
 												className="fas fa-trash-alt"></i>
+											<span class="sr-only">Close</span>
 										</Button>
 									)}
 								<Accordion.Toggle
@@ -110,7 +112,8 @@ const SingleOffer = ({
 									variant="outline-link"
 									eventKey="comment"
 									size="lg">
-									<i className="far fa-comment"></i>{" "}
+									<i className="far fa-comment"></i>
+									<span class="sr-only">Close</span>{" "}
 									{offer.comments.length > 0 && (
 										<span>{offer.comments.length}</span>
 									)}

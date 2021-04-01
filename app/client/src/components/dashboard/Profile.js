@@ -44,6 +44,7 @@ const Profile = ({
 				<Image
 					className="comment-favicon"
 					id="dashboard-profile-favicon"
+					alt="dashboard-profile-image"
 					src={avatarURL}
 					fluid
 					roundedCircle
@@ -52,7 +53,7 @@ const Profile = ({
 				<span id="dashboard-username">{userName}</span>
 				<Form onSubmit={(e) => onSubmit(e)}>
 					<Form.Group>
-						<Form.Label className="dashboard-profile-form-label">
+						<Form.Label className="dashboard-profile-form-label" for="formbio">
 							Bio
 						</Form.Label>
 						{bio ? (
@@ -73,7 +74,7 @@ const Profile = ({
 					</Form.Group>
 
 					<Form.Group>
-						<Form.Label className="dashboard-profile-form-label">
+						<Form.Label className="dashboard-profile-form-label" for="formfaceBookLink">
 							Facebook
 						</Form.Label>
 						{faceBookLink ? (
@@ -91,7 +92,7 @@ const Profile = ({
 						)}
 					</Form.Group>
 					<Form.Group>
-						<Form.Label className="dashboard-profile-form-label">
+						<Form.Label className="dashboard-profile-form-label" for="formtwitterLink">
 							Twitter
 						</Form.Label>
 						{twitterLink ? (
@@ -109,7 +110,7 @@ const Profile = ({
 						)}
 					</Form.Group>
 					<Form.Group>
-						<Form.Label className="dashboard-profile-form-label">
+						<Form.Label className="dashboard-profile-form-label" for="forminstagramLink">
 							Instagram
 						</Form.Label>
 						{instagramLink ? (

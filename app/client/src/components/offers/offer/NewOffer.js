@@ -57,7 +57,7 @@ const NewOffer = ({ createOffer }) => {
 				<hr></hr>
 				<Form onSubmit={(e) => onSubmit(e)} id="new-offer-form">
 					<Form.Group>
-						<Form.Label className="new-offer-form-label">
+						<Form.Label className="new-offer-form-label" for="description">
 							<span className="new-offer-asterisk new-offer-text">
 								*
 							</span>{" "}
@@ -72,7 +72,7 @@ const NewOffer = ({ createOffer }) => {
 					</Form.Group>
 
 					<Form.Group>
-						<Form.Label className="new-offer-form-label">
+						<Form.Label className="new-offer-form-label" for="location">
 							<span className="new-offer-asterisk new-offer-text">
 								*
 							</span>{" "}
@@ -100,7 +100,7 @@ const NewOffer = ({ createOffer }) => {
 					</Form.Group>
 
 					<Form.Group>
-						<Form.Label className="new-offer-form-label">
+						<Form.Label className="new-offer-form-label" for="date">
 							<span className="new-offer-asterisk new-offer-text">
 								*
 							</span>{" "}
@@ -118,7 +118,7 @@ const NewOffer = ({ createOffer }) => {
 					</Form.Group>
 
 					<Form.Group>
-						<Form.Label className="new-offer-form-label">
+						<Form.Label className="new-offer-form-label" for="startTime">
 							<span className="new-offer-asterisk new-offer-text">
 								*
 							</span>{" "}
@@ -140,7 +140,7 @@ const NewOffer = ({ createOffer }) => {
 					</Form.Group>
 
 					<Form.Group>
-						<Form.Label className="new-offer-form-label">
+						<Form.Label className="new-offer-form-label" for="endTime">
 							<span className="new-offer-asterisk new-offer-text">
 								*
 							</span>{" "}
@@ -162,7 +162,7 @@ const NewOffer = ({ createOffer }) => {
 					</Form.Group>
 
 					<Form.Group>
-						<Form.Label className="new-offer-form-label">
+						<Form.Label className="new-offer-form-label" for="otherInfo">
 							Other information:
 						</Form.Label>
 						<Form.Control
