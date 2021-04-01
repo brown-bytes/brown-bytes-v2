@@ -5,7 +5,7 @@ import Spinner from "react-bootstrap/Spinner";
 
 import SingleEvent from "./SingleEvent";
 
-const EventList = ({ events, loading, queryString }) => {
+const EventList = ({ events, loading }) => {
 	return loading ? (
 		<Spinner animation="border" role="status">
 			<span className="sr-only">Loading...</span>
@@ -20,9 +20,8 @@ const EventList = ({ events, loading, queryString }) => {
 };
 
 const mapStateToProps = (state) => ({
-	events: state.events.events,
+	events: state.events.pastEvents,
 	loading: state.events.loading,
-	queryString: state.events.queryString,
 });
 
 export default connect(mapStateToProps)(EventList);

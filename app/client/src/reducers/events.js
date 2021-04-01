@@ -11,10 +11,10 @@ import {
 	UNWATCH_EVENT,
 } from "../actions/types";
 const initialState = {
-	events: [],
 	futureEvents: [],
 	pastEvents: [],
-	loading: false,
+	loadingFuture: true,
+	loadingPast: false,
 	queryString: "",
 };
 
@@ -22,6 +22,13 @@ export default function (state = initialState, action) {
 	const { type, payload } = action;
 
 	switch (type) {
+		case GET_FUTURE_EVENTS:
+			return {
+				...state,
+				futureEvents: [...payload],
+				loadingFuture: false,
+			};
+
 		case CREATE_EVENT_SUCCESS:
 		case CREATE_EVENT_FAILED:
 		default:

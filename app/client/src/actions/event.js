@@ -100,7 +100,6 @@ export const createEvent = (info) => async (dispatch) => {
 		foodAmount,
 		otherInfo,
 	});
-	console.log("sending body:", body);
 
 	try {
 		await axios.post("events", body, config);
@@ -123,23 +122,40 @@ export const createEvent = (info) => async (dispatch) => {
 	}
 };
 
-export const getFutureEvents = () => {
+export const getFutureEvents = () => async (dispatch) => {
+	console.log("getting future events");
+	try {
+		const res = await axios.get("events");
+		// console.log(res);
+		const events = Object.values(res.data.events);
+		console.log(events);
+		dispatch({
+			type: GET_FUTURE_EVENTS,
+			payload: events,
+		});
+	} catch (err) {
+		if (err.response) {
+			const errorMessage = err.response.data.error;
+			dispatch(setAlert(errorMessage, RED_ALERT));
+		}
+	}
+
 	return;
 };
 
-export const getPastEvents = () => {
+export const getPastEvents = () => async (dispatch) => {
 	return;
 };
 
-export const watch = () => {
+export const watch = () => async (dispatch) => {
 	return;
 };
-export const unwatch = () => {
+export const unwatch = () => async (dispatch) => {
 	return;
 };
-export const deleteEvent = () => {
+export const deleteEvent = () => async (dispatch) => {
 	return;
 };
-export const postComment = () => {
+export const postComment = () => async (dispatch) => {
 	return;
 };

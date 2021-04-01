@@ -1,11 +1,17 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { connect } from "react-redux";
 
 import Spinner from "react-bootstrap/Spinner";
 
 import SingleEvent from "./SingleEvent";
 
-const EventList = ({ events, loading, queryString }) => {
+import { getFutureEvents } from "../../../actions/event";
+
+const EventList = ({ events, loading, queryString, getFutureEvents }) => {
+	useEffect(() => {
+		getFutureEvents();
+	}, []);
+
 	return loading ? (
 		<Spinner animation="border" role="status">
 			<span className="sr-only">Loading...</span>
@@ -20,9 +26,9 @@ const EventList = ({ events, loading, queryString }) => {
 };
 
 const mapStateToProps = (state) => ({
-	events: state.events.events,
-	loading: state.events.loading,
+	events: state.events.futureEvents,
+	loading: state.events.loadingFuture,
 	queryString: state.events.queryString,
 });
 
-export default connect(mapStateToProps)(EventList);
+export default connect(mapStateToProps, { getFutureEvents })(EventList);

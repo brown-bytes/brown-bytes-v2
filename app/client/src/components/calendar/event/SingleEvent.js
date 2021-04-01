@@ -40,11 +40,10 @@ const SingleEvent = ({
 	loadingUser,
 	event,
 }) => {
-	const eventDate = moment(event.date).format("dddd, MMMM DD, YYYY");
-	const startTime = moment(`${event.date} ${event.startTime}`).format(
-		"HH:mm A"
-	);
-	const endTime = moment(`${event.date} ${event.endTime}`).format("HH:mm A");
+	const eventDate = moment(event.eventDate).format("dddd, MMMM DD, YYYY");
+	const startTime = moment(event.startTime).format("HH:mm A");
+	const endTime = moment(event.endTime).format("HH:mm A");
+	const createdAt = moment(event.createdAt).format("dddd, MMMM DD, YYYY");
 	return (
 		<Fragment>
 			<Accordion>
@@ -60,8 +59,8 @@ const SingleEvent = ({
 							</Col>
 							<Col xs={6} sm={4} md={3} lg={2}>
 								<EventBadge
-									startTime={`${event.date} ${event.startTime}`}
-									endTime={`${event.date} ${event.endTime}`}></EventBadge>
+									startTime={event.startTime}
+									endTime={event.endTime}></EventBadge>
 							</Col>
 						</Row>
 					</Card.Header>
@@ -132,9 +131,7 @@ const SingleEvent = ({
                         event-card-moreinfo-class-${event.id}`}>
 							Event created{" "}
 							{event.creator && <span>by {event.creator}</span>}{" "}
-							{event.creatTime && (
-								<span>at {event.creatTime}</span>
-							)}
+							{event.createdAt && <span>at {createdAt}</span>}
 						</p>
 
 						<Row noGutters="true">
