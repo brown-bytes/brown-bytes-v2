@@ -454,7 +454,6 @@ body {
 	bottom: 7px;
 }
 
-  
 [data-reach-skip-nav-link] {
 	border: 0;
 	clip: rect(0 0 0 0);
@@ -464,19 +463,16 @@ body {
 	padding: 0;
 	overflow: hidden;
 	position: absolute;
-	top: 50px;
 }
 
 [data-reach-skip-nav-link]:focus {
 	padding: 1rem;
-	position: fixed;
-	top: 10px;
-	left: 10px;
+	position: absolute !important;
+	top: 40px !important;
+	left: 5px;
 	background: white;
 	z-index: 1;
 	width: auto;
 	height: auto;
 	clip: auto;
 }
-  
-  

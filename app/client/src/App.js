@@ -30,7 +30,9 @@ const App = () => {
 		<Provider store={store}>
 			<Router>
 				<Fragment>
-					<SkipNavLink contentId="mainContent">Skip Nav</SkipNavLink>
+					<SkipNavLink contentId="mainContent">
+						Skip To Main Content
+					</SkipNavLink>
 					<Navbar />
 					<SkipNavContent id="mainContent">
 						<Switch>
