@@ -8,9 +8,8 @@ const MyEvents = () => {
 	return (
 		<Fragment>
 			<p className="dashboard-my-events-heading">Events I am watching:</p>
-			<EventList></EventList>
+
 			<p className="dashboard-my-events-heading">Events I Created:</p>
-			<EventList></EventList>
 		</Fragment>
 	);
 };

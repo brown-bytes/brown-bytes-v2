@@ -143,7 +143,7 @@ const SingleEvent = ({
 									More info
 								</a>
 							</Col>
-							{isAuthenticated && (
+							{isAuthenticated ? (
 								<Col
 									xs={9}
 									sm={9}
@@ -152,7 +152,8 @@ const SingleEvent = ({
 									className="justify-content-end d-flex">
 									{!loadingUser &&
 										authedUser &&
-										authedUser.userid === event.creator && (
+										authedUser.userId ===
+											event.creatorId && (
 											<Button
 												className="pr-3"
 												variant="outline-link"
@@ -165,8 +166,10 @@ const SingleEvent = ({
 										variant="outline-link"
 										size="lg">
 										<i className="fas fa-eye" />{" "}
-										{event.watches.length > 0 && (
-											<span>{event.watches.length}</span>
+										{event.numWatches.length > 0 && (
+											<span>
+												{event.numWatches.length}
+											</span>
 										)}
 									</Button>
 									<Button
@@ -175,6 +178,37 @@ const SingleEvent = ({
 										size="lg">
 										<i className="fas fa-eye-slash" />
 									</Button>
+									<Accordion.Toggle
+										as={Button}
+										className="px-2"
+										variant="outline-link"
+										eventKey="comment"
+										size="lg">
+										<i className="far fa-comment"></i>{" "}
+										{event.comments.length > 0 && (
+											<span>{event.comments.length}</span>
+										)}
+									</Accordion.Toggle>
+								</Col>
+							) : (
+								<Col
+									xs={9}
+									sm={9}
+									md={4}
+									lg={3}
+									className="justify-content-end d-flex">
+									<Button
+										className="px-2"
+										variant="outline-link"
+										size="lg">
+										<i className="fas fa-eye" />{" "}
+										{event.numWatches.length > 0 && (
+											<span>
+												{event.numWatches.length}
+											</span>
+										)}
+									</Button>
+
 									<Accordion.Toggle
 										as={Button}
 										className="px-2"
