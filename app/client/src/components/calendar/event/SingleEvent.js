@@ -233,11 +233,21 @@ const SingleEvent = ({
 	);
 };
 
-const mapStateToProps = (state) => ({
-	isAuthenticated: state.auth.isAuthenticated,
-	authedUser: state.auth.user,
-	loadingUser: state.auth.loading,
-});
+const mapStateToProps = (state) => {
+	if (state.auth && state.auth.user) {
+		return {
+			isAuthenticated: state.auth.isAuthenticated,
+			authedUser: state.auth.user.data,
+			loadingUser: state.auth.loading,
+		};
+	} else {
+		return {
+			isAuthenticated: false,
+			authedUser: null,
+			loadingUser: null,
+		};
+	}
+};
 
 export default connect(mapStateToProps, {
 	watch,

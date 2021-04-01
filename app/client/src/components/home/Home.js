@@ -9,6 +9,7 @@ import Col from "react-bootstrap/Col";
 
 import { clearAlerts } from "../../actions/alert";
 import EventList from "../calendar/event/EventList";
+import FutureEventList from "../calendar/event/FutureEventLIst";
 import Image from "react-bootstrap/Image";
 
 const Home = ({ isAuthenticated }) => {
@@ -37,10 +38,13 @@ const Home = ({ isAuthenticated }) => {
 						</p>
 					</Col>
 					<Col lg={4}>
-						<Image src="brownbytes-logo.png" alt="brownbytes_logo" fluid></Image>
+						<Image
+							src="brownbytes-logo.png"
+							alt="brownbytes_logo"
+							fluid></Image>
 					</Col>
 				</Row>
-				<EventList></EventList>
+				<FutureEventList></FutureEventList>
 			</Container>
 		</Fragment>
 	);
