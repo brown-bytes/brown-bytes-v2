@@ -151,7 +151,9 @@ const SingleEvent = ({
 											<Button
 												className="pr-3"
 												variant="outline-link"
-												size="lg">
+												size="lg"
+												id={event.id}
+												onClick={deleteEvent}>
 												<i className="fas fa-trash-alt"></i>
 											</Button>
 										)}

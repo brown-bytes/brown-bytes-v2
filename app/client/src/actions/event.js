@@ -153,7 +153,26 @@ export const watch = () => async (dispatch) => {
 export const unwatch = () => async (dispatch) => {
 	return;
 };
-export const deleteEvent = () => async (dispatch) => {
+export const deleteEvent = (e) => async (dispatch) => {
+	const eventId = e.target.id;
+	try {
+		await axios.delete(`events/${eventId}`);
+		dispatch({
+			type: DELETE_EVENT_SUCCESS,
+		});
+		dispatch(setAlert("Successfully deleted your event", GREEN_ALERT));
+		dispatch(getFutureEvents());
+		toTop();
+	} catch (err) {
+		if (err.response) {
+			const errorMessage = err.response.data.error;
+			dispatch(setAlert(errorMessage, RED_ALERT));
+			dispatch({
+				type: DELETE_EVENT_FAILED,
+			});
+		}
+	}
+
 	return;
 };
 
@@ -171,10 +190,10 @@ export const postEventComment = (comment, eventId) => async (dispatch) => {
 	try {
 		await axios.post(`events/comment/${eventId}`, body, config);
 		// dispatch(setAlert("Successfully posted a new comment", GREEN_ALERT));
-		// dispatch({
-		// 	type: POST_OFFER_COMMENT,
-		// });
-		// dispatch(getOffers());
+		dispatch({
+			type: POST_EVENT_COMMENT,
+		});
+		dispatch(getFutureEvents());
 	} catch (err) {
 		const errorMessage = err.response.data.error;
 		dispatch(setAlert(errorMessage, RED_ALERT));
