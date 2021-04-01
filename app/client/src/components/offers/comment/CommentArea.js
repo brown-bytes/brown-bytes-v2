@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import SingleComment from "./SingleComment";
 import PostComment from "./PostComment";
 
-const CommentArea = ({ comments }) => {
+const CommentArea = ({ comments, isAuthenticated, offerId }) => {
 	return (
 		<Fragment>
 			{comments.map((comment) => (
@@ -14,9 +14,18 @@ const CommentArea = ({ comments }) => {
 					key={comment.id}
 					comment={comment}></SingleComment>
 			))}
-			<PostComment></PostComment>
+			{isAuthenticated && <PostComment offerId={offerId}></PostComment>}
 		</Fragment>
 	);
 };
 
-export default CommentArea;
+const mapStateToProps = (state) => ({
+	isAuthenticated: state.auth.isAuthenticated,
+});
+
+CommentArea.propTypes = {
+	isAuthenticated: PropTypes.bool.isRequired,
+	comments: PropTypes.array,
+};
+
+export default connect(mapStateToProps)(CommentArea);

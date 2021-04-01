@@ -1,23 +1,35 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import moment from "moment";
 
 import Spinner from "react-bootstrap/Spinner";
 
-import { getOffers } from "../../../actions/offer";
 import SingleOffer from "./SingleOffer";
 
-const EventList = ({ getOffers, offers, loading }) => {
+const filterOffer = (offer, queryString) => {
+	return (
+		offer.location.includes(queryString) ||
+		offer.description.includes(queryString) ||
+		moment(offer.date)
+			.format("dddd, MMMM DD, YYYY")
+			.includes(queryString) ||
+		offer.otherInfo.includes(queryString)
+	);
+};
+
+const OfferList = ({ offers, loading, queryString }) => {
 	return loading ? (
 		<Spinner animation="border" role="status">
-			<span className="sr-only">Loading...</span>
+			<span className="sr-only">Loading Offers...</span>
 		</Spinner>
 	) : (
 		<Fragment>
-			{offers.map((offer) => (
-				<SingleOffer key={offer.id} offer={offer}></SingleOffer>
-			))}
+			{offers
+				.filter((offer) => filterOffer(offer, queryString))
+				.map((offer) => (
+					<SingleOffer key={offer.id} offer={offer}></SingleOffer>
+				))}
 		</Fragment>
 	);
 };
@@ -25,6 +37,13 @@ const EventList = ({ getOffers, offers, loading }) => {
 const mapStateToProps = (state) => ({
 	offers: state.offers.offers,
 	loading: state.offers.loading,
+	queryString: state.offers.queryString,
 });
 
-export default connect(mapStateToProps, { getOffers })(EventList);
+OfferList.propTypes = {
+	offers: PropTypes.array,
+	loading: PropTypes.bool,
+	queryString: PropTypes.string,
+};
+
+export default connect(mapStateToProps)(OfferList);

@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -9,7 +9,13 @@ import Button from "react-bootstrap/Button";
 
 import { createOffer } from "../../../actions/offer";
 
+import { clearAlerts } from "../../../actions/alert";
+
 const NewOffer = ({ createOffer }) => {
+	useEffect(() => {
+		clearAlerts();
+	}, []);
+
 	const [formData, setFormData] = useState({
 		description: "",
 		location: "",
@@ -17,6 +23,7 @@ const NewOffer = ({ createOffer }) => {
 		startTime: "",
 		endTime: "",
 		otherInfo: "",
+		anonymous: false,
 	});
 
 	const onChange = (e) => {
@@ -24,7 +31,7 @@ const NewOffer = ({ createOffer }) => {
 		setFormData({
 			...formData,
 			[e.target.id]:
-				e.target.id != "anonymous" ? e.target.value : e.target.checked,
+				e.target.id !== "anonymous" ? e.target.value : e.target.checked,
 		});
 	};
 

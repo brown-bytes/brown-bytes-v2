@@ -1,11 +1,7 @@
-import React, { Fragment, useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import React from "react";
 
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
-
-import { clearAlerts } from "../../actions/alert";
 
 import Profile from "./Profile";
 import MyEvents from "./MyEvents";

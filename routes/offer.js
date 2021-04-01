@@ -38,10 +38,16 @@ router
 			],
 		})
 			.then((offers) => {
-				console.log(offers);
 				for (let i = 0; i < offers.length; i++) {
 					offers[i] = offers[i].get({ plain: true });
-					offers[i].numWatches = offers[i].watches.length;
+					offers[i].avatarURL = offers[i].isAnonymous
+						? `${req.protocol}://${req.get(
+								"host"
+						  )}/images/default_avatar.png`
+						: offers[i].creator.avatar;
+					offers[i].creator = offers[i].isAnonymous
+						? "Anonymous"
+						: offers[i].creator.username;
 					delete offers[i].watches;
 				}
 				res.statusCode = 200;
@@ -77,7 +83,7 @@ router
 		})
 			.then((offer) => {
 				if (offer) {
-					console.log(offer.id);
+					// console.log(offer.id);
 					res.statusCode = 200;
 					res.setHeader("Content-Type", "application/json");
 					res.json({
@@ -165,8 +171,8 @@ router.post("/comment/:offerId", auth.parseToken, async (req, res) => {
 				res.setHeader("Content-Type", "application/json");
 				res.json({
 					success: true,
-					status: "Successfully posted comment",
-					commentTime: comment.createdAt,
+					status: "Successfully posted a comment",
+					comment: comment,
 				});
 			} else {
 				res.statusCode = 400;

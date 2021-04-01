@@ -2,18 +2,19 @@ import moment from "moment";
 import axios from "axios";
 import { setAlert, clearAlerts } from "./alert";
 import toTop from "../utils/scrollToTop";
-import setAuthToken from "../utils/setAuthToken";
 import { RED_ALERT, GREEN_ALERT } from "../components/layout/AlertTypes";
 import {
 	CREATE_OFFER_SUCCESS,
 	CREATE_OFFER_FAILED,
 	GET_OFFERS,
-	DELETE_OFFER,
+	DELETE_OFFER_SUCCESS,
+	DELETE_OFFER_FAILED,
+	CHANGE_OFFER_QUERY_STRING,
+	POST_OFFER_COMMENT,
 } from "./types";
 
 export const createOffer = (info) => async (dispatch) => {
 	clearAlerts();
-	console.log(info);
 	let date = info.date;
 	let startTime = info.startTime;
 	let endTime = info.endTime;
@@ -63,8 +64,6 @@ export const createOffer = (info) => async (dispatch) => {
 		return;
 	}
 
-	console.log(startDateTime, endDateTime);
-
 	const config = {
 		headers: {
 			"Content-Type": "application/json",
@@ -88,14 +87,15 @@ export const createOffer = (info) => async (dispatch) => {
 		endTime,
 	});
 
-	console.log("body:", body);
 	try {
 		const res = await axios.post("offers", body, config);
+
 		dispatch(setAlert("Successfully created a new offer!", GREEN_ALERT));
 		dispatch({
 			type: CREATE_OFFER_SUCCESS,
 			payload: res.data,
 		});
+		toTop();
 	} catch (err) {
 		const errorMessage = err.response.data.error;
 		dispatch(setAlert(errorMessage, RED_ALERT));
@@ -105,14 +105,77 @@ export const createOffer = (info) => async (dispatch) => {
 	}
 };
 
-export const getOffers = () => {
+export const getOffers = () => async (dispatch) => {
+	try {
+		const res = await axios.get("offers");
+		const offers = Object.values(res.data.offers);
+		dispatch({
+			type: GET_OFFERS,
+			payload: offers,
+		});
+	} catch (err) {
+		if (err.response) {
+			const errorMessage = err.response.data.error;
+			dispatch(setAlert(errorMessage, RED_ALERT));
+		}
+	}
+
 	return;
 };
 
-export const deleteOffer = () => {
+export const deleteOffer = (e) => async (dispatch) => {
+	const offerId = e.target.id;
+	try {
+		await axios.delete(`offers/${offerId}`);
+		dispatch({
+			type: DELETE_OFFER_SUCCESS,
+		});
+		dispatch(setAlert("Successfully deleted your offer", GREEN_ALERT));
+		dispatch(getOffers());
+		toTop();
+	} catch (err) {
+		if (err.response) {
+			const errorMessage = err.response.data.error;
+			dispatch(setAlert(errorMessage, RED_ALERT));
+			dispatch({
+				type: DELETE_OFFER_FAILED,
+			});
+		}
+	}
+
 	return;
 };
 
-export const postComment = () => {
+export const postOfferComment = (comment, offerId) => async (dispatch) => {
+	const config = {
+		headers: {
+			"Content-Type": "application/json",
+		},
+	};
+
+	const body = JSON.stringify({
+		content: comment,
+	});
+
+	try {
+		await axios.post(`offers/comment/${offerId}`, body, config);
+		// dispatch(setAlert("Successfully posted a new comment", GREEN_ALERT));
+		dispatch({
+			type: POST_OFFER_COMMENT,
+		});
+		dispatch(getOffers());
+	} catch (err) {
+		const errorMessage = err.response.data.error;
+		dispatch(setAlert(errorMessage, RED_ALERT));
+	}
+	return;
+};
+
+export const changeQueryString = (newQueryString) => async (dispatch) => {
+	dispatch({
+		type: CHANGE_OFFER_QUERY_STRING,
+		payload: newQueryString,
+	});
+
 	return;
 };
