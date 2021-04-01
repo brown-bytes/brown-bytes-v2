@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import {
 	CREATE_EVENT_SUCCESS,
 	CREATE_EVENT_FAILED,
@@ -28,7 +29,11 @@ export default function (state = initialState, action) {
 				futureEvents: [...payload],
 				loadingFuture: false,
 			};
-
+		case CHANGE_EVENT_QUERY_STRING:
+			return {
+				...state,
+				queryString: payload,
+			};
 		case CREATE_EVENT_SUCCESS:
 		case CREATE_EVENT_FAILED:
 		default:

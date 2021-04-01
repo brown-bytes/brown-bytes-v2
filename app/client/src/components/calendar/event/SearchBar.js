@@ -1,11 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 
-const SearchBar = () => {
+import { changeQueryString } from "../../../actions/event";
+
+const SearchBar = ({ changeQueryString }) => {
+	const [queryString, setQueryString] = useState("");
+
+	const onChange = (e) => {
+		setQueryString(e.target.value);
+		changeQueryString(e.target.value);
+	};
+
+	const onSubmit = () => {
+		changeQueryString(queryString);
+	};
+
 	return (
 		<InputGroup className="mb-1">
 			<FormControl
@@ -13,10 +27,17 @@ const SearchBar = () => {
 				size="sm"
 				placeholder="Event title, location, or other keywords"
 				aria-label="Event search bar"
+				onChange={onChange}
 			/>
-			<Button size="sm">Search</Button>
+			<Button size="sm" onClick={onSubmit}>
+				Search
+			</Button>
 		</InputGroup>
 	);
 };
 
-export default connect()(SearchBar);
+SearchBar.propTypes = {
+	changeQueryString: PropTypes.func,
+};
+
+export default connect(null, { changeQueryString })(SearchBar);

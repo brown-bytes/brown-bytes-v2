@@ -159,3 +159,12 @@ export const deleteEvent = () => async (dispatch) => {
 export const postComment = () => async (dispatch) => {
 	return;
 };
+
+export const changeQueryString = (newQueryString) => async (dispatch) => {
+	dispatch({
+		type: CHANGE_EVENT_QUERY_STRING,
+		payload: newQueryString,
+	});
+
+	return;
+};
