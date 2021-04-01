@@ -1,7 +1,6 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import moment from "moment";
 
 import Spinner from "react-bootstrap/Spinner";
@@ -40,5 +39,11 @@ const mapStateToProps = (state) => ({
 	loading: state.offers.loading,
 	queryString: state.offers.queryString,
 });
+
+OfferList.propTypes = {
+	offers: PropTypes.array,
+	loading: PropTypes.bool,
+	queryString: PropTypes.string,
+};
 
 export default connect(mapStateToProps)(OfferList);

@@ -31,7 +31,7 @@ const NewOffer = ({ createOffer }) => {
 		setFormData({
 			...formData,
 			[e.target.id]:
-				e.target.id != "anonymous" ? e.target.value : e.target.checked,
+				e.target.id !== "anonymous" ? e.target.value : e.target.checked,
 		});
 	};
 

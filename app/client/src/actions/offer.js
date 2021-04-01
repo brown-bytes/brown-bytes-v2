@@ -15,7 +15,6 @@ import {
 
 export const createOffer = (info) => async (dispatch) => {
 	clearAlerts();
-	console.log(info);
 	let date = info.date;
 	let startTime = info.startTime;
 	let endTime = info.endTime;
@@ -90,7 +89,7 @@ export const createOffer = (info) => async (dispatch) => {
 
 	try {
 		const res = await axios.post("offers", body, config);
-		console.log("res:", res);
+
 		dispatch(setAlert("Successfully created a new offer!", GREEN_ALERT));
 		dispatch({
 			type: CREATE_OFFER_SUCCESS,
@@ -107,8 +106,6 @@ export const createOffer = (info) => async (dispatch) => {
 };
 
 export const getOffers = () => async (dispatch) => {
-	console.log("getting offers");
-
 	try {
 		const res = await axios.get("offers");
 		const offers = Object.values(res.data.offers);
@@ -127,11 +124,9 @@ export const getOffers = () => async (dispatch) => {
 };
 
 export const deleteOffer = (e) => async (dispatch) => {
-	console.log(e.target.id);
-	console.log("deleting offer");
 	const offerId = e.target.id;
 	try {
-		const res = await axios.delete(`offers/${offerId}`);
+		await axios.delete(`offers/${offerId}`);
 		dispatch({
 			type: DELETE_OFFER_SUCCESS,
 		});
@@ -152,8 +147,6 @@ export const deleteOffer = (e) => async (dispatch) => {
 };
 
 export const postOfferComment = (comment, offerId) => async (dispatch) => {
-	console.log("sending comment", comment, offerId);
-
 	const config = {
 		headers: {
 			"Content-Type": "application/json",
@@ -165,8 +158,7 @@ export const postOfferComment = (comment, offerId) => async (dispatch) => {
 	});
 
 	try {
-		const res = await axios.post(`offers/comment/${offerId}`, body, config);
-		console.log(res.data);
+		await axios.post(`offers/comment/${offerId}`, body, config);
 		// dispatch(setAlert("Successfully posted a new comment", GREEN_ALERT));
 		dispatch({
 			type: POST_OFFER_COMMENT,
@@ -180,7 +172,6 @@ export const postOfferComment = (comment, offerId) => async (dispatch) => {
 };
 
 export const changeQueryString = (newQueryString) => async (dispatch) => {
-	console.log(newQueryString);
 	dispatch({
 		type: CHANGE_OFFER_QUERY_STRING,
 		payload: newQueryString,

@@ -58,7 +58,7 @@ export const register = (userName, email, password, passwordRepeat) => async (
 	const body = JSON.stringify({ userName, email, password });
 
 	try {
-		const res = await axios.post("users/signup", body, config);
+		await axios.post("users/signup", body, config);
 		dispatch(
 			setAlert(
 				"Thank you for signing up, a verification link has been emailed to you.",
