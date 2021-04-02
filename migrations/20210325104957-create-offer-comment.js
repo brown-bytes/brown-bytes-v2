@@ -16,6 +16,8 @@ module.exports = {
           },
           key: 'id'
         },
+        onUpdate: 'CASCADE',
+				onDelete: 'CASCADE',
         allowNull: false
       },
       posterId: {
@@ -26,6 +28,8 @@ module.exports = {
           },
           key: 'id'
         },
+        onUpdate: 'CASCADE',
+				onDelete: 'CASCADE',
         allowNull: false
       },
       content: {

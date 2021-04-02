@@ -198,10 +198,11 @@ export const deleteEvent = (e) => async (dispatch) => {
 		dispatch(setAlert("Successfully deleted your event", GREEN_ALERT));
 		dispatch(getFutureEvents());
 		toTop();
+		return;
 	} catch (err) {
 		if (err.response) {
-			const errorMessage = err.response.data.error;
-			dispatch(setAlert(errorMessage, RED_ALERT));
+			//const errorMessage = err.response.data.error;
+			//dispatch(setAlert(errorMessage, RED_ALERT));
 			dispatch({
 				type: DELETE_EVENT_FAILED,
 			});

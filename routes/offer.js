@@ -33,8 +33,7 @@ router
 						as: "poster",
 						attributes: ["username", "avatar"],
 					},
-				},
-				{ model: OfferWatch, as: "watches" },
+				}
 			],
 		})
 			.then((offers) => {
@@ -48,7 +47,6 @@ router
 					offers[i].creator = offers[i].isAnonymous
 						? "Anonymous"
 						: offers[i].creator.username;
-					delete offers[i].watches;
 				}
 				res.statusCode = 200;
 				res.setHeader("Content-Type", "application/json");
@@ -99,6 +97,62 @@ router
 						error: "Offer creation failed",
 					});
 				}
+			})
+			.catch((err) => {
+				console.log(err);
+				res.statusCode = 400;
+				res.setHeader("Content-Type", "application/json");
+				if (err.hasOwnProperty("errors")) {
+					res.json({ error: err.errors[0].message });
+				} else if (
+					err.hasOwnProperty("original") &&
+					err.original.hasOwnProperty("sqlMessage")
+				) {
+					res.json({ error: err.original.sqlMessage });
+				} else {
+					res.json({ error: "" });
+				}
+			});
+	});
+
+router
+	.get('/created', auth.parseToken, async (req, res) => {
+		await Offer.findAll({
+			where: {
+				creatorId: req.decoded.id
+			},
+			include: [
+				{
+					model: User,
+					as: "creator",
+					attributes: ["username", "avatar"],
+				},
+				{
+					model: OfferComment,
+					as: "comments",
+					include: {
+						model: User,
+						as: "poster",
+						attributes: ["username", "avatar"],
+					},
+				}
+			],
+		})
+			.then((offers) => {
+				for (let i = 0; i < offers.length; i++) {
+					offers[i] = offers[i].get({ plain: true });
+					offers[i].avatarURL = offers[i].isAnonymous
+						? `${req.protocol}://${req.get(
+								"host"
+						  )}/images/default_avatar.png`
+						: offers[i].creator.avatar;
+					offers[i].creator = offers[i].isAnonymous
+						? "Anonymous"
+						: offers[i].creator.username;
+				}
+				res.statusCode = 200;
+				res.setHeader("Content-Type", "application/json");
+				res.json({ success: true, offers: offers });
 			})
 			.catch((err) => {
 				console.log(err);

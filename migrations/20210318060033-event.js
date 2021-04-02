@@ -16,6 +16,8 @@ module.exports = {
 					},
 					key: "id",
 				},
+        onUpdate: 'CASCADE',
+				onDelete: 'CASCADE',
 				allowNull: false,
 			},
 			title: {
@@ -56,6 +58,6 @@ module.exports = {
 	},
 
 	down: async (queryInterface, Sequelize) => {
-		await queryInterface.dropTable("event");
+		await queryInterface.dropTable("events");
 	},
 };

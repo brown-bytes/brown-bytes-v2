@@ -160,6 +160,122 @@ router.delete("/:eventId", auth.parseToken, async (req, res) => {
 });
 
 router
+    .get('/watched', auth.parseToken, async (req, res) => {
+        await EventWatch.findAll({
+            where: {
+                watcherId: req.decoded.id
+            },
+            include: [
+                {
+                    model: Event,
+                    as: "event",
+                    include: [
+                        {
+                            model: User,
+                            as: "creator",
+                            attributes: ["username", "avatar"],
+                        },
+                        {
+                            model: EventComment,
+                            as: "comments",
+                            include: {
+                                model: User,
+                                as: "poster",
+                                attributes: ["username", "avatar"],
+                            },
+                        },
+                        { model: EventWatch, as: "watches" }
+                    ]
+                },
+			],
+        })
+            .then((events) => {
+                console.log(events);
+                for (let i = 0; i < events.length; i++) {
+					events[i] = events[i].get({ plain: true });
+					events[i].event.numWatches = events[i].event.watches.length;
+					// events[i].avatarURL = events[i].creator.avatar;
+					events[i].event.creator = events[i].event.creator.username;
+					//delete events[i].creator;
+					delete events[i].watches;
+				}
+                res.statusCode = 200;
+                res.setHeader("Content-Type", "application/json");
+                res.json({ success: true, events: events });
+            })
+            .catch((err) => {
+                console.log(err);
+                res.statusCode = 400;
+                res.setHeader("Content-Type", "application/json");
+                if (err.hasOwnProperty("errors")) {
+                    res.json({ error: err.errors[0].message });
+                } else if (
+                    err.hasOwnProperty("original") &&
+                    err.original.hasOwnProperty("sqlMessage")
+                ) {
+                    res.json({ error: err.original.sqlMessage });
+                } else {
+                    res.json({ error: "" });
+                }
+            });
+    });
+
+router
+	.get('/created', auth.parseToken, async (req, res) => {
+		await Event.findAll({
+			where: {
+				creatorId: req.decoded.id
+			},
+			include: [
+				{
+					model: User,
+					as: "creator",
+					attributes: ["username", "avatar"],
+				},
+				{
+					model: EventComment,
+					as: "comments",
+					include: {
+						model: User,
+						as: "poster",
+						attributes: ["username", "avatar"],
+					},
+				},
+				{ model: EventWatch, as: "watches" },
+			],
+		})
+			.then((events) => {
+				console.log(events);
+				for (let i = 0; i < events.length; i++) {
+					events[i] = events[i].get({ plain: true });
+					events[i].numWatches = events[i].watches.length;
+					// events[i].avatarURL = events[i].creator.avatar;
+					events[i].creator = events[i].creator.username;
+					//delete events[i].creator;
+					delete events[i].watches;
+				}
+				res.statusCode = 200;
+				res.setHeader("Content-Type", "application/json");
+				res.json({ success: true, events: events });
+			})
+			.catch((err) => {
+				console.log(err);
+				res.statusCode = 400;
+				res.setHeader("Content-Type", "application/json");
+				if (err.hasOwnProperty("errors")) {
+					res.json({ error: err.errors[0].message });
+				} else if (
+					err.hasOwnProperty("original") &&
+					err.original.hasOwnProperty("sqlMessage")
+				) {
+					res.json({ error: err.original.sqlMessage });
+				} else {
+					res.json({ error: "" });
+				}
+			});
+	});
+
+router
 	.route("/watch/:eventId")
 	.post(auth.parseToken, async (req, res) => {
 		await EventWatch.findOrCreate({
