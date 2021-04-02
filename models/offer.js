@@ -50,7 +50,14 @@ module.exports = (sequelize, DataTypes) => {
     },
     endTime: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        timeValidator(value) {
+          if (value <= this.startTime) {
+            throw new Error("endTime must be later than startTime");
+          }
+        }
+      }
     },
     otherInfo: DataTypes.STRING
   }, {
