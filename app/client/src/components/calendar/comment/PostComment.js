@@ -42,7 +42,9 @@ const PostComment = ({ eventId, postEventComment, placeDisplayed }) => {
 };
 
 PostComment.propTypes = {
+	eventId: PropTypes.number,
 	postOfferComment: PropTypes.func,
+	placeDisplayed: PropTypes.string,
 };
 
 export default connect(null, {

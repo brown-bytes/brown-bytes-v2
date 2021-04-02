@@ -1,5 +1,5 @@
 import React from "react";
-
+import PropTypes from "prop-types";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
@@ -47,6 +47,10 @@ const SingleComment = ({ comment }) => {
 			</Card.Body>
 		</Card>
 	);
+};
+
+SingleComment.propTypes = {
+	comment: PropTypes.string,
 };
 
 export default SingleComment;

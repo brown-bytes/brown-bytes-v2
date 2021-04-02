@@ -132,8 +132,9 @@ export const getFutureEvents = () => async (dispatch) => {
 			type: GET_FUTURE_EVENTS,
 			payload: events,
 		});
-	} catch (err) {}
-
+	} catch (err) {
+		console.log("get future events failed");
+	}
 	return;
 };
 
@@ -150,8 +151,9 @@ export const getPastEvents = (numPastEventFetched) => async (dispatch) => {
 			type: GET_PAST_EVENTS,
 			payload: events,
 		});
-	} catch (err) {}
-
+	} catch (err) {
+		console.log("get past events failed");
+	}
 	return;
 };
 
@@ -165,8 +167,9 @@ export const getWatchingEvents = () => async (dispatch) => {
 			type: GET_WATCHING_EVENTS,
 			payload: events,
 		});
-	} catch (err) {}
-
+	} catch (err) {
+		console.log("get watching events failed");
+	}
 	return;
 };
 
@@ -178,8 +181,9 @@ export const getCreatedEvents = () => async (dispatch) => {
 			type: GET_CREATED_EVENTS,
 			payload: events,
 		});
-	} catch (err) {}
-
+	} catch (err) {
+		console.log("get created events failed");
+	}
 	return;
 };
 
@@ -201,7 +205,9 @@ export const watchEvent = (e, placeDisplayed) => async (dispatch) => {
 				break;
 			default:
 		}
-	} catch (err) {}
+	} catch (err) {
+		console.log("You've already watched this event");
+	}
 	return;
 };
 
@@ -224,8 +230,7 @@ export const unwatchEvent = (e, placeDisplayed) => async (dispatch) => {
 			default:
 		}
 	} catch (err) {
-		if (err.response) {
-		}
+		console.log("You haven't watched this event yet");
 	}
 	return;
 };
@@ -300,6 +305,5 @@ export const changeQueryString = (newQueryString) => async (dispatch) => {
 		type: CHANGE_EVENT_QUERY_STRING,
 		payload: newQueryString,
 	});
-
 	return;
 };

@@ -1,21 +1,12 @@
 import React, { Fragment, useEffect } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import moment from "moment";
 import Spinner from "react-bootstrap/Spinner";
 
 import SingleEvent from "./SingleEvent";
 
 import { getCreatedEvents } from "../../../actions/event";
-
-const startTimeComparator = (event1, event2) => {
-	const date1 = event1.startTime;
-	const date2 = event2.startTime;
-	if (moment(date1).isBefore(date2)) {
-		return 1;
-	} else {
-		return -1;
-	}
-};
+import { startTimeComparator } from "../../../utils/startTimeComparator";
 
 const EventList = ({ events, loading, getCreatedEvents }) => {
 	useEffect(() => {
@@ -41,7 +32,12 @@ const EventList = ({ events, loading, getCreatedEvents }) => {
 const mapStateToProps = (state) => ({
 	events: state.events.createdEvents,
 	loading: state.events.loadingCreatedEvents,
-	queryString: state.events.queryString,
 });
+
+EventList.propTypes = {
+	events: PropTypes.array,
+	loading: PropTypes.bool,
+	getCreatedEvents: PropTypes.func,
+};
 
 export default connect(mapStateToProps, { getCreatedEvents })(EventList);

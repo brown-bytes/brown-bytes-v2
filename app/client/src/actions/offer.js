@@ -115,8 +115,7 @@ export const getOffers = () => async (dispatch) => {
 			payload: offers,
 		});
 	} catch (err) {
-		if (err.response) {
-		}
+		console.log("fetching offers failed");
 	}
 	return;
 };
@@ -130,8 +129,7 @@ export const getCreatedOffers = () => async (dispatch) => {
 			payload: offers,
 		});
 	} catch (err) {
-		if (err.response) {
-		}
+		console.log("fetching created offers failed");
 	}
 	return;
 };
@@ -153,7 +151,6 @@ export const deleteOffer = (e, placeDisplayed) => async (dispatch) => {
 				break;
 			default:
 		}
-
 		toTop();
 	} catch (err) {
 		if (err.response) {
@@ -164,7 +161,6 @@ export const deleteOffer = (e, placeDisplayed) => async (dispatch) => {
 			});
 		}
 	}
-
 	return;
 };
 
@@ -207,6 +203,5 @@ export const changeQueryString = (newQueryString) => async (dispatch) => {
 		type: CHANGE_OFFER_QUERY_STRING,
 		payload: newQueryString,
 	});
-
 	return;
 };

@@ -230,6 +230,7 @@ const SingleEvent = ({
 									className="justify-content-end d-flex">
 									{event.numWatches > 0 ? (
 										<Button
+											disabled={true}
 											className="px-2"
 											variant="outline-link"
 											size="lg">

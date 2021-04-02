@@ -59,7 +59,6 @@ export const updateSocialLinks = (data) => async (dispatch) => {
 
 export const updateAvatar = (image) => async (dispatch) => {
 	clearAlerts();
-
 	if (localStorage.token) {
 		setAuthToken(localStorage.token);
 	} else {
@@ -68,7 +67,6 @@ export const updateAvatar = (image) => async (dispatch) => {
 		});
 		return;
 	}
-
 	const body = image;
 	try {
 		await axios.post("profile/avatar", body);

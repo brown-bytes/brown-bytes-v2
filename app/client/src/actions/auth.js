@@ -108,7 +108,6 @@ export const login = (email, password) => async (dispatch) => {
 	try {
 		const res = await axios.post("users/login", body, config);
 		dispatch(setAlert("Successfully logged in!", GREEN_ALERT));
-
 		dispatch({
 			type: LOGIN_SUCCESS,
 			payload: res.data,
@@ -160,7 +159,12 @@ export const loginGoogle = (data) => async (dispatch) => {
 			avatarUrl,
 		});
 		const res = await axios.post("users/signupsocial", trySignUp, config);
-		dispatch(setAlert("Successfully logged in!", GREEN_ALERT));
+		dispatch(
+			setAlert(
+				"Successfully logged in with your google account!",
+				GREEN_ALERT
+			)
+		);
 		dispatch({
 			type: REGISTER_SUCCESS,
 			payload: res.data,
@@ -173,7 +177,12 @@ export const loginGoogle = (data) => async (dispatch) => {
 
 		try {
 			const res = await axios.post("users/login", tryLogIn, config);
-			dispatch(setAlert("Successfully logged in!", GREEN_ALERT));
+			dispatch(
+				setAlert(
+					"Successfully logged in with your google account!",
+					GREEN_ALERT
+				)
+			);
 
 			dispatch({
 				type: LOGIN_SUCCESS,
@@ -213,7 +222,12 @@ export const loginFacebook = (data) => async (dispatch) => {
 			avatarUrl,
 		});
 		const res = await axios.post("users/signupsocial", trySignUp, config);
-		dispatch(setAlert("Successfully logged in!", GREEN_ALERT));
+		dispatch(
+			setAlert(
+				"Successfully logged in with your facebook account!",
+				GREEN_ALERT
+			)
+		);
 		dispatch({
 			type: REGISTER_SUCCESS,
 			payload: res.data,
@@ -226,8 +240,12 @@ export const loginFacebook = (data) => async (dispatch) => {
 
 		try {
 			const res = await axios.post("users/login", tryLogIn, config);
-			dispatch(setAlert("Successfully logged in!", GREEN_ALERT));
-
+			dispatch(
+				setAlert(
+					"Successfully logged in with your facebook account!",
+					GREEN_ALERT
+				)
+			);
 			dispatch({
 				type: LOGIN_SUCCESS,
 				payload: res.data,
