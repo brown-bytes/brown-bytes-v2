@@ -11,11 +11,13 @@ import {
 	WATCH_EVENT,
 	UNWATCH_EVENT,
 } from "../actions/types";
+
 const initialState = {
 	futureEvents: [],
 	pastEvents: [],
 	loadingFuture: true,
-	loadingPast: false,
+	loadingPast: true,
+	numPastEventsFetched: 0,
 	queryString: "",
 };
 
@@ -29,6 +31,14 @@ export default function (state = initialState, action) {
 				futureEvents: [...payload],
 				loadingFuture: false,
 			};
+		case GET_PAST_EVENTS:
+			return {
+				...state,
+				pastEvents: [...state.pastEvents, ...payload],
+				loadingPast: false,
+				numPastEventsFetched:
+					state.numPastEventsFetched + payload.length,
+			};
 		case CHANGE_EVENT_QUERY_STRING:
 			return {
 				...state,
@@ -36,6 +46,11 @@ export default function (state = initialState, action) {
 			};
 		case CREATE_EVENT_SUCCESS:
 		case CREATE_EVENT_FAILED:
+		case DELETE_EVENT_SUCCESS:
+		case DELETE_EVENT_FAILED:
+		case WATCH_EVENT:
+		case UNWATCH_EVENT:
+		case POST_EVENT_COMMENT:
 		default:
 			return state;
 	}

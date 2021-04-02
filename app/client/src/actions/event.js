@@ -123,12 +123,12 @@ export const createEvent = (info) => async (dispatch) => {
 };
 
 export const getFutureEvents = () => async (dispatch) => {
-	console.log("getting future events");
+	//console.log("getting future events");
 	try {
 		const res = await axios.get("events");
 		// console.log(res);
 		const events = Object.values(res.data.events);
-		console.log(events);
+		//console.log(events);
 		dispatch({
 			type: GET_FUTURE_EVENTS,
 			payload: events,
@@ -143,7 +143,28 @@ export const getFutureEvents = () => async (dispatch) => {
 	return;
 };
 
-export const getPastEvents = () => async (dispatch) => {
+export const getPastEvents = (numPastEventFetched) => async (dispatch) => {
+	console.log("getting past events");
+	console.log("num:", numPastEventFetched);
+	try {
+		const res = await axios.get("events/past", {
+			params: {
+				fetched: numPastEventFetched,
+			},
+		});
+		const events = Object.values(res.data.events);
+		console.log(events);
+		dispatch({
+			type: GET_PAST_EVENTS,
+			payload: events,
+		});
+	} catch (err) {
+		if (err.response) {
+			const errorMessage = err.response.data.error;
+			dispatch(setAlert(errorMessage, RED_ALERT));
+		}
+	}
+
 	return;
 };
 

@@ -135,6 +135,18 @@ body {
 	font-size: large;
 }
 
+#calendar-more-past-events-toggle {
+	border: 0;
+	background-color: #fff;
+	padding: 0;
+	padding-left: 1px;
+	padding-top: 1px;
+	position: relative;
+	color: #2f7ef6;
+	cursor: pointer;
+	font-size: large;
+}
+
 #new-event-heading {
 	font-weight: bold;
 	font-size: xx-large;

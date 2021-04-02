@@ -317,6 +317,9 @@ router.get("/past", async (req, res) => {
 				for (let i = 0; i < events.length; i++) {
 					events[i] = events[i].get({ plain: true });
 					events[i].numWatches = events[i].watches.length;
+					// events[i].avatarURL = events[i].creator.avatar;
+					events[i].creator = events[i].creator.username;
+					//delete events[i].creator;
 					delete events[i].watches;
 				}
 				res.statusCode = 200;

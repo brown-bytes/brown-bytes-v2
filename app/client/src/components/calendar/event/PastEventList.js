@@ -1,9 +1,19 @@
 import React, { Fragment } from "react";
 import { connect } from "react-redux";
-
+import moment from "moment";
 import Spinner from "react-bootstrap/Spinner";
 
 import SingleEvent from "./SingleEvent";
+
+const startTimeComparator = (event1, event2) => {
+	const date1 = event1.startTime;
+	const date2 = event2.startTime;
+	if (moment(date1).isBefore(date2)) {
+		return -1;
+	} else {
+		return 1;
+	}
+};
 
 const EventList = ({ events, loading }) => {
 	return loading ? (
@@ -12,7 +22,7 @@ const EventList = ({ events, loading }) => {
 		</Spinner>
 	) : (
 		<Fragment>
-			{events.map((event) => (
+			{events.sort(startTimeComparator).map((event) => (
 				<SingleEvent key={event.id} event={event}></SingleEvent>
 			))}
 		</Fragment>
@@ -21,7 +31,7 @@ const EventList = ({ events, loading }) => {
 
 const mapStateToProps = (state) => ({
 	events: state.events.pastEvents,
-	loading: state.events.loading,
+	loading: state.events.loadingPast,
 });
 
 export default connect(mapStateToProps)(EventList);

@@ -9,7 +9,9 @@ import FutureEventList from "./event/FutureEventLIst";
 import PastEventList from "./event/PastEventList";
 import SearchBar from "./event/SearchBar";
 
-const Calendar = ({ isAuthenticated }) => {
+import { getPastEvents } from "../../actions/event";
+
+const Calendar = ({ isAuthenticated, numPastEventsFetched, getPastEvents }) => {
 	useEffect(() => {
 		clearAlerts();
 	}, []);
@@ -17,11 +19,19 @@ const Calendar = ({ isAuthenticated }) => {
 	const [showPreviousEvents, setShowPreviousEvents] = useState(false);
 
 	const togglePreviousEvents = (e) => {
+		if (!showPreviousEvents) {
+			getPastEvents(numPastEventsFetched);
+		}
 		setShowPreviousEvents(showPreviousEvents ? false : true);
 		e.target.textContent =
 			e.target.textContent === "Show past events"
 				? "Hide past events"
 				: "Show past events";
+	};
+
+	const toggleMorePreviousEvents = (e) => {
+		console.log("fetch 10 more events");
+		getPastEvents(numPastEventsFetched);
 	};
 
 	return (
@@ -55,6 +65,11 @@ const Calendar = ({ isAuthenticated }) => {
 				<Fragment>
 					<p className="calendar-heading2">Past Events</p>
 					<PastEventList></PastEventList>
+					<button
+						id="calendar-more-past-events-toggle"
+						onClick={toggleMorePreviousEvents}>
+						Show more past events
+					</button>
 				</Fragment>
 			)}
 		</Fragment>
@@ -63,6 +78,7 @@ const Calendar = ({ isAuthenticated }) => {
 
 const mapStateToProps = (state) => ({
 	isAuthenticated: state.auth.isAuthenticated,
+	numPastEventsFetched: state.events.numPastEventsFetched,
 });
 
-export default connect(mapStateToProps)(Calendar);
+export default connect(mapStateToProps, { getPastEvents })(Calendar);

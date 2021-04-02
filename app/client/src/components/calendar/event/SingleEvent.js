@@ -206,7 +206,7 @@ const SingleEvent = ({
 									md={4}
 									lg={3}
 									className="justify-content-end d-flex">
-									{event.numWatches && (
+									{event.numWatches > 0 ? (
 										<Button
 											className="px-2"
 											variant="outline-link"
@@ -216,6 +216,8 @@ const SingleEvent = ({
 												<span>{event.numWatches}</span>
 											)}
 										</Button>
+									) : (
+										<Fragment></Fragment>
 									)}
 
 									{event.comments.length > 0 && (
