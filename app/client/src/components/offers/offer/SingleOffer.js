@@ -117,7 +117,7 @@ const SingleOffer = ({
 									<i className="far fa-comment"></i>
 									<span className="sr-only">Close</span>{" "}
 									{offer.comments.length > 0 && (
-										<span>{offer.comments.length}</span>
+										<span> {offer.comments.length}</span>
 									)}
 								</Accordion.Toggle>
 							</Row>

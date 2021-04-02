@@ -23,6 +23,16 @@ const filterEvent = (event, queryString) => {
 	);
 };
 
+const startTimeComparator = (event1, event2) => {
+	const date1 = event1.startTime;
+	const date2 = event2.startTime;
+	if (moment(date1).isBefore(date2)) {
+		return 1;
+	} else {
+		return -1;
+	}
+};
+
 const EventList = ({ events, loading, queryString, getFutureEvents }) => {
 	useEffect(() => {
 		getFutureEvents();
@@ -36,6 +46,7 @@ const EventList = ({ events, loading, queryString, getFutureEvents }) => {
 		<Fragment>
 			{events
 				.filter((event) => filterEvent(event, queryString))
+				.sort(startTimeComparator)
 				.map((event) => (
 					<SingleEvent key={event.id} event={event}></SingleEvent>
 				))}

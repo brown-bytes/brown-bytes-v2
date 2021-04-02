@@ -147,10 +147,46 @@ export const getPastEvents = () => async (dispatch) => {
 	return;
 };
 
-export const watch = () => async (dispatch) => {
+export const watchEvent = (e) => async (dispatch) => {
+	const eventId = e.target.id;
+	console.log("watch:", eventId);
+	try {
+		await axios.post(`events/watch/${eventId}`);
+		// dispatch({
+		// 	type: DELETE_EVENT_SUCCESS,
+		// });
+		//dispatch(setAlert("Successfully deleted your event", GREEN_ALERT));
+		dispatch(getFutureEvents());
+	} catch (err) {
+		if (err.response) {
+			// const errorMessage = err.response.data.error;
+			// dispatch(setAlert(errorMessage, RED_ALERT));
+			// dispatch({
+			// 	type: DELETE_EVENT_FAILED,
+			// });
+		}
+	}
 	return;
 };
-export const unwatch = () => async (dispatch) => {
+export const unwatchEvent = (e) => async (dispatch) => {
+	const eventId = e.target.id;
+	console.log("unwatch:", eventId);
+	try {
+		await axios.delete(`events/watch/${eventId}`);
+		// dispatch({
+		// 	type: DELETE_EVENT_SUCCESS,
+		// });
+		//dispatch(setAlert("Successfully deleted your event", GREEN_ALERT));
+		dispatch(getFutureEvents());
+	} catch (err) {
+		if (err.response) {
+			// const errorMessage = err.response.data.error;
+			// dispatch(setAlert(errorMessage, RED_ALERT));
+			// dispatch({
+			// 	type: DELETE_EVENT_FAILED,
+			// });
+		}
+	}
 	return;
 };
 export const deleteEvent = (e) => async (dispatch) => {
@@ -172,7 +208,6 @@ export const deleteEvent = (e) => async (dispatch) => {
 			});
 		}
 	}
-
 	return;
 };
 

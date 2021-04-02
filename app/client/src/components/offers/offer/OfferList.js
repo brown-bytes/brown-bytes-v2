@@ -18,6 +18,16 @@ const filterOffer = (offer, queryString) => {
 	);
 };
 
+const startTimeComparator = (event1, event2) => {
+	const date1 = event1.startTime;
+	const date2 = event2.startTime;
+	if (moment(date1).isBefore(date2)) {
+		return 1;
+	} else {
+		return -1;
+	}
+};
+
 const OfferList = ({ offers, loading, queryString }) => {
 	return loading ? (
 		<Spinner animation="border" role="status">
@@ -27,6 +37,7 @@ const OfferList = ({ offers, loading, queryString }) => {
 		<Fragment>
 			{offers
 				.filter((offer) => filterOffer(offer, queryString))
+				.sort(startTimeComparator)
 				.map((offer) => (
 					<SingleOffer key={offer.id} offer={offer}></SingleOffer>
 				))}

@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import moment from "moment";
 import { connect } from "react-redux";
-import { watch, unwatch, deleteEvent } from "../../../actions/event";
+import { watchEvent, unwatchEvent, deleteEvent } from "../../../actions/event";
 
 import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
@@ -26,8 +26,8 @@ const toggleMoreInfo = (e) => {
 };
 
 const SingleEvent = ({
-	watch,
-	unwatch,
+	watchEvent,
+	unwatchEvent,
 	deleteEvent,
 	isAuthenticated,
 	authedUser,
@@ -154,25 +154,36 @@ const SingleEvent = ({
 												size="lg"
 												id={event.id}
 												onClick={deleteEvent}>
-												<i className="fas fa-trash-alt"></i>
+												<i
+													className="fas fa-trash-alt"
+													id={event.id}
+													onClick={deleteEvent}></i>
 											</Button>
 										)}
 									<Button
 										className="px-2"
 										variant="outline-link"
 										size="lg">
-										<i className="fas fa-eye" />{" "}
-										{event.numWatches.length > 0 && (
-											<span>
-												{event.numWatches.length}
-											</span>
+										<i
+											className="fas fa-eye"
+											id={event.id}
+											onClick={watchEvent}
+										/>{" "}
+										{event.numWatches && (
+											<span>{event.numWatches}</span>
 										)}
 									</Button>
 									<Button
 										className="px-3"
 										variant="outline-link"
-										size="lg">
-										<i className="fas fa-eye-slash" />
+										size="lg"
+										id={event.id}
+										onClick={unwatchEvent}>
+										<i
+											className="fas fa-eye-slash"
+											id={event.id}
+											onClick={unwatchEvent}
+										/>
 									</Button>
 									<Accordion.Toggle
 										as={Button}
@@ -193,16 +204,14 @@ const SingleEvent = ({
 									md={4}
 									lg={3}
 									className="justify-content-end d-flex">
-									{event.numWatches.length > 0 && (
+									{event.numWatches && (
 										<Button
 											className="px-2"
 											variant="outline-link"
 											size="lg">
 											<i className="fas fa-eye" />{" "}
-											{event.numWatches.length > 0 && (
-												<span>
-													{event.numWatches.length}
-												</span>
+											{event.numWatches > 0 && (
+												<span>{event.numWatches}</span>
 											)}
 										</Button>
 									)}
@@ -254,7 +263,7 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-	watch,
-	unwatch,
+	watchEvent,
+	unwatchEvent,
 	deleteEvent,
 })(SingleEvent);
