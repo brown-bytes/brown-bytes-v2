@@ -1,15 +1,15 @@
-import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import Cropper from "react-cropper";
-import "cropperjs/dist/cropper.css";
-
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
 import Modal from "react-bootstrap/Modal";
+import Row from "react-bootstrap/Row";
+import Cropper from "react-cropper";
+import { connect } from "react-redux";
 
 import { updateAvatar } from "../../actions/profile";
+
+import "cropperjs/dist/cropper.css";
 
 const defaultSrc = "favicon-196x196.png";
 
@@ -47,9 +47,6 @@ const ChangeAvatarModal = ({ show, onHide, updateAvatar }) => {
 					const formData = new FormData();
 					const fileName = localStorage.token + Date.now();
 					formData.append("imageFile", blob, fileName + ".png");
-					for (var key of formData.entries()) {
-						console.log(key[0] + ", " + key[1]);
-					}
 					updateAvatar(formData);
 				});
 		}

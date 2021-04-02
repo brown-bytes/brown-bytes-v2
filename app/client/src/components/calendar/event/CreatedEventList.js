@@ -1,12 +1,11 @@
-import React, { Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import React, { Fragment, useEffect } from "react";
 import Spinner from "react-bootstrap/Spinner";
-
-import SingleEvent from "./SingleEvent";
+import { connect } from "react-redux";
 
 import { getCreatedEvents } from "../../../actions/event";
 import { startTimeComparator } from "../../../utils/startTimeComparator";
+import SingleEvent from "./SingleEvent";
 
 const EventList = ({ events, loading, getCreatedEvents }) => {
 	useEffect(() => {

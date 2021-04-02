@@ -1,12 +1,11 @@
-import React, { Fragment, useEffect } from "react";
-import { connect } from "react-redux";
 import moment from "moment";
+import React, { Fragment, useEffect } from "react";
 import Spinner from "react-bootstrap/Spinner";
-
-import SingleEvent from "./SingleEvent";
+import { connect } from "react-redux";
 
 import { getFutureEvents } from "../../../actions/event";
 import { startTimeComparator } from "../../../utils/startTimeComparator";
+import SingleEvent from "./SingleEvent";
 
 const filterEvent = (event, queryString) => {
 	return (

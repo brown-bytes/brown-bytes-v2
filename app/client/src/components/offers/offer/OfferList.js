@@ -1,12 +1,11 @@
-import React, { Fragment } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import moment from "moment";
-
+import PropTypes from "prop-types";
+import React, { Fragment } from "react";
 import Spinner from "react-bootstrap/Spinner";
+import { connect } from "react-redux";
 
-import SingleOffer from "./SingleOffer";
 import { startTimeComparator } from "../../../utils/startTimeComparator";
+import SingleOffer from "./SingleOffer";
 
 const filterOffer = (offer, queryString) => {
 	return (

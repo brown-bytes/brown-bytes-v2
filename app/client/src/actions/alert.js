@@ -1,5 +1,5 @@
-import { SET_ALERT, CLEAR_ALERT } from "./types";
 import store from "../store";
+import { CLEAR_ALERT, SET_ALERT } from "./types";
 
 export const setAlert = (msg, alertType) => (dispatch) => {
 	dispatch({

@@ -1,21 +1,21 @@
 import axios from "axios";
-import { setAlert, clearAlerts } from "./alert";
-import setAuthToken from "../utils/setAuthToken";
-import { RED_ALERT, GREEN_ALERT } from "../components/layout/AlertTypes";
+
+import { GREEN_ALERT, RED_ALERT } from "../components/layout/AlertTypes";
 import toTop from "../utils/scrollToTop";
+import setAuthToken from "../utils/setAuthToken";
+import { clearAlerts, setAlert } from "./alert";
+import { getCreatedEvents, getWatchingEvents } from "./event";
+import { getCreatedOffers } from "./offer";
 import {
-	REGISTER_SUCCESS,
-	REGISTER_FAIL,
-	USER_LOADED,
 	AUTH_ERROR,
-	LOGIN_SUCCESS,
 	LOGIN_FAIL,
+	LOGIN_SUCCESS,
 	LOGOUT,
 	REGISTER_EMAIL_SENT,
+	REGISTER_FAIL,
+	REGISTER_SUCCESS,
+	USER_LOADED,
 } from "./types";
-
-import { getWatchingEvents, getCreatedEvents } from "./event";
-import { getCreatedOffers } from "./offer";
 
 export const loadUser = () => async (dispatch) => {
 	if (localStorage.token) {

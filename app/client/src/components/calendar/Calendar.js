@@ -1,15 +1,13 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
+import Button from "react-bootstrap/Button";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-import Button from "react-bootstrap/Button";
-
 import { clearAlerts } from "../../actions/alert";
+import { getPastEvents } from "../../actions/event";
 import FutureEventList from "./event/FutureEventLIst";
 import PastEventList from "./event/PastEventList";
 import SearchBar from "./event/SearchBar";
-
-import { getPastEvents } from "../../actions/event";
 
 const Calendar = ({ isAuthenticated, numPastEventsFetched, getPastEvents }) => {
 	useEffect(() => {

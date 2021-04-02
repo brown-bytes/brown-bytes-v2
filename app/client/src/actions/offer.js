@@ -1,16 +1,17 @@
-import moment from "moment";
 import axios from "axios";
-import { setAlert, clearAlerts } from "./alert";
+import moment from "moment";
+
+import { GREEN_ALERT, RED_ALERT } from "../components/layout/AlertTypes";
 import toTop from "../utils/scrollToTop";
-import { RED_ALERT, GREEN_ALERT } from "../components/layout/AlertTypes";
+import { clearAlerts, setAlert } from "./alert";
 import {
-	CREATE_OFFER_SUCCESS,
-	CREATE_OFFER_FAILED,
-	GET_OFFERS,
-	GET_CREATED_OFFERS,
-	DELETE_OFFER_SUCCESS,
-	DELETE_OFFER_FAILED,
 	CHANGE_OFFER_QUERY_STRING,
+	CREATE_OFFER_FAILED,
+	CREATE_OFFER_SUCCESS,
+	DELETE_OFFER_FAILED,
+	DELETE_OFFER_SUCCESS,
+	GET_CREATED_OFFERS,
+	GET_OFFERS,
 	POST_OFFER_COMMENT,
 } from "./types";
 

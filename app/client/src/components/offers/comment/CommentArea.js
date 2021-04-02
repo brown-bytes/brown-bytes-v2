@@ -1,9 +1,9 @@
-import React, { Fragment } from "react";
 import PropTypes from "prop-types";
+import React, { Fragment } from "react";
 import { connect } from "react-redux";
 
-import SingleComment from "./SingleComment";
 import PostComment from "./PostComment";
+import SingleComment from "./SingleComment";
 
 const CommentArea = ({
 	comments,

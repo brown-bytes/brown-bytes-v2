@@ -105,9 +105,7 @@ const NavBar = ({ isAuthenticated, loading, logout }) => {
 		</Fragment>
 	);
 
-	// if (!loading) {
 	return !loading && (isAuthenticated ? authNavbar : guestNavbar);
-	//}
 };
 
 NavBar.propTypes = {

@@ -8,7 +8,6 @@ const nodemailer = require("nodemailer");
 router.use(bodyParser.json());
 
 router.post("/signup", async (req, res) => {
-	console.log(req.body);
 	if (req.body.email && req.body.password && req.body.userName) {
 		const hash = auth.hashPassword(req.body.password);
 		const avatarUrl = `${req.protocol}://${req.get(
@@ -22,7 +21,6 @@ router.post("/signup", async (req, res) => {
 		})
 			.then((user) => {
 				if (user) {
-					console.log(user.id);
 					res.statusCode = 200;
 					res.setHeader("Content-Type", "application/json");
 					res.json({ message: "Registration success" });
@@ -34,7 +32,6 @@ router.post("/signup", async (req, res) => {
 				}
 			})
 			.catch((err) => {
-				console.log(err);
 				res.statusCode = 400;
 				res.setHeader("Content-Type", "application/json");
 				if (err.hasOwnProperty("errors")) {
@@ -56,7 +53,6 @@ router.post("/signup", async (req, res) => {
 });
 
 router.post("/signupsocial", async (req, res) => {
-	console.log(req.body);
 	if (req.body.email && req.body.password && req.body.userName) {
 		const hash = auth.hashPassword(req.body.password);
 		const avatarUrl =
@@ -73,7 +69,6 @@ router.post("/signupsocial", async (req, res) => {
 		})
 			.then((user) => {
 				if (user) {
-					console.log(user.id);
 					let token = auth.getToken({ id: user.id });
 					res.statusCode = 200;
 					res.setHeader("Content-Type", "application/json");
@@ -85,7 +80,6 @@ router.post("/signupsocial", async (req, res) => {
 				}
 			})
 			.catch((err) => {
-				console.log(err);
 				res.statusCode = 400;
 				res.setHeader("Content-Type", "application/json");
 				if (err.hasOwnProperty("errors")) {
@@ -107,7 +101,6 @@ router.post("/signupsocial", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-	console.log(req.body);
 	if (req.body.email && req.body.password) {
 		await User.findOne({
 			where: {
@@ -152,7 +145,6 @@ router.post("/login", async (req, res) => {
 				}
 			})
 			.catch((err) => {
-				console.log(err);
 				res.statusCode = 400;
 				res.setHeader("Content-Type", "application/json");
 				if (err.hasOwnProperty("errors")) {
@@ -188,7 +180,6 @@ router.get("/verify", async (req, res) => {
 		);
 		await User.update({ isActive: true }, { where: { email } });
 	} else {
-		console.log("email is not verified");
 		res.end("<h1>Email cannot be verified by this link</h1>");
 	}
 });
@@ -223,13 +214,11 @@ async function sendEmail(req) {
         <a href="${link}">Click here to verify</a> <br>
         This will expire in 5 mins.`,
 	};
-	console.log(mailOptions);
+
 	smtpTransport.sendMail(mailOptions, async (error, response) => {
 		if (error) {
-			console.log(error);
 			res.end("error");
 		} else {
-			console.log("Message sent: " + response.message);
 			await emailVerifyDb.destroy({ where: { email: e_mail } });
 			await emailVerifyDb.create({
 				email: e_mail,

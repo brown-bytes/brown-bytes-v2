@@ -1,18 +1,16 @@
-import React, { Fragment } from "react";
+import moment from "moment";
 import PropTypes from "prop-types";
+import React, { Fragment } from "react";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Accordion from "react-bootstrap/esm/Accordion";
+import Image from "react-bootstrap/Image";
+import Row from "react-bootstrap/Row";
 import { connect } from "react-redux";
 
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
-import Image from "react-bootstrap/Image";
-
-import Card from "react-bootstrap/Card";
-import moment from "moment";
-
 import { deleteOffer } from "../../../actions/offer";
-import Accordion from "react-bootstrap/esm/Accordion";
 import CommentArea from "../comment/CommentArea";
 
 const SingleOffer = ({

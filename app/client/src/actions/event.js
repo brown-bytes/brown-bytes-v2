@@ -1,21 +1,22 @@
-import moment from "moment";
 import axios from "axios";
-import { setAlert, clearAlerts } from "./alert";
-import { RED_ALERT, GREEN_ALERT } from "../components/layout/AlertTypes";
+import moment from "moment";
+
+import { GREEN_ALERT, RED_ALERT } from "../components/layout/AlertTypes";
 import toTop from "../utils/scrollToTop";
+import { clearAlerts, setAlert } from "./alert";
 import {
-	CREATE_EVENT_SUCCESS,
+	CHANGE_EVENT_QUERY_STRING,
 	CREATE_EVENT_FAILED,
+	CREATE_EVENT_SUCCESS,
+	DELETE_EVENT_FAILED,
+	DELETE_EVENT_SUCCESS,
+	GET_CREATED_EVENTS,
 	GET_FUTURE_EVENTS,
 	GET_PAST_EVENTS,
 	GET_WATCHING_EVENTS,
-	GET_CREATED_EVENTS,
-	DELETE_EVENT_SUCCESS,
-	DELETE_EVENT_FAILED,
-	CHANGE_EVENT_QUERY_STRING,
 	POST_EVENT_COMMENT,
-	WATCH_EVENT,
 	UNWATCH_EVENT,
+	WATCH_EVENT,
 } from "./types";
 
 export const createEvent = (info) => async (dispatch) => {

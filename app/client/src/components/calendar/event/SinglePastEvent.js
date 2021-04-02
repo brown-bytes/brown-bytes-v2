@@ -1,16 +1,15 @@
-import React, { Fragment } from "react";
 import moment from "moment";
-import { connect } from "react-redux";
-import { deleteEvent } from "../../../actions/event";
-
+import React, { Fragment } from "react";
 import Accordion from "react-bootstrap/Accordion";
-import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import Row from "react-bootstrap/Row";
+import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+import { connect } from "react-redux";
 
-import EventBadge from "./EventBadge";
+import { deleteEvent } from "../../../actions/event";
 import CommentArea from "../comment/CommentArea";
+import EventBadge from "./EventBadge";
 
 const toggleMoreInfo = (e) => {
 	const class_suffix = e.target.id;

@@ -1,10 +1,9 @@
 import React, { Fragment, useState } from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-
+import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 import { createEvent } from "../../../actions/event";
 

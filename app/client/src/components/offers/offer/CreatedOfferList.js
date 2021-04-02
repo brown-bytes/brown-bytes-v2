@@ -1,14 +1,11 @@
-import React, { Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
+import React, { Fragment, useEffect } from "react";
+import Spinner from "react-bootstrap/Spinner";
 import { connect } from "react-redux";
 
-import Spinner from "react-bootstrap/Spinner";
-
-import SingleOffer from "./SingleOffer";
-
 import { getCreatedOffers } from "../../../actions/offer";
-
 import { startTimeComparator } from "../../../utils/startTimeComparator";
+import SingleOffer from "./SingleOffer";
 
 const CreatedOfferList = ({ offers, loading, getCreatedOffers }) => {
 	useEffect(() => {

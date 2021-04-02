@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 
-import WatchingEventList from "../calendar/event/WatchingEventList";
 import CreatedEventList from "../calendar/event/CreatedEventList";
+import WatchingEventList from "../calendar/event/WatchingEventList";
 
 const MyEvents = () => {
 	return (

@@ -1,19 +1,17 @@
-import React, { Fragment, useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import React, { Fragment, useEffect, useState } from "react";
+import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
+import FacebookLogin from "react-facebook-login";
+import GoogleLogin from "react-google-login";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-import GoogleLogin from "react-google-login";
-import FacebookLogin from "react-facebook-login";
-
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-
-import { login, loginGoogle, loginFacebook } from "../../actions/auth";
 import { clearAlerts } from "../../actions/alert";
+import { login, loginFacebook, loginGoogle } from "../../actions/auth";
 
 const Login = ({ login, loginGoogle, loginFacebook }) => {
 	useEffect(() => {

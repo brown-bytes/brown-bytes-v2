@@ -33,7 +33,7 @@ router
 						as: "poster",
 						attributes: ["username", "avatar"],
 					},
-				}
+				},
 			],
 		})
 			.then((offers) => {
@@ -53,7 +53,6 @@ router
 				res.json({ success: true, offers: offers });
 			})
 			.catch((err) => {
-				console.log(err);
 				res.statusCode = 400;
 				res.setHeader("Content-Type", "application/json");
 				if (err.hasOwnProperty("errors")) {
@@ -81,7 +80,6 @@ router
 		})
 			.then((offer) => {
 				if (offer) {
-					// console.log(offer.id);
 					res.statusCode = 200;
 					res.setHeader("Content-Type", "application/json");
 					res.json({
@@ -99,7 +97,6 @@ router
 				}
 			})
 			.catch((err) => {
-				console.log(err);
 				res.statusCode = 400;
 				res.setHeader("Content-Type", "application/json");
 				if (err.hasOwnProperty("errors")) {
@@ -115,61 +112,59 @@ router
 			});
 	});
 
-router
-	.get('/created', auth.parseToken, async (req, res) => {
-		await Offer.findAll({
-			where: {
-				creatorId: req.decoded.id
+router.get("/created", auth.parseToken, async (req, res) => {
+	await Offer.findAll({
+		where: {
+			creatorId: req.decoded.id,
+		},
+		include: [
+			{
+				model: User,
+				as: "creator",
+				attributes: ["username", "avatar"],
 			},
-			include: [
-				{
+			{
+				model: OfferComment,
+				as: "comments",
+				include: {
 					model: User,
-					as: "creator",
+					as: "poster",
 					attributes: ["username", "avatar"],
 				},
-				{
-					model: OfferComment,
-					as: "comments",
-					include: {
-						model: User,
-						as: "poster",
-						attributes: ["username", "avatar"],
-					},
-				}
-			],
+			},
+		],
+	})
+		.then((offers) => {
+			for (let i = 0; i < offers.length; i++) {
+				offers[i] = offers[i].get({ plain: true });
+				offers[i].avatarURL = offers[i].isAnonymous
+					? `${req.protocol}://${req.get(
+							"host"
+					  )}/images/default_avatar.png`
+					: offers[i].creator.avatar;
+				offers[i].creator = offers[i].isAnonymous
+					? "Anonymous"
+					: offers[i].creator.username;
+			}
+			res.statusCode = 200;
+			res.setHeader("Content-Type", "application/json");
+			res.json({ success: true, offers: offers });
 		})
-			.then((offers) => {
-				for (let i = 0; i < offers.length; i++) {
-					offers[i] = offers[i].get({ plain: true });
-					offers[i].avatarURL = offers[i].isAnonymous
-						? `${req.protocol}://${req.get(
-								"host"
-						  )}/images/default_avatar.png`
-						: offers[i].creator.avatar;
-					offers[i].creator = offers[i].isAnonymous
-						? "Anonymous"
-						: offers[i].creator.username;
-				}
-				res.statusCode = 200;
-				res.setHeader("Content-Type", "application/json");
-				res.json({ success: true, offers: offers });
-			})
-			.catch((err) => {
-				console.log(err);
-				res.statusCode = 400;
-				res.setHeader("Content-Type", "application/json");
-				if (err.hasOwnProperty("errors")) {
-					res.json({ error: err.errors[0].message });
-				} else if (
-					err.hasOwnProperty("original") &&
-					err.original.hasOwnProperty("sqlMessage")
-				) {
-					res.json({ error: err.original.sqlMessage });
-				} else {
-					res.json({ error: "" });
-				}
-			});
-	});
+		.catch((err) => {
+			res.statusCode = 400;
+			res.setHeader("Content-Type", "application/json");
+			if (err.hasOwnProperty("errors")) {
+				res.json({ error: err.errors[0].message });
+			} else if (
+				err.hasOwnProperty("original") &&
+				err.original.hasOwnProperty("sqlMessage")
+			) {
+				res.json({ error: err.original.sqlMessage });
+			} else {
+				res.json({ error: "" });
+			}
+		});
+});
 
 router.delete("/:offerId", auth.parseToken, async (req, res) => {
 	await Offer.destroy({
@@ -196,7 +191,6 @@ router.delete("/:offerId", auth.parseToken, async (req, res) => {
 			}
 		})
 		.catch((err) => {
-			console.log(err);
 			res.statusCode = 400;
 			res.setHeader("Content-Type", "application/json");
 			if (err.hasOwnProperty("errors")) {
@@ -220,7 +214,6 @@ router.post("/comment/:offerId", auth.parseToken, async (req, res) => {
 	})
 		.then((comment) => {
 			if (comment) {
-				console.log(comment.id);
 				res.statusCode = 200;
 				res.setHeader("Content-Type", "application/json");
 				res.json({
@@ -235,7 +228,6 @@ router.post("/comment/:offerId", auth.parseToken, async (req, res) => {
 			}
 		})
 		.catch((err) => {
-			console.log(err);
 			res.statusCode = 400;
 			res.setHeader("Content-Type", "application/json");
 			if (err.hasOwnProperty("errors")) {

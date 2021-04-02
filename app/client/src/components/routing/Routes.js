@@ -1,23 +1,22 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import PrivateRoute from "./PrivateRoute";
-import NotLoggedInRoute from "./NotLoggedInRoute";
 
-import Alert from "../layout/Alert";
-
-import Home from "../home/Home";
-import Calendar from "../calendar/Calendar";
 import About from "../about/About";
-import Login from "../login/Login";
+import Calendar from "../calendar/Calendar";
+import NewEvent from "../calendar/event/NewEvent";
 import DashBoard from "../dashboard/Dashboard";
+import Home from "../home/Home";
+import Alert from "../layout/Alert";
+import NotFound from "../layout/NotFound";
 import ForgotPassword from "../login/ForgotPassword";
+import Login from "../login/Login";
 import ResetPassword from "../login/ResetPassword";
 import SignUp from "../login/SignUp";
-import Team from "../team/Team";
-import NewEvent from "../calendar/event/NewEvent";
-import NotFound from "../layout/NotFound";
-import Offers from "../offers/Offers";
 import NewOffer from "../offers/offer/NewOffer";
+import Offers from "../offers/Offers";
+import Team from "../team/Team";
+import NotLoggedInRoute from "./NotLoggedInRoute";
+import PrivateRoute from "./PrivateRoute";
 
 const Routes = () => {
 	return (

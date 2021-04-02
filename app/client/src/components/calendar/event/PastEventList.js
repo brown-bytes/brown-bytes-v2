@@ -1,9 +1,9 @@
 import React, { Fragment } from "react";
-import { connect } from "react-redux";
 import Spinner from "react-bootstrap/Spinner";
+import { connect } from "react-redux";
 
-import SinglePastEvent from "./SinglePastEvent";
 import { startTimeComparatorInverse } from "../../../utils/startTimeComparator";
+import SinglePastEvent from "./SinglePastEvent";
 
 const PastEventList = ({ events, loading }) => {
 	return loading ? (
