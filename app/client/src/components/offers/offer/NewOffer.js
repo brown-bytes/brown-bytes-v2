@@ -27,7 +27,6 @@ const NewOffer = ({ createOffer }) => {
 	});
 
 	const onChange = (e) => {
-		//console.log(e.target.checked);
 		setFormData({
 			...formData,
 			[e.target.id]:

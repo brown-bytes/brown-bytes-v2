@@ -11,10 +11,6 @@ import Button from "react-bootstrap/Button";
 
 import { resetPassword } from "../../actions/auth";
 
-const mapStateToProps = (state) => ({
-	alerts: state.alert,
-});
-
 const ForgotPassword = ({ resetPassword }) => {
 	const [formData, setFormData] = useState({
 		email: "",
@@ -100,4 +96,8 @@ const ForgotPassword = ({ resetPassword }) => {
 	);
 };
 
-export default connect(mapStateToProps, { resetPassword })(ForgotPassword);
+ForgotPassword.propTypes = {
+	resetPassword: PropTypes.func,
+};
+
+export default connect(null, { resetPassword })(ForgotPassword);

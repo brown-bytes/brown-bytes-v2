@@ -156,4 +156,8 @@ const SignUp = ({ register }) => {
 	);
 };
 
+SignUp.propTypes = {
+	register: PropTypes.func,
+};
+
 export default connect(mapStateToProps, { register })(SignUp);

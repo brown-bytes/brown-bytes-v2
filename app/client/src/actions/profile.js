@@ -42,7 +42,7 @@ export const updateSocialLinks = (data) => async (dispatch) => {
 	});
 
 	try {
-		const res = await axios.patch("profile/", body, config);
+		await axios.patch("profile/", body, config);
 		dispatch(setAlert("Successfully updated profile!", GREEN_ALERT));
 		dispatch(loadUser());
 		dispatch({
@@ -71,7 +71,7 @@ export const updateAvatar = (image) => async (dispatch) => {
 
 	const body = image;
 	try {
-		const res = await axios.post("profile/avatar", body);
+		await axios.post("profile/avatar", body);
 		dispatch(
 			setAlert(
 				"Successfully updated avatar! Reload this page to see your new avatar.",

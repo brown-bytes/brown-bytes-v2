@@ -111,7 +111,6 @@ export const login = (email, password) => async (dispatch) => {
 		toTop();
 	} catch (err) {
 		const errorMessage = err.response.data.error;
-		console.log(err.response);
 		dispatch(setAlert(errorMessage, RED_ALERT));
 		dispatch({
 			type: LOGIN_FAIL,
@@ -179,7 +178,6 @@ export const loginGoogle = (data) => async (dispatch) => {
 			toTop();
 		} catch (err) {
 			const errorMessage = err.response.data.error;
-			console.log(err.response);
 			dispatch(setAlert(errorMessage, RED_ALERT));
 			dispatch({
 				type: LOGIN_FAIL,
@@ -233,7 +231,6 @@ export const loginFacebook = (data) => async (dispatch) => {
 			toTop();
 		} catch (err) {
 			const errorMessage = err.response.data.error;
-			console.log(err.response);
 			dispatch(setAlert(errorMessage, RED_ALERT));
 			dispatch({
 				type: LOGIN_FAIL,

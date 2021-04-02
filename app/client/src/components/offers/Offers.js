@@ -13,7 +13,7 @@ const Offers = ({ isAuthenticated, getOffers }) => {
 	useEffect(() => {
 		clearAlerts();
 		getOffers();
-	}, []);
+	}, [getOffers]);
 
 	return (
 		<Fragment>

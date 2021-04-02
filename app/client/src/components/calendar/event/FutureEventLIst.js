@@ -36,7 +36,7 @@ const startTimeComparator = (event1, event2) => {
 const EventList = ({ events, loading, queryString, getFutureEvents }) => {
 	useEffect(() => {
 		getFutureEvents();
-	}, []);
+	}, [getFutureEvents]);
 
 	return loading ? (
 		<Spinner animation="border" role="status">

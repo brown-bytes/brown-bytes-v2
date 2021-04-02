@@ -22,7 +22,6 @@ const toggleMoreInfo = (e) => {
 		info_items[i].style.display =
 			info_items[i].style.display === "block" ? "none" : "block";
 	}
-	console.log(e.target);
 	e.target.textContent =
 		e.target.textContent === "More info" ? "Less info" : "More info";
 };

@@ -17,7 +17,6 @@ const PostComment = ({ eventId, postEventComment }) => {
 
 	const onClick = (e) => {
 		const eventId = e.target.id;
-		console.log("eventid:", eventId);
 		setComment("");
 		postEventComment(comment, eventId);
 	};

@@ -123,12 +123,9 @@ export const createEvent = (info) => async (dispatch) => {
 };
 
 export const getFutureEvents = () => async (dispatch) => {
-	//console.log("getting future events");
 	try {
 		const res = await axios.get("events");
-		// console.log(res);
 		const events = Object.values(res.data.events);
-		//console.log(events);
 		dispatch({
 			type: GET_FUTURE_EVENTS,
 			payload: events,
@@ -144,8 +141,6 @@ export const getFutureEvents = () => async (dispatch) => {
 };
 
 export const getPastEvents = (numPastEventFetched) => async (dispatch) => {
-	console.log("getting past events");
-	console.log("num:", numPastEventFetched);
 	try {
 		const res = await axios.get("events/past", {
 			params: {
@@ -153,7 +148,7 @@ export const getPastEvents = (numPastEventFetched) => async (dispatch) => {
 			},
 		});
 		const events = Object.values(res.data.events);
-		console.log(events);
+
 		dispatch({
 			type: GET_PAST_EVENTS,
 			payload: events,
@@ -170,7 +165,6 @@ export const getPastEvents = (numPastEventFetched) => async (dispatch) => {
 
 export const watchEvent = (e) => async (dispatch) => {
 	const eventId = e.target.id;
-	console.log("watch:", eventId);
 	try {
 		await axios.post(`events/watch/${eventId}`);
 		dispatch({
@@ -182,7 +176,6 @@ export const watchEvent = (e) => async (dispatch) => {
 };
 export const unwatchEvent = (e) => async (dispatch) => {
 	const eventId = e.target.id;
-	console.log("unwatch:", eventId);
 	try {
 		await axios.delete(`events/watch/${eventId}`);
 		dispatch({

@@ -91,4 +91,8 @@ const Team = ({ sendFeedBack }) => {
 	);
 };
 
+Team.propTypes = {
+	sendFeedBack: PropTypes.func,
+};
+
 export default connect(null, { sendFeedBack })(Team);

@@ -157,4 +157,10 @@ const Login = ({ login, loginGoogle, loginFacebook }) => {
 	);
 };
 
+Login.propTypes = {
+	login: PropTypes.func,
+	loginGoogle: PropTypes.func,
+	loginFacebook: PropTypes.func,
+};
+
 export default connect(null, { login, loginGoogle, loginFacebook })(Login);

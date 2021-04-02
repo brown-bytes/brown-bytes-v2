@@ -30,7 +30,6 @@ const Calendar = ({ isAuthenticated, numPastEventsFetched, getPastEvents }) => {
 	};
 
 	const toggleMorePreviousEvents = (e) => {
-		console.log("fetch 10 more events");
 		getPastEvents(numPastEventsFetched);
 	};
 

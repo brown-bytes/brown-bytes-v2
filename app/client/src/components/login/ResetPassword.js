@@ -7,7 +7,7 @@ import Button from "react-bootstrap/Button";
 
 import { clearAlerts } from "../../actions/alert";
 
-const ForgotPassword = ({}) => {
+const ForgotPassword = () => {
 	useEffect(() => {
 		clearAlerts();
 	}, []);
@@ -25,6 +25,7 @@ const ForgotPassword = ({}) => {
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
+		console.log(password, passwordRepeat);
 	};
 
 	return (
