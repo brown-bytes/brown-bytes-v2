@@ -7,6 +7,7 @@ import {
 	CREATE_OFFER_SUCCESS,
 	CREATE_OFFER_FAILED,
 	GET_OFFERS,
+	GET_CREATED_OFFERS,
 	DELETE_OFFER_SUCCESS,
 	DELETE_OFFER_FAILED,
 	CHANGE_OFFER_QUERY_STRING,
@@ -115,11 +116,23 @@ export const getOffers = () => async (dispatch) => {
 		});
 	} catch (err) {
 		if (err.response) {
-			const errorMessage = err.response.data.error;
-			dispatch(setAlert(errorMessage, RED_ALERT));
 		}
 	}
+	return;
+};
 
+export const getCreatedOffers = () => async (dispatch) => {
+	try {
+		const res = await axios.get("offers/created");
+		const offers = Object.values(res.data.offers);
+		dispatch({
+			type: GET_CREATED_OFFERS,
+			payload: offers,
+		});
+	} catch (err) {
+		if (err.response) {
+		}
+	}
 	return;
 };
 

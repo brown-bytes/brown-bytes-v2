@@ -14,6 +14,9 @@ import {
 	REGISTER_EMAIL_SENT,
 } from "./types";
 
+import { getWatchingEvents, getCreatedEvents } from "./event";
+import { getCreatedOffers } from "./offer";
+
 export const loadUser = () => async (dispatch) => {
 	if (localStorage.token) {
 		setAuthToken(localStorage.token);
@@ -25,6 +28,9 @@ export const loadUser = () => async (dispatch) => {
 
 	try {
 		const res = await axios.get("profile");
+		dispatch(getWatchingEvents());
+		dispatch(getCreatedEvents());
+		dispatch(getCreatedOffers());
 		dispatch({
 			type: USER_LOADED,
 			payload: res.data,

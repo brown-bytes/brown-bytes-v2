@@ -1,6 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import React, { Fragment } from "react";
 
 import WatchingEventList from "../calendar/event/WatchingEventList";
 import CreatedEventList from "../calendar/event/CreatedEventList";

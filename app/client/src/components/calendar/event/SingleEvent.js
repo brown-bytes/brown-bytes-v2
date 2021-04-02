@@ -39,7 +39,9 @@ const SingleEvent = ({
 	const eventDate = moment(event.eventDate).format("dddd, MMMM DD, YYYY");
 	const startTime = moment(event.startTime).format("HH:mm A");
 	const endTime = moment(event.endTime).format("HH:mm A");
-	const createdAt = moment(event.createdAt).format("dddd, MMMM DD, YYYY");
+	const createdAt = moment(event.createdAt).format(
+		"HH:mm A, dddd, MMMM DD, YYYY"
+	);
 	return (
 		<Fragment>
 			<Accordion>

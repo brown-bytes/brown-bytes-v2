@@ -15,7 +15,7 @@ const startTimeComparator = (event1, event2) => {
 	}
 };
 
-const EventList = ({ events, loading }) => {
+const PastEventList = ({ events, loading }) => {
 	return loading ? (
 		<Spinner animation="border" role="status">
 			<span className="sr-only">Loading...</span>
@@ -34,4 +34,4 @@ const mapStateToProps = (state) => ({
 	loading: state.events.loadingPastEvents,
 });
 
-export default connect(mapStateToProps)(EventList);
+export default connect(mapStateToProps)(PastEventList);

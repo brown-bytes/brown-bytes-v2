@@ -33,7 +33,7 @@ const startTimeComparator = (event1, event2) => {
 	}
 };
 
-const EventList = ({ events, loading, queryString, getFutureEvents }) => {
+const FutureEventList = ({ events, loading, queryString, getFutureEvents }) => {
 	useEffect(() => {
 		getFutureEvents();
 	}, [getFutureEvents]);
@@ -63,4 +63,4 @@ const mapStateToProps = (state) => ({
 	queryString: state.events.queryString,
 });
 
-export default connect(mapStateToProps, { getFutureEvents })(EventList);
+export default connect(mapStateToProps, { getFutureEvents })(FutureEventList);

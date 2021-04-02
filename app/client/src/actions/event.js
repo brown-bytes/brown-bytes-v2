@@ -128,7 +128,6 @@ export const getFutureEvents = () => async (dispatch) => {
 	try {
 		const res = await axios.get("events");
 		const events = Object.values(res.data.events);
-		console.log(events);
 		dispatch({
 			type: GET_FUTURE_EVENTS,
 			payload: events,
@@ -174,7 +173,6 @@ export const getWatchingEvents = () => async (dispatch) => {
 export const getCreatedEvents = () => async (dispatch) => {
 	try {
 		const res = await axios.get("events/created");
-		console.log(res.data.events);
 		let events = Object.values(res.data.events);
 		dispatch({
 			type: GET_CREATED_EVENTS,
@@ -196,13 +194,9 @@ export const watchEvent = (e, eventPlaceDisplayed) => async (dispatch) => {
 			case "homeAndCalendar":
 				dispatch(getFutureEvents());
 				break;
-			case "dashboardWatchingEvents":
+			case "dashboardEvents":
 				dispatch(getWatchingEvents());
 				dispatch(getCreatedEvents());
-				break;
-			case "dashboardCreatedEvents":
-				dispatch(getCreatedEvents());
-				dispatch(getWatchingEvents());
 				break;
 			default:
 		}
@@ -221,13 +215,9 @@ export const unwatchEvent = (e, eventPlaceDisplayed) => async (dispatch) => {
 			case "homeAndCalendar":
 				dispatch(getFutureEvents());
 				break;
-			case "dashboardWatchingEvents":
+			case "dashboardEvents":
 				dispatch(getWatchingEvents());
 				dispatch(getCreatedEvents());
-				break;
-			case "dashboardCreatedEvents":
-				dispatch(getCreatedEvents());
-				dispatch(getWatchingEvents());
 				break;
 			default:
 		}
@@ -250,10 +240,8 @@ export const deleteEvent = (e, eventPlaceDisplayed) => async (dispatch) => {
 			case "homeAndCalendar":
 				dispatch(getFutureEvents());
 				break;
-			case "dashboardWatchingEvents":
+			case "dashboardEvents":
 				dispatch(getWatchingEvents());
-				break;
-			case "dashboardCreatedEvents":
 				dispatch(getCreatedEvents());
 				break;
 			default:
@@ -294,10 +282,8 @@ export const postEventComment = (
 			case "homeAndCalendar":
 				dispatch(getFutureEvents());
 				break;
-			case "dashboardWatchingEvents":
+			case "dashboardEvents":
 				dispatch(getWatchingEvents());
-				break;
-			case "dashboardCreatedEvents":
 				dispatch(getCreatedEvents());
 				break;
 			default:

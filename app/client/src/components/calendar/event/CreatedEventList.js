@@ -32,7 +32,7 @@ const EventList = ({ events, loading, getCreatedEvents }) => {
 				<SingleEvent
 					key={event.id}
 					event={event}
-					placeDisplayed="dashboardCreatedEvents"></SingleEvent>
+					placeDisplayed="dashboardEvents"></SingleEvent>
 			))}
 		</Fragment>
 	);

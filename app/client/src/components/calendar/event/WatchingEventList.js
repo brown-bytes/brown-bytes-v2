@@ -17,7 +17,7 @@ const startTimeComparator = (event1, event2) => {
 	}
 };
 
-const EventList = ({ events, loading, getWatchingEvents }) => {
+const WatchingEventList = ({ events, loading, getWatchingEvents }) => {
 	useEffect(() => {
 		getWatchingEvents();
 	}, [getWatchingEvents]);
@@ -32,7 +32,7 @@ const EventList = ({ events, loading, getWatchingEvents }) => {
 				<SingleEvent
 					key={event.id}
 					event={event}
-					placeDisplayed="dashboardWatchingEvents"></SingleEvent>
+					placeDisplayed="dashboardEvents"></SingleEvent>
 			))}
 		</Fragment>
 	);
@@ -44,4 +44,6 @@ const mapStateToProps = (state) => ({
 	queryString: state.events.queryString,
 });
 
-export default connect(mapStateToProps, { getWatchingEvents })(EventList);
+export default connect(mapStateToProps, { getWatchingEvents })(
+	WatchingEventList
+);
