@@ -1,4 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
+import { set } from "mongoose";
 import {
 	CREATE_EVENT_SUCCESS,
 	CREATE_EVENT_FAILED,
@@ -18,6 +19,7 @@ const initialState = {
 	futureEvents: [],
 	pastEvents: [],
 	watchingEvents: [],
+	watchingEventIds: new Set(),
 	createdEvents: [],
 	loadingFutureEvents: true,
 	loadingPastEvents: true,
@@ -49,6 +51,7 @@ export default function (state = initialState, action) {
 			return {
 				...state,
 				watchingEvents: [...payload],
+				watchingEventIds: new Set(payload.map((event) => event.id)),
 				loadingWatchingEvents: false,
 			};
 		case GET_CREATED_EVENTS:
@@ -62,12 +65,27 @@ export default function (state = initialState, action) {
 				...state,
 				queryString: payload,
 			};
+		case WATCH_EVENT:
+			return {
+				...state,
+				watchingEventIds: new Set([
+					...state.watchingEventIds,
+					Number(payload),
+				]),
+			};
+		case UNWATCH_EVENT:
+			return {
+				...state,
+				watchingEventIds: new Set(
+					[...state.watchingEventIds].filter(
+						(id) => id !== Number(payload)
+					)
+				),
+			};
 		case CREATE_EVENT_SUCCESS:
 		case CREATE_EVENT_FAILED:
 		case DELETE_EVENT_SUCCESS:
 		case DELETE_EVENT_FAILED:
-		case WATCH_EVENT:
-		case UNWATCH_EVENT:
 		case POST_EVENT_COMMENT:
 		default:
 			return state;

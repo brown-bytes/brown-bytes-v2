@@ -39,7 +39,10 @@ const OfferList = ({ offers, loading, queryString }) => {
 				.filter((offer) => filterOffer(offer, queryString))
 				.sort(startTimeComparator)
 				.map((offer) => (
-					<SingleOffer key={offer.id} offer={offer}></SingleOffer>
+					<SingleOffer
+						key={offer.id}
+						offer={offer}
+						placeDisplayed="offersPage"></SingleOffer>
 				))}
 		</Fragment>
 	);

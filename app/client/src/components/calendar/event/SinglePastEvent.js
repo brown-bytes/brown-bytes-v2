@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import moment from "moment";
 import { connect } from "react-redux";
-import { watchEvent, unwatchEvent, deleteEvent } from "../../../actions/event";
+import { deleteEvent } from "../../../actions/event";
 
 import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
@@ -27,13 +27,10 @@ const toggleMoreInfo = (e) => {
 };
 
 const SingleEvent = ({
-	watchEvent,
-	unwatchEvent,
 	deleteEvent,
 	isAuthenticated,
 	authedUser,
 	loadingUser,
-	watchingEventIds,
 	event,
 	placeDisplayed,
 }) => {
@@ -176,37 +173,27 @@ const SingleEvent = ({
 											</Button>
 										)}
 									<Button
+										disabled={true}
 										className="px-2"
-										style={
-											watchingEventIds.has(event.id)
-												? { color: "blue" }
-												: null
-										}
 										variant="outline-link"
 										size="lg">
 										<i
 											className="fas fa-eye"
 											id={event.id}
-											onClick={(e) => {
-												watchEvent(e, placeDisplayed);
-											}}
 										/>{" "}
 										{event.numWatches && (
 											<span>{event.numWatches}</span>
 										)}
 									</Button>
 									<Button
+										disabled={true}
 										className="px-3"
 										variant="outline-link"
 										size="lg"
-										id={event.id}
-										onClick={unwatchEvent}>
+										id={event.id}>
 										<i
 											className="fas fa-eye-slash"
 											id={event.id}
-											onClick={(e) => {
-												unwatchEvent(e, placeDisplayed);
-											}}
 										/>
 									</Button>
 									<Accordion.Toggle
@@ -279,20 +266,16 @@ const mapStateToProps = (state) => {
 			isAuthenticated: state.auth.isAuthenticated,
 			authedUser: state.auth.user.data,
 			loadingUser: state.auth.loading,
-			watchingEventIds: state.events.watchingEventIds,
 		};
 	} else {
 		return {
 			isAuthenticated: false,
 			authedUser: null,
 			loadingUser: null,
-			watchingEventIds: new Set(),
 		};
 	}
 };
 
 export default connect(mapStateToProps, {
-	watchEvent,
-	unwatchEvent,
 	deleteEvent,
 })(SingleEvent);

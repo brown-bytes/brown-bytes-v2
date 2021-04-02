@@ -21,6 +21,7 @@ const SingleOffer = ({
 	authedUser,
 	loadingUser,
 	offer,
+	placeDisplayed,
 }) => {
 	const offerDate = moment(offer.date).format("dddd, MMMM DD, YYYY");
 	const startTime = moment(offer.startTime).format("HH:mm A");
@@ -99,7 +100,9 @@ const SingleOffer = ({
 											variant="outline-link"
 											size="lg"
 											id={offer.id}
-											onClick={deleteOffer}>
+											onClick={(e) => {
+												deleteOffer(e, placeDisplayed);
+											}}>
 											<i
 												id={offer.id}
 												className="fas fa-trash-alt"></i>
@@ -127,7 +130,8 @@ const SingleOffer = ({
 				<Accordion.Collapse eventKey="comment" className="comment-area">
 					<CommentArea
 						comments={offer.comments}
-						offerId={offer.id}></CommentArea>
+						offerId={offer.id}
+						placeDisplayed={placeDisplayed}></CommentArea>
 				</Accordion.Collapse>
 			</Accordion>
 		</Fragment>

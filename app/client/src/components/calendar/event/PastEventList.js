@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 import moment from "moment";
 import Spinner from "react-bootstrap/Spinner";
 
-import SingleEvent from "./SingleEvent";
+// import SingleEvent from "./SingleEvent";
+import SinglePastEvent from "./SinglePastEvent";
 
 const startTimeComparator = (event1, event2) => {
 	const date1 = event1.startTime;
@@ -23,7 +24,7 @@ const PastEventList = ({ events, loading }) => {
 	) : (
 		<Fragment>
 			{events.sort(startTimeComparator).map((event) => (
-				<SingleEvent key={event.id} event={event}></SingleEvent>
+				<SinglePastEvent key={event.id} event={event}></SinglePastEvent>
 			))}
 		</Fragment>
 	);

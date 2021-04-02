@@ -183,14 +183,15 @@ export const getCreatedEvents = () => async (dispatch) => {
 	return;
 };
 
-export const watchEvent = (e, eventPlaceDisplayed) => async (dispatch) => {
+export const watchEvent = (e, placeDisplayed) => async (dispatch) => {
 	const eventId = e.target.id;
 	try {
 		await axios.post(`events/watch/${eventId}`);
 		dispatch({
 			type: WATCH_EVENT,
+			payload: eventId,
 		});
-		switch (eventPlaceDisplayed) {
+		switch (placeDisplayed) {
 			case "homeAndCalendar":
 				dispatch(getFutureEvents());
 				break;
@@ -204,14 +205,15 @@ export const watchEvent = (e, eventPlaceDisplayed) => async (dispatch) => {
 	return;
 };
 
-export const unwatchEvent = (e, eventPlaceDisplayed) => async (dispatch) => {
+export const unwatchEvent = (e, placeDisplayed) => async (dispatch) => {
 	const eventId = e.target.id;
 	try {
 		await axios.delete(`events/watch/${eventId}`);
 		dispatch({
 			type: UNWATCH_EVENT,
+			payload: eventId,
 		});
-		switch (eventPlaceDisplayed) {
+		switch (placeDisplayed) {
 			case "homeAndCalendar":
 				dispatch(getFutureEvents());
 				break;
@@ -228,7 +230,7 @@ export const unwatchEvent = (e, eventPlaceDisplayed) => async (dispatch) => {
 	return;
 };
 
-export const deleteEvent = (e, eventPlaceDisplayed) => async (dispatch) => {
+export const deleteEvent = (e, placeDisplayed) => async (dispatch) => {
 	const eventId = e.target.id;
 	try {
 		await axios.delete(`events/${eventId}`);
@@ -236,7 +238,7 @@ export const deleteEvent = (e, eventPlaceDisplayed) => async (dispatch) => {
 			type: DELETE_EVENT_SUCCESS,
 		});
 		dispatch(setAlert("Successfully deleted your event", GREEN_ALERT));
-		switch (eventPlaceDisplayed) {
+		switch (placeDisplayed) {
 			case "homeAndCalendar":
 				dispatch(getFutureEvents());
 				break;
@@ -258,11 +260,9 @@ export const deleteEvent = (e, eventPlaceDisplayed) => async (dispatch) => {
 	return;
 };
 
-export const postEventComment = (
-	comment,
-	eventId,
-	eventPlaceDisplayed
-) => async (dispatch) => {
+export const postEventComment = (comment, eventId, placeDisplayed) => async (
+	dispatch
+) => {
 	const config = {
 		headers: {
 			"Content-Type": "application/json",
@@ -278,7 +278,7 @@ export const postEventComment = (
 		dispatch({
 			type: POST_EVENT_COMMENT,
 		});
-		switch (eventPlaceDisplayed) {
+		switch (placeDisplayed) {
 			case "homeAndCalendar":
 				dispatch(getFutureEvents());
 				break;

@@ -136,7 +136,7 @@ export const getCreatedOffers = () => async (dispatch) => {
 	return;
 };
 
-export const deleteOffer = (e) => async (dispatch) => {
+export const deleteOffer = (e, placeDisplayed) => async (dispatch) => {
 	const offerId = e.target.id;
 	try {
 		await axios.delete(`offers/${offerId}`);
@@ -144,7 +144,16 @@ export const deleteOffer = (e) => async (dispatch) => {
 			type: DELETE_OFFER_SUCCESS,
 		});
 		dispatch(setAlert("Successfully deleted your offer", GREEN_ALERT));
-		dispatch(getOffers());
+		switch (placeDisplayed) {
+			case "offersPage":
+				dispatch(getOffers());
+				break;
+			case "dashboardOffers":
+				dispatch(getCreatedOffers());
+				break;
+			default:
+		}
+
 		toTop();
 	} catch (err) {
 		if (err.response) {
@@ -159,7 +168,9 @@ export const deleteOffer = (e) => async (dispatch) => {
 	return;
 };
 
-export const postOfferComment = (comment, offerId) => async (dispatch) => {
+export const postOfferComment = (comment, offerId, placeDisplayed) => async (
+	dispatch
+) => {
 	const config = {
 		headers: {
 			"Content-Type": "application/json",
@@ -172,11 +183,18 @@ export const postOfferComment = (comment, offerId) => async (dispatch) => {
 
 	try {
 		await axios.post(`offers/comment/${offerId}`, body, config);
-		// dispatch(setAlert("Successfully posted a new comment", GREEN_ALERT));
 		dispatch({
 			type: POST_OFFER_COMMENT,
 		});
-		dispatch(getOffers());
+		switch (placeDisplayed) {
+			case "offersPage":
+				dispatch(getOffers());
+				break;
+			case "dashboardOffers":
+				dispatch(getCreatedOffers());
+				break;
+			default:
+		}
 	} catch (err) {
 		const errorMessage = err.response.data.error;
 		dispatch(setAlert(errorMessage, RED_ALERT));

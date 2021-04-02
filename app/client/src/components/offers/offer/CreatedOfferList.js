@@ -31,7 +31,10 @@ const CreatedOfferList = ({ offers, loading, getCreatedOffers }) => {
 	) : (
 		<Fragment>
 			{offers.sort(startTimeComparator).map((offer) => (
-				<SingleOffer key={offer.id} offer={offer}></SingleOffer>
+				<SingleOffer
+					key={offer.id}
+					offer={offer}
+					placeDisplayed="dashboardOffers"></SingleOffer>
 			))}
 		</Fragment>
 	);
