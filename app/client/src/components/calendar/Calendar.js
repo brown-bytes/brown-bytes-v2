@@ -18,8 +18,8 @@ const Calendar = ({ isAuthenticated }) => {
 
 	const togglePreviousEvents = (e) => {
 		setShowPreviousEvents(showPreviousEvents ? false : true);
-		e.target.text =
-			e.target.text === "Show past events"
+		e.target.textContent =
+			e.target.textContent === "Show past events"
 				? "Hide past events"
 				: "Show past events";
 	};
@@ -46,9 +46,11 @@ const Calendar = ({ isAuthenticated }) => {
 			<hr></hr>
 			<SearchBar></SearchBar>
 			<FutureEventList></FutureEventList>
-			<a id="calendar-past-events-toggle" onClick={togglePreviousEvents}>
+			<button
+				id="calendar-past-events-toggle"
+				onClick={togglePreviousEvents}>
 				Show past events
-			</a>
+			</button>
 			{showPreviousEvents && (
 				<Fragment>
 					<p className="calendar-heading2">Past Events</p>

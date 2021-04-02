@@ -152,20 +152,11 @@ export const watchEvent = (e) => async (dispatch) => {
 	console.log("watch:", eventId);
 	try {
 		await axios.post(`events/watch/${eventId}`);
-		// dispatch({
-		// 	type: DELETE_EVENT_SUCCESS,
-		// });
-		//dispatch(setAlert("Successfully deleted your event", GREEN_ALERT));
+		dispatch({
+			type: WATCH_EVENT,
+		});
 		dispatch(getFutureEvents());
-	} catch (err) {
-		if (err.response) {
-			// const errorMessage = err.response.data.error;
-			// dispatch(setAlert(errorMessage, RED_ALERT));
-			// dispatch({
-			// 	type: DELETE_EVENT_FAILED,
-			// });
-		}
-	}
+	} catch (err) {}
 	return;
 };
 export const unwatchEvent = (e) => async (dispatch) => {
@@ -173,18 +164,12 @@ export const unwatchEvent = (e) => async (dispatch) => {
 	console.log("unwatch:", eventId);
 	try {
 		await axios.delete(`events/watch/${eventId}`);
-		// dispatch({
-		// 	type: DELETE_EVENT_SUCCESS,
-		// });
-		//dispatch(setAlert("Successfully deleted your event", GREEN_ALERT));
+		dispatch({
+			type: UNWATCH_EVENT,
+		});
 		dispatch(getFutureEvents());
 	} catch (err) {
 		if (err.response) {
-			// const errorMessage = err.response.data.error;
-			// dispatch(setAlert(errorMessage, RED_ALERT));
-			// dispatch({
-			// 	type: DELETE_EVENT_FAILED,
-			// });
 		}
 	}
 	return;

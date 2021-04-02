@@ -2,6 +2,7 @@ import axios from "axios";
 import { setAlert, clearAlerts } from "./alert";
 import setAuthToken from "../utils/setAuthToken";
 import { RED_ALERT, GREEN_ALERT } from "../components/layout/AlertTypes";
+import toTop from "../utils/scrollToTop";
 import {
 	REGISTER_SUCCESS,
 	REGISTER_FAIL,
@@ -68,6 +69,7 @@ export const register = (userName, email, password, passwordRepeat) => async (
 		dispatch({
 			type: REGISTER_EMAIL_SENT,
 		});
+		toTop();
 	} catch (err) {
 		const errorMessage = err.response.data.error;
 		if (errorMessage === "users.email must be unique") {
@@ -105,8 +107,8 @@ export const login = (email, password) => async (dispatch) => {
 			type: LOGIN_SUCCESS,
 			payload: res.data,
 		});
-
 		dispatch(loadUser());
+		toTop();
 	} catch (err) {
 		const errorMessage = err.response.data.error;
 		console.log(err.response);
@@ -122,6 +124,7 @@ export const logout = () => (dispatch) => {
 		type: LOGOUT,
 	});
 	dispatch(setAlert("Logged out", GREEN_ALERT));
+	toTop();
 };
 
 export const resetPassword = (email) => (dispatch) => {
@@ -159,6 +162,7 @@ export const loginGoogle = (data) => async (dispatch) => {
 		});
 
 		dispatch(loadUser());
+		toTop();
 	} catch (err) {
 		const tryLogIn = JSON.stringify({ email, password });
 
@@ -172,6 +176,7 @@ export const loginGoogle = (data) => async (dispatch) => {
 			});
 
 			dispatch(loadUser());
+			toTop();
 		} catch (err) {
 			const errorMessage = err.response.data.error;
 			console.log(err.response);
@@ -211,6 +216,7 @@ export const loginFacebook = (data) => async (dispatch) => {
 		});
 
 		dispatch(loadUser());
+		toTop();
 	} catch (err) {
 		const tryLogIn = JSON.stringify({ email, password });
 
@@ -224,6 +230,7 @@ export const loginFacebook = (data) => async (dispatch) => {
 			});
 
 			dispatch(loadUser());
+			toTop();
 		} catch (err) {
 			const errorMessage = err.response.data.error;
 			console.log(err.response);

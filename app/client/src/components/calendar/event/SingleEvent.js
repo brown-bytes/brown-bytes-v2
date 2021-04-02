@@ -22,7 +22,9 @@ const toggleMoreInfo = (e) => {
 		info_items[i].style.display =
 			info_items[i].style.display === "block" ? "none" : "block";
 	}
-	e.target.text = e.target.text === "More info" ? "Less info" : "More info";
+	console.log(e.target);
+	e.target.textContent =
+		e.target.textContent === "More info" ? "Less info" : "More info";
 };
 
 const SingleEvent = ({
@@ -130,12 +132,12 @@ const SingleEvent = ({
 
 						<Row noGutters="true">
 							<Col xs={3} sm={3} md={8} lg={9}>
-								<a
+								<button
 									className={`event-more-text`}
 									id={`moreinfo-class-${event.id}`}
 									onClick={toggleMoreInfo}>
 									More info
-								</a>
+								</button>
 							</Col>
 							{isAuthenticated ? (
 								<Col
