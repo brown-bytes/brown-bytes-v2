@@ -8,7 +8,7 @@ import FormControl from "react-bootstrap/FormControl";
 
 import { postEventComment } from "../../../actions/event";
 
-const PostComment = ({ eventId, postEventComment }) => {
+const PostComment = ({ eventId, postEventComment, placeDisplayed }) => {
 	const [comment, setComment] = useState("");
 
 	const onChange = (e) => {
@@ -18,7 +18,7 @@ const PostComment = ({ eventId, postEventComment }) => {
 	const onClick = (e) => {
 		const eventId = e.target.id;
 		setComment("");
-		postEventComment(comment, eventId);
+		postEventComment(comment, eventId, placeDisplayed);
 	};
 
 	return (

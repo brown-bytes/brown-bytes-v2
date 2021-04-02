@@ -48,7 +48,10 @@ const EventList = ({ events, loading, queryString, getFutureEvents }) => {
 				.filter((event) => filterEvent(event, queryString))
 				.sort(startTimeComparator)
 				.map((event) => (
-					<SingleEvent key={event.id} event={event}></SingleEvent>
+					<SingleEvent
+						key={event.id}
+						event={event}
+						placeDisplayed="homeAndCalendar"></SingleEvent>
 				))}
 		</Fragment>
 	);
@@ -56,7 +59,7 @@ const EventList = ({ events, loading, queryString, getFutureEvents }) => {
 
 const mapStateToProps = (state) => ({
 	events: state.events.futureEvents,
-	loading: state.events.loadingFuture,
+	loading: state.events.loadingFutureEvents,
 	queryString: state.events.queryString,
 });
 

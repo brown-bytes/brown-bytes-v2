@@ -4,6 +4,8 @@ import {
 	CREATE_EVENT_FAILED,
 	GET_FUTURE_EVENTS,
 	GET_PAST_EVENTS,
+	GET_WATCHING_EVENTS,
+	GET_CREATED_EVENTS,
 	DELETE_EVENT_SUCCESS,
 	DELETE_EVENT_FAILED,
 	CHANGE_EVENT_QUERY_STRING,
@@ -15,8 +17,12 @@ import {
 const initialState = {
 	futureEvents: [],
 	pastEvents: [],
-	loadingFuture: true,
-	loadingPast: true,
+	watchingEvents: [],
+	createdEvents: [],
+	loadingFutureEvents: true,
+	loadingPastEvents: true,
+	loadingWatchingEvents: true,
+	loadingCreatedEvents: true,
 	numPastEventsFetched: 0,
 	queryString: "",
 };
@@ -29,15 +35,27 @@ export default function (state = initialState, action) {
 			return {
 				...state,
 				futureEvents: [...payload],
-				loadingFuture: false,
+				loadingFutureEvents: false,
 			};
 		case GET_PAST_EVENTS:
 			return {
 				...state,
 				pastEvents: [...state.pastEvents, ...payload],
-				loadingPast: false,
+				loadingPastEvents: false,
 				numPastEventsFetched:
 					state.numPastEventsFetched + payload.length,
+			};
+		case GET_WATCHING_EVENTS:
+			return {
+				...state,
+				watchingEvents: [...payload],
+				loadingWatchingEvents: false,
+			};
+		case GET_CREATED_EVENTS:
+			return {
+				...state,
+				createdEvents: [...payload],
+				loadingCreatedEvents: false,
 			};
 		case CHANGE_EVENT_QUERY_STRING:
 			return {

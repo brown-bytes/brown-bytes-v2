@@ -34,6 +34,7 @@ const SingleEvent = ({
 	authedUser,
 	loadingUser,
 	event,
+	placeDisplayed,
 }) => {
 	const eventDate = moment(event.eventDate).format("dddd, MMMM DD, YYYY");
 	const startTime = moment(event.startTime).format("HH:mm A");
@@ -154,11 +155,21 @@ const SingleEvent = ({
 												variant="outline-link"
 												size="lg"
 												id={event.id}
-												onClick={deleteEvent}>
+												onClick={(e) => {
+													deleteEvent(
+														e,
+														placeDisplayed
+													);
+												}}>
 												<i
 													className="fas fa-trash-alt"
 													id={event.id}
-													onClick={deleteEvent}></i>
+													onClick={(e) => {
+														deleteEvent(
+															e,
+															placeDisplayed
+														);
+													}}></i>
 											</Button>
 										)}
 									<Button
@@ -168,7 +179,9 @@ const SingleEvent = ({
 										<i
 											className="fas fa-eye"
 											id={event.id}
-											onClick={watchEvent}
+											onClick={(e) => {
+												watchEvent(e, placeDisplayed);
+											}}
 										/>{" "}
 										{event.numWatches && (
 											<span>{event.numWatches}</span>
@@ -183,7 +196,9 @@ const SingleEvent = ({
 										<i
 											className="fas fa-eye-slash"
 											id={event.id}
-											onClick={unwatchEvent}
+											onClick={(e) => {
+												unwatchEvent(e, placeDisplayed);
+											}}
 										/>
 									</Button>
 									<Accordion.Toggle
@@ -242,7 +257,8 @@ const SingleEvent = ({
 				<Accordion.Collapse eventKey="comment" className="comment-area">
 					<CommentArea
 						comments={event.comments}
-						eventId={event.id}></CommentArea>
+						eventId={event.id}
+						placeDisplayed={placeDisplayed}></CommentArea>
 				</Accordion.Collapse>
 			</Accordion>
 		</Fragment>
