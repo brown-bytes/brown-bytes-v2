@@ -1,38 +1,501 @@
-.App {
-  text-align: center;
+body {
+	font-family: "Raleway", sans-serif;
+	font-size: 1rem;
+	line-height: 1.6;
+	background-color: #fff;
+	color: #333;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.container {
+	max-width: 1100px;
+	margin: auto;
+	overflow: hidden;
+	padding: 0 2rem;
+	margin-top: 6rem;
+	margin-bottom: 3rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.navbar {
+	position: fixed;
+	z-index: 1;
+	width: 100%;
+	border-bottom: solid 1px;
+	opacity: 0.9;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.navbar a {
+	padding: 0.45rem;
+	margin: 0 0.25rem;
 }
 
-.App-link {
-  color: #61dafb;
+.login-signup-reset-heading {
+	font-weight: bold;
+	font-size: xx-large;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#login-form {
+	padding-bottom: 10px;
+}
+
+.login-reset-form-label {
+	font-weight: bold;
+	font-size: larger;
+}
+
+.login-signup-reset-plain-text {
+	font-size: large;
+}
+
+#login-forgot-password-text {
+	border-top: 20px;
+}
+
+#team-heading {
+	font-size: xx-large;
+	font-weight: bold;
+}
+
+#team-text {
+	font-size: larger;
+}
+
+#feedback-form {
+	padding-bottom: 10px;
+}
+
+.feedback-form-label {
+	font-size: larger;
+}
+
+.about-first-heading {
+	font-weight: bolder;
+	font-size: xx-large;
+}
+
+.about-second-heading {
+	font-weight: bold;
+	font-size: x-large;
+}
+
+.about-text {
+	font-size: larger;
+}
+
+#forgot-password-form {
+	padding-bottom: 10px;
+}
+
+#register-heading {
+	font-weight: bold;
+	font-size: xx-large;
+}
+
+#signup-form {
+	padding-bottom: 10px;
+}
+
+.signup-form-label-top {
+	font-weight: bold;
+	font-size: larger;
+}
+
+#terms-clickable-text {
+	color: #2f7ef6;
+	cursor: pointer;
+}
+
+.signup-form-label-bottom {
+	font-size: medium;
+}
+
+.calendar-heading1 {
+	font-weight: bold;
+	font-size: xx-large;
+}
+
+.calendar-heading2 {
+	font-weight: bold;
+	font-size: x-large;
+	margin-bottom: 0;
+}
+
+.calendar-text {
+	font-size: large;
+}
+
+#calendar-past-events-toggle {
+	border: 0;
+	background-color: #fff;
+	padding: 0;
+	padding-left: 1px;
+	padding-top: 1px;
+	position: relative;
+	color: #2f7ef6;
+	cursor: pointer;
+	font-size: large;
+}
+
+#calendar-more-past-events-toggle {
+	border: 0;
+	background-color: #fff;
+	padding: 0;
+	padding-left: 1px;
+	padding-top: 1px;
+	position: relative;
+	color: #2f7ef6;
+	cursor: pointer;
+	font-size: large;
+}
+
+#new-event-heading {
+	font-weight: bold;
+	font-size: xx-large;
+}
+
+.new-event-asterisk {
+	color: red;
+}
+
+.new-event-text {
+	font-size: larger;
+	font-weight: normal;
+}
+
+#new-event-form {
+	padding-bottom: 10px;
+}
+
+.new-event-form-label {
+	font-size: larger;
+	font-weight: bold;
+}
+
+.new-event-form-label-eg {
+	font-size: large;
+	font-weight: normal;
+}
+
+.event-card-title {
+	font-size: x-large;
+	font-weight: double;
+	margin-bottom: 0;
+}
+
+.event-card-keyinfo {
+	font-size: larger;
+	margin-bottom: 0;
+}
+
+.event-card-moreinfo {
+	font-size: larger;
+	margin-bottom: 0;
+	display: none;
+}
+
+.event-card-boldtext {
+	font-weight: bold;
+}
+
+.event-card-italictext {
+	font-style: italic;
+}
+
+.event-more-text {
+	border: 0;
+	background-color: #fff;
+	padding: 0;
+	padding-left: 1px;
+	padding-top: 1px;
+	position: relative;
+	color: #2f7ef6;
+	cursor: pointer;
+}
+
+.event-ongoing-badge {
+	width: 140px;
+	display: block;
+	border: thin solid #0070f9;
+	font-weight: bold;
+	font-size: x-large;
+}
+
+.event-ongoing-text {
+	padding-left: 18px;
+	color: #0070f9;
+}
+
+.event-upcoming-badge {
+	width: 140px;
+	display: block;
+	border: thin solid #ff892e;
+	font-weight: bold;
+	font-size: x-large;
+}
+
+.event-upcoming-text {
+	padding-left: 11px;
+	color: #ff892e;
+}
+
+.event-ended-badge {
+	width: 140px;
+	display: block;
+	border: thin solid #606a71;
+	font-weight: bold;
+	font-size: x-large;
+}
+
+.event-ended-text {
+	padding-left: 32px;
+	color: #606a71;
+}
+
+#notfound-heading {
+	font-weight: bolder;
+	font-size: xx-large;
+}
+
+.notfound-bold-text {
+	font-weight: bold;
+	font-size: x-large;
+}
+
+.notfound-plain-text {
+	font-size: x-large;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+.event-card-class-overriding-bootstrap {
+	border-bottom: 1px solid #6c757d !important;
+	border-bottom-left-radius: 0.25rem !important;
+	margin-bottom: 5px;
+}
+
+.event-card-overriding-bootstrap {
+	padding-top: 5px !important;
+	padding-bottom: 0 !important;
+}
+
+.comment-card-overriding-bootstrap {
+	border-top: 0 !important;
+	border-top-left-radius: 0 !important;
+	border-top-right-radius: 0 !important;
+	border-bottom-left-radius: 0 !important;
+	border-bottom-right-radius: 0 !important;
+}
+
+.comment-area {
+	position: relative;
+	top: -5px;
+}
+
+.comment-user {
+	font-weight: bold;
+	font-size: large;
+}
+
+.comment-time {
+	font-style: italic;
+}
+
+.comment-head {
+	margin-bottom: 0;
+	padding-left: 5px;
+}
+
+.comment-content {
+	font-size: larger;
+	margin-bottom: 0;
+	padding-left: 5px;
+}
+
+.comment-favicon {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	border: 1px solid gray;
+}
+
+.post-comment-input-overriding-bootstrap {
+	border-radius: 0 !important;
+	border-bottom-left-radius: 0.25rem !important;
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+}
+
+.post-comment-button-overriding-bootstrap {
+	border-radius: 0 !important;
+	border-bottom-right-radius: 0.25rem !important;
+	border-right: 1px solid black;
+	border-bottom: 1px solid black;
+	border-left: 0;
+}
+
+.home-heading {
+	font-size: xx-large;
+	font-weight: bolder;
+	margin-bottom: 0;
+}
+
+.home-heading2 {
+	font-size: x-large;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+.home-text {
+	font-size: larger;
+	margin-bottom: 0;
+}
+
+#dashboard-username {
+	font-size: x-large;
+	font-weight: bold;
+	display: table;
+	margin: 0 auto;
+}
+
+.dashboard-profile-form-label {
+	font-size: larger;
+}
+
+.dashboard-my-events-heading {
+	font-weight: bold;
+	font-size: x-large;
+	margin-bottom: 0;
+}
+
+#dashboard-profile-favicon {
+	cursor: pointer;
+}
+
+.offers-heading1 {
+	font-weight: bold;
+	font-size: xx-large;
+}
+
+.offers-heading2 {
+	font-weight: bold;
+	font-size: x-large;
+	margin-bottom: 0;
+}
+
+.offers-text {
+	font-size: large;
+}
+
+.new-offer-asterisk {
+	color: red;
+}
+
+.new-offer-text {
+	font-size: larger;
+	font-weight: normal;
+}
+
+#new-offer-form {
+	padding-bottom: 10px;
+}
+
+.new-offer-form-label {
+	font-size: larger;
+	font-weight: bold;
+}
+
+.new-offer-form-label {
+	font-size: larger;
+	font-weight: bold;
+}
+
+.new-offer-form-label-eg {
+	font-size: large;
+	font-weight: normal;
+}
+
+#new-offer-heading {
+	font-weight: bold;
+	font-size: xx-large;
+}
+
+.offer-card-class-overriding-bootstrap {
+	border-bottom: 1px solid #6c757d !important;
+	border-bottom-left-radius: 0.25rem !important;
+	margin-bottom: 5px;
+}
+
+.offer-card-title {
+	font-size: x-large;
+	font-weight: double;
+	margin-bottom: 0;
+}
+
+.offer-card-keyinfo {
+	font-size: larger;
+	margin-bottom: 0;
+}
+
+.offer-card-boldtext {
+	font-weight: bold;
+}
+
+#change-avatar-label {
+	font-size: large;
+}
+
+.kep-login-facebook {
+	width: 172px !important;
+	height: 42px !important;
+
+	padding: 0 !important;
+	background-color: rgb(66, 133, 244);
+	display: inline-flex;
+	align-items: center;
+	color: rgb(255, 255, 255);
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px,
+		rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
+	padding: 0px;
+	border-radius: 2px;
+	border: 1px solid transparent;
+	font-size: 14px;
+	font-weight: 500;
+	font-family: Roboto, sans-serif;
+}
+
+#facebook-login-icon {
+	font-size: 34px;
+	position: relative;
+	top: 1px;
+	left: 1px;
+}
+
+#facebook-login-text {
+	font-size: 14px !important;
+	font-weight: 500 !important;
+	text-transform: none !important;
+	position: relative;
+	bottom: 7px;
+}
+
+[data-reach-skip-nav-link] {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	width: 1px;
+	margin: -1px;
+	padding: 0;
+	overflow: hidden;
+	position: absolute;
+}
+
+[data-reach-skip-nav-link]:focus {
+	padding: 1rem;
+	position: absolute !important;
+	top: 40px !important;
+	left: 5px;
+	background: white;
+	z-index: 1;
+	width: auto;
+	height: auto;
+	clip: auto;
 }
