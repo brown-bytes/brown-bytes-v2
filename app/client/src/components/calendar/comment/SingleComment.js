@@ -1,11 +1,10 @@
+import moment from "moment";
+import PropTypes from "prop-types";
 import React from "react";
-
-import Row from "react-bootstrap/Row";
+import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
-
-import Card from "react-bootstrap/Card";
-import moment from "moment";
+import Row from "react-bootstrap/Row";
 
 const SingleComment = ({ comment }) => {
 	return (
@@ -48,6 +47,10 @@ const SingleComment = ({ comment }) => {
 			</Card.Body>
 		</Card>
 	);
+};
+
+SingleComment.propTypes = {
+	comment: PropTypes.string,
 };
 
 export default SingleComment;

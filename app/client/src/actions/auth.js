@@ -1,16 +1,20 @@
 import axios from "axios";
-import { setAlert, clearAlerts } from "./alert";
+
+import { GREEN_ALERT, RED_ALERT } from "../components/layout/AlertTypes";
+import toTop from "../utils/scrollToTop";
 import setAuthToken from "../utils/setAuthToken";
-import { RED_ALERT, GREEN_ALERT } from "../components/layout/AlertTypes";
+import { clearAlerts, setAlert } from "./alert";
+import { getCreatedEvents, getWatchingEvents } from "./event";
+import { getCreatedOffers } from "./offer";
 import {
-	REGISTER_SUCCESS,
-	REGISTER_FAIL,
-	USER_LOADED,
 	AUTH_ERROR,
-	LOGIN_SUCCESS,
 	LOGIN_FAIL,
+	LOGIN_SUCCESS,
 	LOGOUT,
 	REGISTER_EMAIL_SENT,
+	REGISTER_FAIL,
+	REGISTER_SUCCESS,
+	USER_LOADED,
 } from "./types";
 
 export const loadUser = () => async (dispatch) => {
@@ -24,6 +28,9 @@ export const loadUser = () => async (dispatch) => {
 
 	try {
 		const res = await axios.get("profile");
+		dispatch(getWatchingEvents());
+		dispatch(getCreatedEvents());
+		dispatch(getCreatedOffers());
 		dispatch({
 			type: USER_LOADED,
 			payload: res.data,
@@ -68,6 +75,7 @@ export const register = (userName, email, password, passwordRepeat) => async (
 		dispatch({
 			type: REGISTER_EMAIL_SENT,
 		});
+		toTop();
 	} catch (err) {
 		const errorMessage = err.response.data.error;
 		if (errorMessage === "users.email must be unique") {
@@ -100,16 +108,14 @@ export const login = (email, password) => async (dispatch) => {
 	try {
 		const res = await axios.post("users/login", body, config);
 		dispatch(setAlert("Successfully logged in!", GREEN_ALERT));
-
 		dispatch({
 			type: LOGIN_SUCCESS,
 			payload: res.data,
 		});
-
 		dispatch(loadUser());
+		toTop();
 	} catch (err) {
 		const errorMessage = err.response.data.error;
-		console.log(err.response);
 		dispatch(setAlert(errorMessage, RED_ALERT));
 		dispatch({
 			type: LOGIN_FAIL,
@@ -122,6 +128,7 @@ export const logout = () => (dispatch) => {
 		type: LOGOUT,
 	});
 	dispatch(setAlert("Logged out", GREEN_ALERT));
+	toTop();
 };
 
 export const resetPassword = (email) => (dispatch) => {
@@ -152,19 +159,30 @@ export const loginGoogle = (data) => async (dispatch) => {
 			avatarUrl,
 		});
 		const res = await axios.post("users/signupsocial", trySignUp, config);
-		dispatch(setAlert("Successfully logged in!", GREEN_ALERT));
+		dispatch(
+			setAlert(
+				"Successfully logged in with your google account!",
+				GREEN_ALERT
+			)
+		);
 		dispatch({
 			type: REGISTER_SUCCESS,
 			payload: res.data,
 		});
 
 		dispatch(loadUser());
+		toTop();
 	} catch (err) {
 		const tryLogIn = JSON.stringify({ email, password });
 
 		try {
 			const res = await axios.post("users/login", tryLogIn, config);
-			dispatch(setAlert("Successfully logged in!", GREEN_ALERT));
+			dispatch(
+				setAlert(
+					"Successfully logged in with your google account!",
+					GREEN_ALERT
+				)
+			);
 
 			dispatch({
 				type: LOGIN_SUCCESS,
@@ -172,9 +190,9 @@ export const loginGoogle = (data) => async (dispatch) => {
 			});
 
 			dispatch(loadUser());
+			toTop();
 		} catch (err) {
 			const errorMessage = err.response.data.error;
-			console.log(err.response);
 			dispatch(setAlert(errorMessage, RED_ALERT));
 			dispatch({
 				type: LOGIN_FAIL,
@@ -204,29 +222,39 @@ export const loginFacebook = (data) => async (dispatch) => {
 			avatarUrl,
 		});
 		const res = await axios.post("users/signupsocial", trySignUp, config);
-		dispatch(setAlert("Successfully logged in!", GREEN_ALERT));
+		dispatch(
+			setAlert(
+				"Successfully logged in with your facebook account!",
+				GREEN_ALERT
+			)
+		);
 		dispatch({
 			type: REGISTER_SUCCESS,
 			payload: res.data,
 		});
 
 		dispatch(loadUser());
+		toTop();
 	} catch (err) {
 		const tryLogIn = JSON.stringify({ email, password });
 
 		try {
 			const res = await axios.post("users/login", tryLogIn, config);
-			dispatch(setAlert("Successfully logged in!", GREEN_ALERT));
-
+			dispatch(
+				setAlert(
+					"Successfully logged in with your facebook account!",
+					GREEN_ALERT
+				)
+			);
 			dispatch({
 				type: LOGIN_SUCCESS,
 				payload: res.data,
 			});
 
 			dispatch(loadUser());
+			toTop();
 		} catch (err) {
 			const errorMessage = err.response.data.error;
-			console.log(err.response);
 			dispatch(setAlert(errorMessage, RED_ALERT));
 			dispatch({
 				type: LOGIN_FAIL,

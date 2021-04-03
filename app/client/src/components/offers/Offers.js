@@ -1,19 +1,19 @@
-import React, { Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
+import React, { Fragment, useEffect } from "react";
+import Button from "react-bootstrap/Button";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-import Button from "react-bootstrap/Button";
-import { getOffers } from "../../actions/offer";
 import { clearAlerts } from "../../actions/alert";
-import SearchBar from "./offer/SearchBar";
+import { getOffers } from "../../actions/offer";
 import OfferList from "./offer/OfferList";
+import SearchBar from "./offer/SearchBar";
 
 const Offers = ({ isAuthenticated, getOffers }) => {
 	useEffect(() => {
 		clearAlerts();
 		getOffers();
-	}, []);
+	}, [getOffers]);
 
 	return (
 		<Fragment>

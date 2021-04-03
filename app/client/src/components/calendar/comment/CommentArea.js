@@ -1,11 +1,16 @@
-import React, { Fragment } from "react";
 import PropTypes from "prop-types";
+import React, { Fragment } from "react";
 import { connect } from "react-redux";
 
-import SingleComment from "./SingleComment";
 import PostComment from "./PostComment";
+import SingleComment from "./SingleComment";
 
-const CommentArea = ({ comments, isAuthenticated, eventId }) => {
+const CommentArea = ({
+	comments,
+	isAuthenticated,
+	eventId,
+	placeDisplayed,
+}) => {
 	return (
 		<Fragment>
 			{comments.map((comment) => (
@@ -13,7 +18,11 @@ const CommentArea = ({ comments, isAuthenticated, eventId }) => {
 					key={comment.id}
 					comment={comment}></SingleComment>
 			))}
-			{isAuthenticated && <PostComment eventId={eventId}></PostComment>}
+			{isAuthenticated && (
+				<PostComment
+					eventId={eventId}
+					placeDisplayed={placeDisplayed}></PostComment>
+			)}
 		</Fragment>
 	);
 };

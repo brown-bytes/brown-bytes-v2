@@ -7,7 +7,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { connect } from "react-redux";
 
-import { deleteEvent, unwatchEvent, watchEvent } from "../../../actions/event";
+import { deleteEvent } from "../../../actions/event";
 import CommentArea from "../comment/CommentArea";
 import EventBadge from "./EventBadge";
 
@@ -26,13 +26,10 @@ const toggleMoreInfo = (e) => {
 };
 
 const SingleEvent = ({
-	watchEvent,
-	unwatchEvent,
 	deleteEvent,
 	isAuthenticated,
 	authedUser,
 	loadingUser,
-	watchingEventIds,
 	event,
 	placeDisplayed,
 }) => {
@@ -175,37 +172,27 @@ const SingleEvent = ({
 											</Button>
 										)}
 									<Button
+										disabled={true}
 										className="px-2"
-										style={
-											watchingEventIds.has(event.id)
-												? { color: "blue" }
-												: null
-										}
 										variant="outline-link"
 										size="lg">
 										<i
 											className="fas fa-eye"
 											id={event.id}
-											onClick={(e) => {
-												watchEvent(e, placeDisplayed);
-											}}
 										/>{" "}
 										{event.numWatches && (
 											<span>{event.numWatches}</span>
 										)}
 									</Button>
 									<Button
+										disabled={true}
 										className="px-3"
 										variant="outline-link"
 										size="lg"
-										id={event.id}
-										onClick={unwatchEvent}>
+										id={event.id}>
 										<i
 											className="fas fa-eye-slash"
 											id={event.id}
-											onClick={(e) => {
-												unwatchEvent(e, placeDisplayed);
-											}}
 										/>
 									</Button>
 									<Accordion.Toggle
@@ -214,7 +201,7 @@ const SingleEvent = ({
 										variant="outline-link"
 										eventKey="comment"
 										size="lg">
-										<i className="far fa-comment"></i><span className="sr-only">Close</span>{" "}
+										<i className="far fa-comment"></i>{" "}
 										{event.comments.length > 0 && (
 											<span>{event.comments.length}</span>
 										)}
@@ -229,11 +216,10 @@ const SingleEvent = ({
 									className="justify-content-end d-flex">
 									{event.numWatches > 0 ? (
 										<Button
-											disabled={true}
 											className="px-2"
 											variant="outline-link"
 											size="lg">
-											<i className="fas fa-eye" /><span className="sr-only">Close</span>{" "}
+											<i className="fas fa-eye" />{" "}
 											{event.numWatches > 0 && (
 												<span>{event.numWatches}</span>
 											)}
@@ -249,7 +235,7 @@ const SingleEvent = ({
 											variant="outline-link"
 											eventKey="comment"
 											size="lg">
-											<i className="far fa-comment"></i><span className="sr-only">Close</span>{" "}
+											<i className="far fa-comment"></i>{" "}
 											{event.comments.length > 0 && (
 												<span>
 													{event.comments.length}
@@ -279,20 +265,16 @@ const mapStateToProps = (state) => {
 			isAuthenticated: state.auth.isAuthenticated,
 			authedUser: state.auth.user.data,
 			loadingUser: state.auth.loading,
-			watchingEventIds: state.events.watchingEventIds,
 		};
 	} else {
 		return {
 			isAuthenticated: false,
 			authedUser: null,
 			loadingUser: null,
-			watchingEventIds: new Set(),
 		};
 	}
 };
 
 export default connect(mapStateToProps, {
-	watchEvent,
-	unwatchEvent,
 	deleteEvent,
 })(SingleEvent);

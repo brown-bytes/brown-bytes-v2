@@ -1,17 +1,15 @@
-import React, { Fragment, useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import React, { Fragment, useEffect, useState } from "react";
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Popover from "react-bootstrap/Popover";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-
-import { register } from "../../actions/auth";
 import { clearAlerts } from "../../actions/alert";
-
-import Popover from "react-bootstrap/Popover";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import { register } from "../../actions/auth";
 
 const mapStateToProps = (state) => ({
 	alerts: state.alert,
@@ -154,6 +152,10 @@ const SignUp = ({ register }) => {
 			</Container>
 		</Fragment>
 	);
+};
+
+SignUp.propTypes = {
+	register: PropTypes.func,
 };
 
 export default connect(mapStateToProps, { register })(SignUp);

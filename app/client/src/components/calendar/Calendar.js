@@ -1,15 +1,15 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
+import Button from "react-bootstrap/Button";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-import Button from "react-bootstrap/Button";
-
 import { clearAlerts } from "../../actions/alert";
+import { getPastEvents } from "../../actions/event";
 import FutureEventList from "./event/FutureEventLIst";
 import PastEventList from "./event/PastEventList";
 import SearchBar from "./event/SearchBar";
 
-const Calendar = ({ isAuthenticated }) => {
+const Calendar = ({ isAuthenticated, numPastEventsFetched, getPastEvents }) => {
 	useEffect(() => {
 		clearAlerts();
 	}, []);
@@ -17,11 +17,18 @@ const Calendar = ({ isAuthenticated }) => {
 	const [showPreviousEvents, setShowPreviousEvents] = useState(false);
 
 	const togglePreviousEvents = (e) => {
+		if (!showPreviousEvents) {
+			getPastEvents(numPastEventsFetched);
+		}
 		setShowPreviousEvents(showPreviousEvents ? false : true);
-		e.target.text =
-			e.target.text === "Show past events"
+		e.target.textContent =
+			e.target.textContent === "Show past events"
 				? "Hide past events"
 				: "Show past events";
+	};
+
+	const toggleMorePreviousEvents = (e) => {
+		getPastEvents(numPastEventsFetched);
 	};
 
 	return (
@@ -46,13 +53,20 @@ const Calendar = ({ isAuthenticated }) => {
 			<hr></hr>
 			<SearchBar></SearchBar>
 			<FutureEventList></FutureEventList>
-			<a id="calendar-past-events-toggle" onClick={togglePreviousEvents}>
+			<button
+				id="calendar-past-events-toggle"
+				onClick={togglePreviousEvents}>
 				Show past events
-			</a>
+			</button>
 			{showPreviousEvents && (
 				<Fragment>
 					<p className="calendar-heading2">Past Events</p>
 					<PastEventList></PastEventList>
+					<button
+						id="calendar-more-past-events-toggle"
+						onClick={toggleMorePreviousEvents}>
+						Show more past events
+					</button>
 				</Fragment>
 			)}
 		</Fragment>
@@ -61,6 +75,7 @@ const Calendar = ({ isAuthenticated }) => {
 
 const mapStateToProps = (state) => ({
 	isAuthenticated: state.auth.isAuthenticated,
+	numPastEventsFetched: state.events.numPastEventsFetched,
 });
 
-export default connect(mapStateToProps)(Calendar);
+export default connect(mapStateToProps, { getPastEvents })(Calendar);

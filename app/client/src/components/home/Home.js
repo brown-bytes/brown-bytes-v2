@@ -1,15 +1,13 @@
-import React, { Fragment, useState, useEffect } from "react";
-import PropTypes from "prop-types";
+import React, { Fragment, useEffect } from "react";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Image from "react-bootstrap/Image";
+import Row from "react-bootstrap/Row";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-
 import { clearAlerts } from "../../actions/alert";
 import FutureEventList from "../calendar/event/FutureEventLIst";
-import Image from "react-bootstrap/Image";
 
 const Home = ({ isAuthenticated }) => {
 	useEffect(() => {

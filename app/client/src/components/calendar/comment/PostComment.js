@@ -1,14 +1,13 @@
-import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
-
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
-import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
+import InputGroup from "react-bootstrap/InputGroup";
+import { connect } from "react-redux";
 
 import { postEventComment } from "../../../actions/event";
 
-const PostComment = ({ eventId, postEventComment }) => {
+const PostComment = ({ eventId, postEventComment, placeDisplayed }) => {
 	const [comment, setComment] = useState("");
 
 	const onChange = (e) => {
@@ -17,9 +16,8 @@ const PostComment = ({ eventId, postEventComment }) => {
 
 	const onClick = (e) => {
 		const eventId = e.target.id;
-		console.log("eventid:", eventId);
 		setComment("");
-		postEventComment(comment, eventId);
+		postEventComment(comment, eventId, placeDisplayed);
 	};
 
 	return (
@@ -43,7 +41,9 @@ const PostComment = ({ eventId, postEventComment }) => {
 };
 
 PostComment.propTypes = {
+	eventId: PropTypes.number,
 	postOfferComment: PropTypes.func,
+	placeDisplayed: PropTypes.string,
 };
 
 export default connect(null, {
