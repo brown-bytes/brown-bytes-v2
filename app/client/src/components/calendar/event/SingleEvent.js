@@ -172,6 +172,9 @@ const SingleEvent = ({
 															placeDisplayed
 														);
 													}}></i>
+													<span className="sr-only">
+														Close
+													</span>
 											</Button>
 										)}
 									<Button
@@ -189,7 +192,7 @@ const SingleEvent = ({
 											onClick={(e) => {
 												watchEvent(e, placeDisplayed);
 											}}
-										/>{" "}
+										/><span className="sr-only">Close</span>{" "}
 										{event.numWatches && (
 											<span>{event.numWatches}</span>
 										)}
@@ -206,7 +209,7 @@ const SingleEvent = ({
 											onClick={(e) => {
 												unwatchEvent(e, placeDisplayed);
 											}}
-										/>
+										/><span className="sr-only">Close</span>
 									</Button>
 									<Accordion.Toggle
 										as={Button}
