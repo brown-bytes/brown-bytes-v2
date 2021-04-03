@@ -1,12 +1,12 @@
 /* eslint-disable import/no-anonymous-default-export */
 import {
-	REGISTER_SUCCESS,
-	REGISTER_FAIL,
-	USER_LOADED,
 	AUTH_ERROR,
-	LOGIN_SUCCESS,
 	LOGIN_FAIL,
+	LOGIN_SUCCESS,
 	LOGOUT,
+	REGISTER_FAIL,
+	REGISTER_SUCCESS,
+	USER_LOADED,
 } from "../actions/types";
 
 const initalState = {
@@ -42,7 +42,6 @@ export default (state = initalState, action) => {
 		case LOGOUT:
 			localStorage.removeItem("token");
 			return {
-				// ...state,
 				token: null,
 				isAuthenticated: false,
 				loading: false,

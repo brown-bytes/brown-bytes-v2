@@ -1,20 +1,16 @@
+import { SkipNavContent, SkipNavLink } from "@reach/skip-nav";
 import React, { Fragment, useEffect } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Routes from "./components/routing/Routes";
-
-// Components
-import Navbar from "./components/layout/Navbar";
-import Footer from "./components/layout/Footer";
-
-// Redux
 import { Provider } from "react-redux";
-import store from "./store";
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+
 import { loadUser } from "./actions/auth";
+import Footer from "./components/layout/Footer";
+import Navbar from "./components/layout/Navbar";
+import Routes from "./components/routing/Routes";
+import store from "./store";
 import setAuthToken from "./utils/setAuthToken";
 
 import "./App.css";
-
-import { SkipNavLink, SkipNavContent } from "@reach/skip-nav";
 import "@reach/skip-nav/styles.css";
 
 if (localStorage.token) {

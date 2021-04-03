@@ -1,15 +1,16 @@
 import axios from "axios";
-import { RED_ALERT, GREEN_ALERT } from "../components/layout/AlertTypes";
-import { setAlert, clearAlerts } from "./alert";
+
+import { GREEN_ALERT, RED_ALERT } from "../components/layout/AlertTypes";
+import setAuthToken from "../utils/setAuthToken";
+import { clearAlerts, setAlert } from "./alert";
 import { loadUser } from "./auth";
 import {
-	UPDATE_AVATAR_SUCCESS,
-	UPDATE_AVATAR_FAILED,
-	UPDATE_SOCIAL_LINKS_SUCCESS,
-	UPDATE_SOCIAL_LINKS_FAILED,
 	AUTH_ERROR,
+	UPDATE_AVATAR_FAILED,
+	UPDATE_AVATAR_SUCCESS,
+	UPDATE_SOCIAL_LINKS_FAILED,
+	UPDATE_SOCIAL_LINKS_SUCCESS,
 } from "./types";
-import setAuthToken from "../utils/setAuthToken";
 
 export const updateSocialLinks = (data) => async (dispatch) => {
 	clearAlerts();
@@ -42,7 +43,7 @@ export const updateSocialLinks = (data) => async (dispatch) => {
 	});
 
 	try {
-		const res = await axios.patch("profile/", body, config);
+		await axios.patch("profile/", body, config);
 		dispatch(setAlert("Successfully updated profile!", GREEN_ALERT));
 		dispatch(loadUser());
 		dispatch({
@@ -59,7 +60,6 @@ export const updateSocialLinks = (data) => async (dispatch) => {
 
 export const updateAvatar = (image) => async (dispatch) => {
 	clearAlerts();
-
 	if (localStorage.token) {
 		setAuthToken(localStorage.token);
 	} else {
@@ -68,10 +68,9 @@ export const updateAvatar = (image) => async (dispatch) => {
 		});
 		return;
 	}
-
 	const body = image;
 	try {
-		const res = await axios.post("profile/avatar", body);
+		await axios.post("profile/avatar", body);
 		dispatch(
 			setAlert(
 				"Successfully updated avatar! Reload this page to see your new avatar.",

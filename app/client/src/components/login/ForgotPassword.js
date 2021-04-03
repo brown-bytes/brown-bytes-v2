@@ -1,19 +1,14 @@
-import React, { Fragment, useState } from "react";
 import PropTypes from "prop-types";
+import React, { Fragment, useState } from "react";
+import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-
 import { resetPassword } from "../../actions/auth";
-
-const mapStateToProps = (state) => ({
-	alerts: state.alert,
-});
 
 const ForgotPassword = ({ resetPassword }) => {
 	const [formData, setFormData] = useState({
@@ -100,4 +95,8 @@ const ForgotPassword = ({ resetPassword }) => {
 	);
 };
 
-export default connect(mapStateToProps, { resetPassword })(ForgotPassword);
+ForgotPassword.propTypes = {
+	resetPassword: PropTypes.func,
+};
+
+export default connect(null, { resetPassword })(ForgotPassword);

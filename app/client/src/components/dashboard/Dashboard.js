@@ -1,11 +1,10 @@
 import React from "react";
-
-import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
 
-import Profile from "./Profile";
 import MyEvents from "./MyEvents";
 import MyOffers from "./MyOffers";
+import Profile from "./Profile";
 
 const DashBoard = () => {
 	return (

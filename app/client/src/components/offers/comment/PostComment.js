@@ -1,14 +1,13 @@
-import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
-
-import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
+import InputGroup from "react-bootstrap/InputGroup";
+import { connect } from "react-redux";
 
 import { postOfferComment } from "../../../actions/offer";
 
-const PostComment = ({ offerId, postOfferComment }) => {
+const PostComment = ({ offerId, postOfferComment, placeDisplayed }) => {
 	const [comment, setComment] = useState("");
 
 	const onChange = (e) => {
@@ -18,7 +17,7 @@ const PostComment = ({ offerId, postOfferComment }) => {
 	const onClick = (e) => {
 		const offerId = e.target.id;
 		setComment("");
-		postOfferComment(comment, offerId);
+		postOfferComment(comment, offerId, placeDisplayed);
 	};
 
 	return (

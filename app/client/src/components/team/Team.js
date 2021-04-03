@@ -1,11 +1,11 @@
-import React, { Fragment, useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import Form from "react-bootstrap/Form";
+import React, { Fragment, useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import { connect } from "react-redux";
 
-import sendFeedBack from "../../actions/feedback";
 import { clearAlerts } from "../../actions/alert";
+import sendFeedBack from "../../actions/feedback";
 
 const Team = ({ sendFeedBack }) => {
 	useEffect(() => {
@@ -89,6 +89,10 @@ const Team = ({ sendFeedBack }) => {
 			</Form>
 		</Fragment>
 	);
+};
+
+Team.propTypes = {
+	sendFeedBack: PropTypes.func,
 };
 
 export default connect(null, { sendFeedBack })(Team);

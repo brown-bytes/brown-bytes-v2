@@ -1,16 +1,20 @@
+/* eslint-disable import/no-anonymous-default-export */
 import {
-	CREATE_OFFER_SUCCESS,
-	CREATE_OFFER_FAILED,
-	GET_OFFERS,
 	CHANGE_OFFER_QUERY_STRING,
-	DELETE_OFFER_SUCCESS,
+	CREATE_OFFER_FAILED,
+	CREATE_OFFER_SUCCESS,
 	DELETE_OFFER_FAILED,
+	DELETE_OFFER_SUCCESS,
+	GET_CREATED_OFFERS,
+	GET_OFFERS,
 	POST_OFFER_COMMENT,
 } from "../actions/types";
 
 const initialState = {
 	offers: [],
+	createdOffers: [],
 	loading: true,
+	loadingCreatedOffers: true,
 	queryString: "",
 };
 
@@ -23,6 +27,12 @@ export default (state = initialState, action) => {
 				...state,
 				offers: [...payload],
 				loading: false,
+			};
+		case GET_CREATED_OFFERS:
+			return {
+				...state,
+				createdOffers: [...payload],
+				loadingCreatedOffers: false,
 			};
 		case CHANGE_OFFER_QUERY_STRING:
 			return {

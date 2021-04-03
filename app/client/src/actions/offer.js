@@ -1,15 +1,17 @@
-import moment from "moment";
 import axios from "axios";
-import { setAlert, clearAlerts } from "./alert";
+import moment from "moment";
+
+import { GREEN_ALERT, RED_ALERT } from "../components/layout/AlertTypes";
 import toTop from "../utils/scrollToTop";
-import { RED_ALERT, GREEN_ALERT } from "../components/layout/AlertTypes";
+import { clearAlerts, setAlert } from "./alert";
 import {
-	CREATE_OFFER_SUCCESS,
-	CREATE_OFFER_FAILED,
-	GET_OFFERS,
-	DELETE_OFFER_SUCCESS,
-	DELETE_OFFER_FAILED,
 	CHANGE_OFFER_QUERY_STRING,
+	CREATE_OFFER_FAILED,
+	CREATE_OFFER_SUCCESS,
+	DELETE_OFFER_FAILED,
+	DELETE_OFFER_SUCCESS,
+	GET_CREATED_OFFERS,
+	GET_OFFERS,
 	POST_OFFER_COMMENT,
 } from "./types";
 
@@ -114,16 +116,26 @@ export const getOffers = () => async (dispatch) => {
 			payload: offers,
 		});
 	} catch (err) {
-		if (err.response) {
-			const errorMessage = err.response.data.error;
-			dispatch(setAlert(errorMessage, RED_ALERT));
-		}
+		console.log("fetching offers failed");
 	}
-
 	return;
 };
 
-export const deleteOffer = (e) => async (dispatch) => {
+export const getCreatedOffers = () => async (dispatch) => {
+	try {
+		const res = await axios.get("offers/created");
+		const offers = Object.values(res.data.offers);
+		dispatch({
+			type: GET_CREATED_OFFERS,
+			payload: offers,
+		});
+	} catch (err) {
+		console.log("fetching created offers failed");
+	}
+	return;
+};
+
+export const deleteOffer = (e, placeDisplayed) => async (dispatch) => {
 	const offerId = e.target.id;
 	try {
 		await axios.delete(`offers/${offerId}`);
@@ -131,7 +143,15 @@ export const deleteOffer = (e) => async (dispatch) => {
 			type: DELETE_OFFER_SUCCESS,
 		});
 		dispatch(setAlert("Successfully deleted your offer", GREEN_ALERT));
-		dispatch(getOffers());
+		switch (placeDisplayed) {
+			case "offersPage":
+				dispatch(getOffers());
+				break;
+			case "dashboardOffers":
+				dispatch(getCreatedOffers());
+				break;
+			default:
+		}
 		toTop();
 	} catch (err) {
 		if (err.response) {
@@ -142,11 +162,12 @@ export const deleteOffer = (e) => async (dispatch) => {
 			});
 		}
 	}
-
 	return;
 };
 
-export const postOfferComment = (comment, offerId) => async (dispatch) => {
+export const postOfferComment = (comment, offerId, placeDisplayed) => async (
+	dispatch
+) => {
 	const config = {
 		headers: {
 			"Content-Type": "application/json",
@@ -159,11 +180,18 @@ export const postOfferComment = (comment, offerId) => async (dispatch) => {
 
 	try {
 		await axios.post(`offers/comment/${offerId}`, body, config);
-		// dispatch(setAlert("Successfully posted a new comment", GREEN_ALERT));
 		dispatch({
 			type: POST_OFFER_COMMENT,
 		});
-		dispatch(getOffers());
+		switch (placeDisplayed) {
+			case "offersPage":
+				dispatch(getOffers());
+				break;
+			case "dashboardOffers":
+				dispatch(getCreatedOffers());
+				break;
+			default:
+		}
 	} catch (err) {
 		const errorMessage = err.response.data.error;
 		dispatch(setAlert(errorMessage, RED_ALERT));
@@ -176,6 +204,5 @@ export const changeQueryString = (newQueryString) => async (dispatch) => {
 		type: CHANGE_OFFER_QUERY_STRING,
 		payload: newQueryString,
 	});
-
 	return;
 };

@@ -1,18 +1,16 @@
-import React, { Fragment } from "react";
+import moment from "moment";
 import PropTypes from "prop-types";
+import React, { Fragment } from "react";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Accordion from "react-bootstrap/esm/Accordion";
+import Image from "react-bootstrap/Image";
+import Row from "react-bootstrap/Row";
 import { connect } from "react-redux";
 
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
-import Image from "react-bootstrap/Image";
-
-import Card from "react-bootstrap/Card";
-import moment from "moment";
-
 import { deleteOffer } from "../../../actions/offer";
-import Accordion from "react-bootstrap/esm/Accordion";
 import CommentArea from "../comment/CommentArea";
 
 const SingleOffer = ({
@@ -21,6 +19,7 @@ const SingleOffer = ({
 	authedUser,
 	loadingUser,
 	offer,
+	placeDisplayed,
 }) => {
 	const offerDate = moment(offer.date).format("dddd, MMMM DD, YYYY");
 	const startTime = moment(offer.startTime).format("HH:mm A");
@@ -99,7 +98,9 @@ const SingleOffer = ({
 											variant="outline-link"
 											size="lg"
 											id={offer.id}
-											onClick={deleteOffer}>
+											onClick={(e) => {
+												deleteOffer(e, placeDisplayed);
+											}}>
 											<i
 												id={offer.id}
 												className="fas fa-trash-alt"></i>
@@ -127,7 +128,8 @@ const SingleOffer = ({
 				<Accordion.Collapse eventKey="comment" className="comment-area">
 					<CommentArea
 						comments={offer.comments}
-						offerId={offer.id}></CommentArea>
+						offerId={offer.id}
+						placeDisplayed={placeDisplayed}></CommentArea>
 				</Accordion.Collapse>
 			</Accordion>
 		</Fragment>

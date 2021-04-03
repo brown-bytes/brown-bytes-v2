@@ -1,15 +1,13 @@
-import React, { Fragment, useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
-
+import React, { Fragment, useState } from "react";
+import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
-
-import ChangeAvatarModal from "./ChangeAvatarModal";
+import { connect } from "react-redux";
 
 import { updateSocialLinks } from "../../actions/profile";
+import ChangeAvatarModal from "./ChangeAvatarModal";
 
 const Profile = ({
 	avatarURL,

@@ -1,19 +1,19 @@
 import React, { Fragment } from "react";
+import Spinner from "react-bootstrap/Spinner";
 import { connect } from "react-redux";
 
-import Spinner from "react-bootstrap/Spinner";
+import { startTimeComparatorInverse } from "../../../utils/startTimeComparator";
+import SinglePastEvent from "./SinglePastEvent";
 
-import SingleEvent from "./SingleEvent";
-
-const EventList = ({ events, loading }) => {
+const PastEventList = ({ events, loading }) => {
 	return loading ? (
 		<Spinner animation="border" role="status">
 			<span className="sr-only">Loading...</span>
 		</Spinner>
 	) : (
 		<Fragment>
-			{events.map((event) => (
-				<SingleEvent key={event.id} event={event}></SingleEvent>
+			{events.sort(startTimeComparatorInverse).map((event) => (
+				<SinglePastEvent key={event.id} event={event}></SinglePastEvent>
 			))}
 		</Fragment>
 	);
@@ -21,7 +21,7 @@ const EventList = ({ events, loading }) => {
 
 const mapStateToProps = (state) => ({
 	events: state.events.pastEvents,
-	loading: state.events.loading,
+	loading: state.events.loadingPastEvents,
 });
 
-export default connect(mapStateToProps)(EventList);
+export default connect(mapStateToProps)(PastEventList);

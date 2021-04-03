@@ -1,19 +1,22 @@
-import moment from "moment";
 import axios from "axios";
-import { setAlert, clearAlerts } from "./alert";
-import { RED_ALERT, GREEN_ALERT } from "../components/layout/AlertTypes";
+import moment from "moment";
+
+import { GREEN_ALERT, RED_ALERT } from "../components/layout/AlertTypes";
 import toTop from "../utils/scrollToTop";
+import { clearAlerts, setAlert } from "./alert";
 import {
-	CREATE_EVENT_SUCCESS,
+	CHANGE_EVENT_QUERY_STRING,
 	CREATE_EVENT_FAILED,
+	CREATE_EVENT_SUCCESS,
+	DELETE_EVENT_FAILED,
+	DELETE_EVENT_SUCCESS,
+	GET_CREATED_EVENTS,
 	GET_FUTURE_EVENTS,
 	GET_PAST_EVENTS,
-	DELETE_EVENT_SUCCESS,
-	DELETE_EVENT_FAILED,
-	CHANGE_EVENT_QUERY_STRING,
+	GET_WATCHING_EVENTS,
 	POST_EVENT_COMMENT,
-	WATCH_EVENT,
 	UNWATCH_EVENT,
+	WATCH_EVENT,
 } from "./types";
 
 export const createEvent = (info) => async (dispatch) => {
@@ -123,58 +126,117 @@ export const createEvent = (info) => async (dispatch) => {
 };
 
 export const getFutureEvents = () => async (dispatch) => {
-	console.log("getting future events");
 	try {
 		const res = await axios.get("events");
-		// console.log(res);
 		const events = Object.values(res.data.events);
-		console.log(events);
 		dispatch({
 			type: GET_FUTURE_EVENTS,
 			payload: events,
 		});
 	} catch (err) {
-		if (err.response) {
-			const errorMessage = err.response.data.error;
-			dispatch(setAlert(errorMessage, RED_ALERT));
-		}
+		console.log("get future events failed");
 	}
-
 	return;
 };
 
-export const getPastEvents = () => async (dispatch) => {
+export const getPastEvents = (numPastEventFetched) => async (dispatch) => {
+	try {
+		const res = await axios.get("events/past", {
+			params: {
+				fetched: numPastEventFetched,
+			},
+		});
+		const events = Object.values(res.data.events);
+
+		dispatch({
+			type: GET_PAST_EVENTS,
+			payload: events,
+		});
+	} catch (err) {
+		console.log("get past events failed");
+	}
 	return;
 };
 
-export const watchEvent = (e) => async (dispatch) => {
+export const getWatchingEvents = () => async (dispatch) => {
+	try {
+		const res = await axios.get("events/watched");
+		const events = Object.values(res.data.events).map(
+			(watchingEvent) => watchingEvent.event
+		);
+		dispatch({
+			type: GET_WATCHING_EVENTS,
+			payload: events,
+		});
+	} catch (err) {
+		console.log("get watching events failed");
+	}
+	return;
+};
+
+export const getCreatedEvents = () => async (dispatch) => {
+	try {
+		const res = await axios.get("events/created");
+		let events = Object.values(res.data.events);
+		dispatch({
+			type: GET_CREATED_EVENTS,
+			payload: events,
+		});
+	} catch (err) {
+		console.log("get created events failed");
+	}
+	return;
+};
+
+export const watchEvent = (e, placeDisplayed) => async (dispatch) => {
 	const eventId = e.target.id;
-	console.log("watch:", eventId);
 	try {
 		await axios.post(`events/watch/${eventId}`);
 		dispatch({
 			type: WATCH_EVENT,
+			payload: eventId,
 		});
-		dispatch(getFutureEvents());
-	} catch (err) {}
+		switch (placeDisplayed) {
+			case "homeAndCalendar":
+				dispatch(getFutureEvents());
+				break;
+			case "dashboardEvents":
+				dispatch(getWatchingEvents());
+				dispatch(getCreatedEvents());
+				break;
+			default:
+		}
+	} catch (err) {
+		console.log("You've already watched this event");
+	}
 	return;
 };
-export const unwatchEvent = (e) => async (dispatch) => {
+
+export const unwatchEvent = (e, placeDisplayed) => async (dispatch) => {
 	const eventId = e.target.id;
-	console.log("unwatch:", eventId);
 	try {
 		await axios.delete(`events/watch/${eventId}`);
 		dispatch({
 			type: UNWATCH_EVENT,
+			payload: eventId,
 		});
-		dispatch(getFutureEvents());
-	} catch (err) {
-		if (err.response) {
+		switch (placeDisplayed) {
+			case "homeAndCalendar":
+				dispatch(getFutureEvents());
+				break;
+			case "dashboardEvents":
+				dispatch(getWatchingEvents());
+				dispatch(getCreatedEvents());
+				break;
+			default:
 		}
+	} catch (err) {
+		console.log("You haven't watched this event yet");
 	}
 	return;
 };
-export const deleteEvent = (e) => async (dispatch) => {
+
+export const deleteEvent = (e, placeDisplayed) => async (dispatch) => {
 	const eventId = e.target.id;
 	try {
 		await axios.delete(`events/${eventId}`);
@@ -182,12 +244,20 @@ export const deleteEvent = (e) => async (dispatch) => {
 			type: DELETE_EVENT_SUCCESS,
 		});
 		dispatch(setAlert("Successfully deleted your event", GREEN_ALERT));
-		dispatch(getFutureEvents());
+		switch (placeDisplayed) {
+			case "homeAndCalendar":
+				dispatch(getFutureEvents());
+				break;
+			case "dashboardEvents":
+				dispatch(getWatchingEvents());
+				dispatch(getCreatedEvents());
+				break;
+			default:
+		}
 		toTop();
+		return;
 	} catch (err) {
 		if (err.response) {
-			const errorMessage = err.response.data.error;
-			dispatch(setAlert(errorMessage, RED_ALERT));
 			dispatch({
 				type: DELETE_EVENT_FAILED,
 			});
@@ -196,7 +266,9 @@ export const deleteEvent = (e) => async (dispatch) => {
 	return;
 };
 
-export const postEventComment = (comment, eventId) => async (dispatch) => {
+export const postEventComment = (comment, eventId, placeDisplayed) => async (
+	dispatch
+) => {
 	const config = {
 		headers: {
 			"Content-Type": "application/json",
@@ -209,11 +281,19 @@ export const postEventComment = (comment, eventId) => async (dispatch) => {
 
 	try {
 		await axios.post(`events/comment/${eventId}`, body, config);
-		// dispatch(setAlert("Successfully posted a new comment", GREEN_ALERT));
 		dispatch({
 			type: POST_EVENT_COMMENT,
 		});
-		dispatch(getFutureEvents());
+		switch (placeDisplayed) {
+			case "homeAndCalendar":
+				dispatch(getFutureEvents());
+				break;
+			case "dashboardEvents":
+				dispatch(getWatchingEvents());
+				dispatch(getCreatedEvents());
+				break;
+			default:
+		}
 	} catch (err) {
 		const errorMessage = err.response.data.error;
 		dispatch(setAlert(errorMessage, RED_ALERT));
@@ -226,6 +306,5 @@ export const changeQueryString = (newQueryString) => async (dispatch) => {
 		type: CHANGE_EVENT_QUERY_STRING,
 		payload: newQueryString,
 	});
-
 	return;
 };

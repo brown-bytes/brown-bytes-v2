@@ -1,11 +1,11 @@
-import React, { Fragment, useEffect } from "react";
-import { connect } from "react-redux";
 import moment from "moment";
+import React, { Fragment, useEffect } from "react";
 import Spinner from "react-bootstrap/Spinner";
-
-import SingleEvent from "./SingleEvent";
+import { connect } from "react-redux";
 
 import { getFutureEvents } from "../../../actions/event";
+import { startTimeComparator } from "../../../utils/startTimeComparator";
+import SingleEvent from "./SingleEvent";
 
 const filterEvent = (event, queryString) => {
 	return (
@@ -23,20 +23,10 @@ const filterEvent = (event, queryString) => {
 	);
 };
 
-const startTimeComparator = (event1, event2) => {
-	const date1 = event1.startTime;
-	const date2 = event2.startTime;
-	if (moment(date1).isBefore(date2)) {
-		return 1;
-	} else {
-		return -1;
-	}
-};
-
-const EventList = ({ events, loading, queryString, getFutureEvents }) => {
+const FutureEventList = ({ events, loading, queryString, getFutureEvents }) => {
 	useEffect(() => {
 		getFutureEvents();
-	}, []);
+	}, [getFutureEvents]);
 
 	return loading ? (
 		<Spinner animation="border" role="status">
@@ -48,7 +38,10 @@ const EventList = ({ events, loading, queryString, getFutureEvents }) => {
 				.filter((event) => filterEvent(event, queryString))
 				.sort(startTimeComparator)
 				.map((event) => (
-					<SingleEvent key={event.id} event={event}></SingleEvent>
+					<SingleEvent
+						key={event.id}
+						event={event}
+						placeDisplayed="homeAndCalendar"></SingleEvent>
 				))}
 		</Fragment>
 	);
@@ -56,8 +49,8 @@ const EventList = ({ events, loading, queryString, getFutureEvents }) => {
 
 const mapStateToProps = (state) => ({
 	events: state.events.futureEvents,
-	loading: state.events.loadingFuture,
+	loading: state.events.loadingFutureEvents,
 	queryString: state.events.queryString,
 });
 
-export default connect(mapStateToProps, { getFutureEvents })(EventList);
+export default connect(mapStateToProps, { getFutureEvents })(FutureEventList);

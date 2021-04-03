@@ -1,12 +1,12 @@
 import React, { Fragment } from "react";
 
-import OfferList from "../offers/offer/OfferList";
+import CreatedOfferList from "../offers/offer/CreatedOfferList";
 
 const MyOffers = () => {
 	return (
 		<Fragment>
 			<p className="dashboard-my-events-heading">Offers I created:</p>
-			<OfferList></OfferList>
+			<CreatedOfferList></CreatedOfferList>
 		</Fragment>
 	);
 };

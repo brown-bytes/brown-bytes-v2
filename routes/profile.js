@@ -27,7 +27,6 @@ const upload = multer({ storage: storage, fileFilter: imageFileFilter });
 router
 	.route("/")
 	.get(auth.parseToken, async (req, res) => {
-		console.log(req.decoded);
 		await User.findOne({
 			where: {
 				id: req.decoded.id,
@@ -56,7 +55,6 @@ router
 				}
 			})
 			.catch((err) => {
-				console.log(err);
 				res.statusCode = 400;
 				res.setHeader("Content-Type", "application/json");
 				if (err.hasOwnProperty("errors")) {
@@ -72,7 +70,6 @@ router
 			});
 	})
 	.patch(auth.parseToken, async (req, res) => {
-		console.log(req.decoded);
 		await User.update(
 			{
 				bio: req.body.bio,
@@ -93,7 +90,6 @@ router
 		})
 			.then((user) => {
 				if (user) {
-					// console.log(user);
 					res.statusCode = 200;
 					res.setHeader("Content-Type", "application/json");
 					res.json({
@@ -113,7 +109,6 @@ router
 				}
 			})
 			.catch((err) => {
-				console.log(err);
 				res.statusCode = 400;
 				res.setHeader("Content-Type", "application/json");
 				if (err.hasOwnProperty("errors")) {
@@ -137,7 +132,6 @@ router.get("/:userId", auth.parseToken, async (req, res) => {
 	})
 		.then((user) => {
 			if (user) {
-				// console.log(user);
 				res.statusCode = 200;
 				res.setHeader("Content-Type", "application/json");
 				res.json({
@@ -157,7 +151,6 @@ router.get("/:userId", auth.parseToken, async (req, res) => {
 			}
 		})
 		.catch((err) => {
-			console.log(err);
 			res.statusCode = 400;
 			res.setHeader("Content-Type", "application/json");
 			if (err.hasOwnProperty("errors")) {
@@ -217,7 +210,6 @@ router.post(
 				}
 			})
 			.catch((err) => {
-				console.log(err);
 				res.statusCode = 400;
 				res.setHeader("Content-Type", "application/json");
 				if (err.hasOwnProperty("errors")) {
