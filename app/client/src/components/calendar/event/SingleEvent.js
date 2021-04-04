@@ -1,4 +1,5 @@
 import moment from "moment";
+//import moment from "moment-timezone";
 import React, { Fragment } from "react";
 import Accordion from "react-bootstrap/Accordion";
 import Button from "react-bootstrap/Button";
@@ -36,7 +37,7 @@ const SingleEvent = ({
 	event,
 	placeDisplayed,
 }) => {
-	const eventDate = moment(event.eventDate).format("dddd, MMMM DD, YYYY");
+	const eventDate = moment(event.startTime).format("dddd, MMMM DD, YYYY");
 	const startTime = moment(event.startTime).format("HH:mm A");
 	const endTime = moment(event.endTime).format("HH:mm A");
 	const createdAt = moment(event.createdAt).format(

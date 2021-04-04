@@ -11,7 +11,7 @@ const filterOffer = (offer, queryString) => {
 	return (
 		offer.location.includes(queryString) ||
 		offer.description.includes(queryString) ||
-		moment(offer.date)
+		moment(offer.startTime)
 			.format("dddd, MMMM DD, YYYY")
 			.includes(queryString) ||
 		offer.otherInfo.includes(queryString)

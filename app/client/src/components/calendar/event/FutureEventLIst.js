@@ -11,7 +11,7 @@ const filterEvent = (event, queryString) => {
 	return (
 		event.title.includes(queryString) ||
 		event.location.includes(queryString) ||
-		moment(event.eventDate)
+		moment(event.startTime)
 			.format("dddd, MMMM DD, YYYY")
 			.includes(queryString) ||
 		(event.admittance && event.admittance.includes(queryString)) ||
