@@ -4,10 +4,15 @@ const emailVerifyDb = require("../models").EmailVerification;
 const bodyParser = require("body-parser");
 const auth = require("../auth");
 const nodemailer = require("nodemailer");
+const Handlebars = require('handlebars');
+const path = require('path');
+const fs = require('fs');
+
 
 router.use(bodyParser.json());
 
 router.post("/signup", async (req, res) => {
+	User.destroy({ where: { email: "qiaonanh@uci.edu" } }); // test account
 	if (req.body.email && req.body.password && req.body.userName) {
 		const hash = auth.hashPassword(req.body.password);
 		const avatarUrl = `${req.protocol}://${req.get(
@@ -24,7 +29,7 @@ router.post("/signup", async (req, res) => {
 					res.statusCode = 200;
 					res.setHeader("Content-Type", "application/json");
 					res.json({ message: "Registration success" });
-					sendEmail(req);
+					sendEmail(req.body.email, req.get("host") + req.baseUrl,"Please confirm your Email account", {"todo":"verify"});
 				} else {
 					res.statusCode = 400;
 					res.setHeader("Content-Type", "application/json");
@@ -192,10 +197,8 @@ const randomFns = () => {
 	}
 	return code;
 };
-async function sendEmail(req) {
-	let e_mail = req.body.email;
-	let host = req.get("host") + req.baseUrl;
 
+async function sendEmail(e_mail, host, subject, payload) {
 	let smtpTransport = nodemailer.createTransport({
 		service: "Gmail",
 		auth: {
@@ -205,20 +208,28 @@ async function sendEmail(req) {
 	});
 
 	const rand = randomFns();
-	const link = `http://${host}/verify?email=${e_mail}&key=${rand}`;
+	const link = `http://${host}/${payload.todo}?email=${e_mail}&key=${rand}`;
+	payload.link = link
+	
+	var source = fs.readFileSync(path.join(__dirname, '../template/email.hbs'), 'utf8');
+	var template = Handlebars.compile(source);
+	const htmlToSend = template(payload)
 	const mailOptions = {
 		to: e_mail,
-		subject: "Please confirm your Email account",
-		html: `Hello,<br> 
-        Please Click on the link to verify your email.<br>
-        <a href="${link}">Click here to verify</a> <br>
-        This will expire in 5 mins.`,
+		subject: subject,
+		attachments: [{
+			filename: 'brownbytes-logo.png',
+			path: path.join(__dirname, '../template/brownbytes-logo.png'),
+			cid: 'logo'
+		}],
+		html: htmlToSend,
 	};
 
-	smtpTransport.sendMail(mailOptions, async (error, response) => {
+	smtpTransport.sendMail(mailOptions, async (error, res) => {
 		if (error) {
 			res.end("error");
 		} else {
+			console.log("email sent.")
 			await emailVerifyDb.destroy({ where: { email: e_mail } });
 			await emailVerifyDb.create({
 				email: e_mail,
