@@ -1,6 +1,4 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { set } from "mongoose";
-
 import {
 	CHANGE_EVENT_QUERY_STRING,
 	CREATE_EVENT_FAILED,

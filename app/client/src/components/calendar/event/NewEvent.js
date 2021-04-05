@@ -52,7 +52,12 @@ const NewEvent = ({ createEvent }) => {
 					indicates required information
 				</p>
 				<hr></hr>
-				<Form onSubmit={(e) => onSubmit(e)} id="new-event-form">
+				<Form
+					onSubmit={(e) => {
+						onSubmit(e);
+						e.target.reset();
+					}}
+					id="new-event-form">
 					<Form.Group>
 						<Form.Label className="new-event-form-label">
 							<span className="new-event-asterisk new-event-text">

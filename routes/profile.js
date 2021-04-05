@@ -46,6 +46,7 @@ router
 							facebook: user.facebookLink,
 							twitter: user.twitterLink,
 							instagram: user.instagramLink,
+							isAdmin: user.admin,
 						},
 					});
 				} else {

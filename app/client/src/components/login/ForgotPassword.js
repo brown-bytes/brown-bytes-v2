@@ -40,7 +40,10 @@ const ForgotPassword = ({ resetPassword }) => {
 						</p>
 						<hr></hr>
 						<Form
-							onSubmit={(e) => onSubmit(e)}
+							onSubmit={(e) => {
+								onSubmit(e);
+								e.target.reset();
+							}}
 							id="forgot-password-form">
 							<Form.Group controlId="formEmail">
 								<Form.Label className="login-reset-form-label">

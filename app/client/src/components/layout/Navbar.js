@@ -7,7 +7,7 @@ import { logout } from "../../actions/auth";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 
-const NavBar = ({ isAuthenticated, loading, logout }) => {
+const NavBar = ({ isAuthenticated, isAdmin, loading, logout }) => {
 	const guestNavbar = (
 		<Fragment>
 			<Navbar
@@ -94,6 +94,14 @@ const NavBar = ({ isAuthenticated, loading, logout }) => {
 							to="/dashboard">
 							Dashboard
 						</Nav.Link>
+						{isAdmin && (
+							<Nav.Link
+								as={NavLink}
+								activeClassName="active"
+								to="/feedbacks">
+								Feedbacks
+							</Nav.Link>
+						)}
 					</Nav>
 					<Nav className="justify-content-end">
 						<Nav.Item onClick={logout}>
@@ -114,9 +122,20 @@ NavBar.propTypes = {
 	loading: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-	isAuthenticated: state.auth.isAuthenticated,
-	loading: state.auth.loading,
-});
+const mapStateToProps = (state) => {
+	if (state.auth && state.auth.user && state.auth.user.data) {
+		return {
+			isAuthenticated: state.auth.isAuthenticated,
+			isAdmin: state.auth.user.data.isAdmin,
+			loading: state.auth.loading,
+		};
+	} else {
+		return {
+			isAuthenticated: false,
+			isAdmin: false,
+			loading: false,
+		};
+	}
+};
 
 export default connect(mapStateToProps, { logout })(NavBar);

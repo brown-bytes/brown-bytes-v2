@@ -52,7 +52,12 @@ const NewOffer = ({ createOffer }) => {
 					indicates required information
 				</p>
 				<hr></hr>
-				<Form onSubmit={(e) => onSubmit(e)} id="new-offer-form">
+				<Form
+					onSubmit={(e) => {
+						onSubmit(e);
+						e.target.reset();
+					}}
+					id="new-offer-form">
 					<Form.Group>
 						<Form.Label
 							className="new-offer-form-label"

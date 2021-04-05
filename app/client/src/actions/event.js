@@ -108,7 +108,7 @@ export const createEvent = (info) => async (dispatch) => {
 		await axios.post("events", body, config);
 		dispatch(
 			setAlert(
-				"Successfully created an event. Check it out in calendar",
+				"Successfully created an event. You can check it out in calendar",
 				GREEN_ALERT
 			)
 		);
