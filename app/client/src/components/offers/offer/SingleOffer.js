@@ -21,7 +21,7 @@ const SingleOffer = ({
 	offer,
 	placeDisplayed,
 }) => {
-	const offerDate = moment(offer.date).format("dddd, MMMM DD, YYYY");
+	const offerDate = moment(offer.startTime).format("dddd, MMMM DD, YYYY");
 	const startTime = moment(offer.startTime).format("HH:mm A");
 	const endTime = moment(offer.endTime).format("HH:mm A");
 

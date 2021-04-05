@@ -34,7 +34,7 @@ const Team = ({ sendFeedBack }) => {
 			<hr></hr>
 			<p id="team-text">
 				Join our team by contacting{" "}
-				<a href="mailto:scoot_huson@brown.edu">scoot_huson@brown.edu</a>
+				<a href="mailto:scott_huson@brown.edu">scott_huson@brown.edu</a>
 				. We would love to have your help in making Brown a better
 				place!
 			</p>
