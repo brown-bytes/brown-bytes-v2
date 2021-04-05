@@ -15,7 +15,7 @@ const WatchingEventList = ({ events, loading, getWatchingEvents }) => {
 		<Spinner animation="border" role="status">
 			<span className="sr-only">Loading...</span>
 		</Spinner>
-	) : (
+	) : events.length > 0 ? (
 		<Fragment>
 			{events.sort(startTimeComparator).map((event) => (
 				<SingleEvent
@@ -23,6 +23,12 @@ const WatchingEventList = ({ events, loading, getWatchingEvents }) => {
 					event={event}
 					placeDisplayed="dashboardEvents"></SingleEvent>
 			))}
+		</Fragment>
+	) : (
+		<Fragment>
+			<p className="no-dashboard-events-label">
+				You are not watching any events
+			</p>
 		</Fragment>
 	);
 };

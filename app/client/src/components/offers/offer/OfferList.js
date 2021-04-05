@@ -23,7 +23,7 @@ const OfferList = ({ offers, loading, queryString }) => {
 		<Spinner animation="border" role="status">
 			<span className="sr-only">Loading Offers...</span>
 		</Spinner>
-	) : (
+	) : offers.length > 0 ? (
 		<Fragment>
 			{offers
 				.filter((offer) => filterOffer(offer, queryString))
@@ -34,6 +34,12 @@ const OfferList = ({ offers, loading, queryString }) => {
 						offer={offer}
 						placeDisplayed="offersPage"></SingleOffer>
 				))}
+		</Fragment>
+	) : (
+		<Fragment>
+			<p className="no-offers-label">
+				There are no offers available for now.
+			</p>
 		</Fragment>
 	);
 };
