@@ -29,7 +29,7 @@ router.post("/signup", async (req, res) => {
 					res.statusCode = 200;
 					res.setHeader("Content-Type", "application/json");
 					res.json({ message: "Registration success" });
-					sendEmail(req.body.email, req.get("host") + req.baseUrl,"Please confirm your Email account", {"todo":"verify"});
+					sendEmail(req.body.email, req.get("host") + req.baseUrl,"Confirm Your Email Address","verify");
 				} else {
 					res.statusCode = 400;
 					res.setHeader("Content-Type", "application/json");
@@ -172,22 +172,113 @@ router.post("/login", async (req, res) => {
 
 router.get("/verify", async (req, res) => {
 	const { email, key } = req.query;
-	let db_key;
-	await emailVerifyDb.findOne({ where: { email } }).then((obj) => {
-		if (obj) {
-			db_key = obj.key;
-		}
-	});
-	if (key == db_key) {
-		res.end(
-			`<h1>Email is Successfully verified</h1>
-			<h2>Click <a href="http://www.google.com">here</a> to log in to BrownBytes</h2>`
-		);
-		await User.update({ isActive: true }, { where: { email } });
-	} else {
-		res.end("<h1>Email cannot be verified by this link</h1>");
-	}
+	await emailVerifyDb.findOne({ where: { email } })
+		.then(async (obj) => {
+			if (auth.verifyPassword(key, obj.key)) {
+				await User.update({ isActive: true }, { where: { email } });
+				res.end(
+					`<h1>Email is Successfully verified</h1>
+					<h2>Click <a href="http://www.google.com">here</a> to log in to BrownBytes</h2>`
+				);
+			} else {
+				res.end("<h1>Email cannot be verified by this link</h1>");
+			}
+		})
+		.catch((err) => {
+			res.statusCode = 400;
+			res.setHeader("Content-Type", "application/json");
+			if (err.hasOwnProperty("errors")) {
+				res.json({ error: err.errors[0].message });
+			} else if (
+				err.hasOwnProperty("original") &&
+				err.original.hasOwnProperty("sqlMessage")
+			) {
+				res.json({ error: err.original.sqlMessage });
+			} else {
+				res.json({ error: "" });
+			}
+		})
 });
+
+router.post("reset", async (req, res) => {
+	const e_mail = req.email;
+	await User.findOne({
+		where: {
+			email: req.body.email,
+		},
+	})
+	  .then((user) => {
+			if (user) {
+				sendEmail(e_mail, "localhost:3000", "Reset Your Email Password", "resetpassword");
+				res.statusCode = 200;
+				res.setHeader("Content-Type", "application/json");
+				res.json({
+					success: true,
+					status: "Email Sent!",
+				});
+			} else {
+				res.statusCode = 400;
+				res.setHeader("Content-Type", "application/json");
+				res.json({ success: false, error: "Account not found.Please Signup First." });
+			}
+		})
+		.catch((err) => {
+			res.statusCode = 400;
+			res.setHeader("Content-Type", "application/json");
+			if (err.hasOwnProperty("errors")) {
+				res.json({ error: err.errors[0].message });
+			} else if (
+				err.hasOwnProperty("original") &&
+				err.original.hasOwnProperty("sqlMessage")
+			) {
+				res.json({ error: err.original.sqlMessage });
+			} else {
+				res.json({ error: "" });
+			}
+		})
+})
+
+router.post("resetpassword", async (req, res) => {
+	const { email, key, newPassword } = req.query;
+	await emailVerifyDb.findOne({ where: { email } })
+		.then(async (obj) => {
+			if (obj) {
+				if (auth.verifyPassword(key, obj.key)) {
+					const hash = auth.hashPassword(newPassword)
+					await User.update({ password: hash }, { where: { email } });
+					res.statusCode = 200;
+					res.setHeader("Content-Type", "application/json");
+					res.json({
+						success: true,
+						status: "Password Reset Successfully!",
+					});
+				} else {
+					res.statusCode = 400;
+					res.setHeader("Content-Type", "application/json");
+					res.json({ success: false, error: "Invalid Verification Code. Please try again later." });
+				}
+			} else {
+				res.statusCode = 400;
+				res.setHeader("Content-Type", "application/json");
+				res.json({ success: false, error: "Password Reset Session expired. Please Retry Again." });
+			}
+		})
+		.catch((err) => {
+			res.statusCode = 400;
+			res.setHeader("Content-Type", "application/json");
+			if (err.hasOwnProperty("errors")) {
+				res.json({ error: err.errors[0].message });
+			} else if (
+				err.hasOwnProperty("original") &&
+				err.original.hasOwnProperty("sqlMessage")
+			) {
+				res.json({ error: err.original.sqlMessage });
+			} else {
+				res.json({ error: "" });
+			}
+		})
+	
+})
 
 // Email verification helper functions
 const randomFns = () => {
@@ -198,7 +289,7 @@ const randomFns = () => {
 	return code;
 };
 
-async function sendEmail(e_mail, host, subject, payload) {
+async function sendEmail(e_mail, host, subject, route) {
 	let smtpTransport = nodemailer.createTransport({
 		service: "Gmail",
 		auth: {
@@ -208,15 +299,13 @@ async function sendEmail(e_mail, host, subject, payload) {
 	});
 
 	const rand = randomFns();
-	const link = `http://${host}/${payload.todo}?email=${e_mail}&key=${rand}`;
-	payload.link = link
-	
+	const link = `http://${host}/${route}?email=${e_mail}&key=${rand}`;
 	var source = fs.readFileSync(path.join(__dirname, '../template/email.hbs'), 'utf8');
 	var template = Handlebars.compile(source);
-	const htmlToSend = template(payload)
+	const htmlToSend = template({link,subject});
 	const mailOptions = {
 		to: e_mail,
-		subject: subject,
+		subject: "Please" + subject,
 		attachments: [{
 			filename: 'brownbytes-logo.png',
 			path: path.join(__dirname, '../template/brownbytes-logo.png'),
@@ -233,7 +322,7 @@ async function sendEmail(e_mail, host, subject, payload) {
 			await emailVerifyDb.destroy({ where: { email: e_mail } });
 			await emailVerifyDb.create({
 				email: e_mail,
-				key: rand,
+				key: auth.hashPassword(rand),
 			});
 			setTimeout(async () => {
 				await emailVerifyDb.destroy({ where: { email: e_mail } });
