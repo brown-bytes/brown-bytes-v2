@@ -167,43 +167,82 @@ router.get("/created", auth.parseToken, async (req, res) => {
 });
 
 router.delete("/:offerId", auth.parseToken, async (req, res) => {
-	await Offer.destroy({
-		where: {
-			id: req.params.offerId,
-			creatorId: req.decoded.id,
-		},
-	})
-		.then((rows) => {
-			if (rows > 0) {
-				res.statusCode = 200;
-				res.setHeader("Content-Type", "application/json");
-				res.json({
-					success: true,
-					status: "Successfully deleted offer",
-				});
-			} else {
-				res.statusCode = 403;
-				res.setHeader("Content-Type", "application/json");
-				res.json({
-					success: false,
-					error: "Unauthorized to delete the offer",
-				});
-			}
-		})
-		.catch((err) => {
-			res.statusCode = 400;
-			res.setHeader("Content-Type", "application/json");
-			if (err.hasOwnProperty("errors")) {
-				res.json({ error: err.errors[0].message });
-			} else if (
-				err.hasOwnProperty("original") &&
-				err.original.hasOwnProperty("sqlMessage")
-			) {
-				res.json({ error: err.original.sqlMessage });
-			} else {
-				res.json({ error: "" });
-			}
-		});
+    if (req.decoded.admin) {
+        await Offer.destroy({
+            where: {
+                id: req.params.offerId
+            },
+        })
+            .then((rows) => {
+                if (rows > 0) {
+                    res.statusCode = 200;
+                    res.setHeader("Content-Type", "application/json");
+                    res.json({
+                        success: true,
+                        status: "Successfully deleted offer",
+                    });
+                } else {
+                    res.statusCode = 403;
+                    res.setHeader("Content-Type", "application/json");
+                    res.json({
+                        success: false,
+                        error: "Unauthorized to delete the offer",
+                    });
+                }
+            })
+            .catch((err) => {
+                res.statusCode = 400;
+                res.setHeader("Content-Type", "application/json");
+                if (err.hasOwnProperty("errors")) {
+                    res.json({ error: err.errors[0].message });
+                } else if (
+                    err.hasOwnProperty("original") &&
+                    err.original.hasOwnProperty("sqlMessage")
+                ) {
+                    res.json({ error: err.original.sqlMessage });
+                } else {
+                    res.json({ error: "" });
+                }
+            });
+    } else {
+        await Offer.destroy({
+            where: {
+                id: req.params.offerId,
+                creatorId: req.decoded.id,
+            },
+        })
+            .then((rows) => {
+                if (rows > 0) {
+                    res.statusCode = 200;
+                    res.setHeader("Content-Type", "application/json");
+                    res.json({
+                        success: true,
+                        status: "Successfully deleted offer",
+                    });
+                } else {
+                    res.statusCode = 403;
+                    res.setHeader("Content-Type", "application/json");
+                    res.json({
+                        success: false,
+                        error: "Unauthorized to delete the offer",
+                    });
+                }
+            })
+            .catch((err) => {
+                res.statusCode = 400;
+                res.setHeader("Content-Type", "application/json");
+                if (err.hasOwnProperty("errors")) {
+                    res.json({ error: err.errors[0].message });
+                } else if (
+                    err.hasOwnProperty("original") &&
+                    err.original.hasOwnProperty("sqlMessage")
+                ) {
+                    res.json({ error: err.original.sqlMessage });
+                } else {
+                    res.json({ error: "" });
+                }
+            });
+    }
 });
 
 router.post("/comment/:offerId", auth.parseToken, async (req, res) => {

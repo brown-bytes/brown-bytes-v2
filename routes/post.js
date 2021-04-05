@@ -213,43 +213,82 @@ router.route('/')
 });
 
 router.delete('/:postId', auth.parseToken, async (req, res) => {
-	await Post.destroy({
-		where: {
-			id: req.params.postId,
-			creatorId: req.decoded.id,
-		},
-	})
-    .then((rows) => {
-        if (rows > 0) {
-            res.statusCode = 200;
+    if (req.decoded.admin) {
+        await Post.destroy({
+            where: {
+                id: req.params.postId
+            },
+        })
+        .then((rows) => {
+            if (rows > 0) {
+                res.statusCode = 200;
+                res.setHeader("Content-Type", "application/json");
+                res.json({
+                    success: true,
+                    status: "Successfully deleted post",
+                });
+            } else {
+                res.statusCode = 403;
+                res.setHeader("Content-Type", "application/json");
+                res.json({
+                    success: false,
+                    error: "Unauthorized to delete the post",
+                });
+            }
+        })
+        .catch((err) => {
+            res.statusCode = 400;
             res.setHeader("Content-Type", "application/json");
-            res.json({
-                success: true,
-                status: "Successfully deleted post",
-            });
-        } else {
-            res.statusCode = 403;
+            if (err.hasOwnProperty("errors")) {
+                res.json({ error: err.errors[0].message });
+            } else if (
+                err.hasOwnProperty("original") &&
+                err.original.hasOwnProperty("sqlMessage")
+            ) {
+                res.json({ error: err.original.sqlMessage });
+            } else {
+                res.json({ error: "" });
+            }
+        });
+    } else {
+        await Post.destroy({
+            where: {
+                id: req.params.postId,
+                creatorId: req.decoded.id,
+            },
+        })
+        .then((rows) => {
+            if (rows > 0) {
+                res.statusCode = 200;
+                res.setHeader("Content-Type", "application/json");
+                res.json({
+                    success: true,
+                    status: "Successfully deleted post",
+                });
+            } else {
+                res.statusCode = 403;
+                res.setHeader("Content-Type", "application/json");
+                res.json({
+                    success: false,
+                    error: "Unauthorized to delete the post",
+                });
+            }
+        })
+        .catch((err) => {
+            res.statusCode = 400;
             res.setHeader("Content-Type", "application/json");
-            res.json({
-                success: false,
-                error: "Unauthorized to delete the post",
-            });
-        }
-    })
-    .catch((err) => {
-        res.statusCode = 400;
-        res.setHeader("Content-Type", "application/json");
-        if (err.hasOwnProperty("errors")) {
-            res.json({ error: err.errors[0].message });
-        } else if (
-            err.hasOwnProperty("original") &&
-            err.original.hasOwnProperty("sqlMessage")
-        ) {
-            res.json({ error: err.original.sqlMessage });
-        } else {
-            res.json({ error: "" });
-        }
-    });
+            if (err.hasOwnProperty("errors")) {
+                res.json({ error: err.errors[0].message });
+            } else if (
+                err.hasOwnProperty("original") &&
+                err.original.hasOwnProperty("sqlMessage")
+            ) {
+                res.json({ error: err.original.sqlMessage });
+            } else {
+                res.json({ error: "" });
+            }
+        });
+    }
 });
 
 router.post('/comment/:postId', auth.parseToken, async (req, res) => {

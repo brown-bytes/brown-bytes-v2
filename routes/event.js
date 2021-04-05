@@ -115,43 +115,82 @@ router
 	});
 
 router.delete("/:eventId", auth.parseToken, async (req, res) => {
-	await Event.destroy({
-		where: {
-			id: req.params.eventId,
-			creatorId: req.decoded.id,
-		},
-	})
-		.then((rows) => {
-			if (rows > 0) {
-				res.statusCode = 200;
-				res.setHeader("Content-Type", "application/json");
-				res.json({
-					success: true,
-					status: "Successfully deleted event",
-				});
-			} else {
-				res.statusCode = 403;
-				res.setHeader("Content-Type", "application/json");
-				res.json({
-					success: false,
-					error: "Unauthorized to delete the event",
-				});
-			}
-		})
-		.catch((err) => {
-			res.statusCode = 400;
-			res.setHeader("Content-Type", "application/json");
-			if (err.hasOwnProperty("errors")) {
-				res.json({ error: err.errors[0].message });
-			} else if (
-				err.hasOwnProperty("original") &&
-				err.original.hasOwnProperty("sqlMessage")
-			) {
-				res.json({ error: err.original.sqlMessage });
-			} else {
-				res.json({ error: "" });
-			}
-		});
+    if (req.decoded.admin) {
+        await Event.destroy({
+            where: {
+                id: req.params.eventId
+            },
+        })
+            .then((rows) => {
+                if (rows > 0) {
+                    res.statusCode = 200;
+                    res.setHeader("Content-Type", "application/json");
+                    res.json({
+                        success: true,
+                        status: "Successfully deleted event",
+                    });
+                } else {
+                    res.statusCode = 403;
+                    res.setHeader("Content-Type", "application/json");
+                    res.json({
+                        success: false,
+                        error: "Unauthorized to delete the event",
+                    });
+                }
+            })
+            .catch((err) => {
+                res.statusCode = 400;
+                res.setHeader("Content-Type", "application/json");
+                if (err.hasOwnProperty("errors")) {
+                    res.json({ error: err.errors[0].message });
+                } else if (
+                    err.hasOwnProperty("original") &&
+                    err.original.hasOwnProperty("sqlMessage")
+                ) {
+                    res.json({ error: err.original.sqlMessage });
+                } else {
+                    res.json({ error: "" });
+                }
+            });
+    } else {
+        await Event.destroy({
+            where: {
+                id: req.params.eventId,
+                creatorId: req.decoded.id,
+            },
+        })
+            .then((rows) => {
+                if (rows > 0) {
+                    res.statusCode = 200;
+                    res.setHeader("Content-Type", "application/json");
+                    res.json({
+                        success: true,
+                        status: "Successfully deleted event",
+                    });
+                } else {
+                    res.statusCode = 403;
+                    res.setHeader("Content-Type", "application/json");
+                    res.json({
+                        success: false,
+                        error: "Unauthorized to delete the event",
+                    });
+                }
+            })
+            .catch((err) => {
+                res.statusCode = 400;
+                res.setHeader("Content-Type", "application/json");
+                if (err.hasOwnProperty("errors")) {
+                    res.json({ error: err.errors[0].message });
+                } else if (
+                    err.hasOwnProperty("original") &&
+                    err.original.hasOwnProperty("sqlMessage")
+                ) {
+                    res.json({ error: err.original.sqlMessage });
+                } else {
+                    res.json({ error: "" });
+                }
+            });
+    }
 });
 
 router.get("/watched", auth.parseToken, async (req, res) => {

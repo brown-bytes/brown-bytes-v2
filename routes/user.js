@@ -134,7 +134,7 @@ router.post("/login", async (req, res) => {
 								error: "Please verify your email first.",
 							});
 						} else {
-							let token = auth.getToken({ id: user.id });
+							let token = auth.getToken({ id: user.id, admin: user.admin });
 							res.statusCode = 200;
 							res.setHeader("Content-Type", "application/json");
 							res.json({
