@@ -13,6 +13,7 @@ router.post("/signup", async (req, res) => {
             res.statusCode = 400;
 			res.setHeader("Content-Type", "application/json");
 			res.json({ error: "Password should be at least 8 characters" });
+            return;
         }
 		const hash = auth.hashPassword(req.body.password);
 		const avatarUrl = `${req.protocol}://${req.get(

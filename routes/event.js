@@ -508,6 +508,7 @@ router.get("/past", async (req, res) => {
 				},
 			},
 			order: [["endTime", "DESC"]],
+            offset: Number(req.query.fetched),
 			limit: 10,
 			include: [
 				{
@@ -528,7 +529,6 @@ router.get("/past", async (req, res) => {
 			],
 		})
 			.then((events) => {
-				events = events.slice(req.query.fetched);
 				for (let i = 0; i < events.length; i++) {
 					events[i] = events[i].get({ plain: true });
 					events[i].numWatches = events[i].watches.length;
