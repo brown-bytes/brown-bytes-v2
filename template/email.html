@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Email confirmation</title>
+        <style>
+            .center {
+              display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .email-body {
+                padding: 50px;
+                background-color: antiquewhite;
+                width: 70%;
+                margin: 0 15%;
+                height: min-content;
+            }
+            .main-content {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+            }
+            .logo {
+                height: 300px;
+            }
+            .btn {
+                text-align: center;
+                width: 270px;
+                height: auto;
+                color: white;
+                font-weight: bold;
+                background-color: #a3001c;
+                text-decoration: none;
+                padding: 10px 40px;
+                font-size: x-large
+            }
+            .btn:hover {
+                background-color: #8f0008;
+            }
+            .block {
+                padding: 20px;
+                align-items: center;
+                font-size: x-large;
+            }
+        </style>
+    </head>
+    <body>
+      <table class="email-body center">
+        <tr>
+          <td class="logo">
+            <img class="logo" src="cid:logo" />
+          </td>
+        </tr>
+        <tr>
+          <td class="block">
+            Please click the link below to {{subject}}
+          </td>
+        </tr>
+        <tr>
+          <td class="block center">
+            <a class="btn" href="/">Click Me!</a>
+          </td>
+        </tr>
+      </table>
+    </body>
+</html>
