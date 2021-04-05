@@ -173,6 +173,9 @@ const SingleEvent = ({
 															placeDisplayed
 														);
 													}}></i>
+													<span className="sr-only">
+														Close
+													</span>
 											</Button>
 										)}
 									<Button
@@ -190,7 +193,7 @@ const SingleEvent = ({
 											onClick={(e) => {
 												watchEvent(e, placeDisplayed);
 											}}
-										/>{" "}
+										/><span className="sr-only">Close</span>{" "}
 										{event.numWatches && (
 											<span>{event.numWatches}</span>
 										)}
@@ -207,7 +210,7 @@ const SingleEvent = ({
 											onClick={(e) => {
 												unwatchEvent(e, placeDisplayed);
 											}}
-										/>
+										/><span className="sr-only">Close</span>
 									</Button>
 									<Accordion.Toggle
 										as={Button}
@@ -215,7 +218,7 @@ const SingleEvent = ({
 										variant="outline-link"
 										eventKey="comment"
 										size="lg">
-										<i className="far fa-comment"></i>{" "}
+										<i className="far fa-comment"></i><span className="sr-only">Close</span>{" "}
 										{event.comments.length > 0 && (
 											<span>{event.comments.length}</span>
 										)}
@@ -234,7 +237,7 @@ const SingleEvent = ({
 											className="px-2"
 											variant="outline-link"
 											size="lg">
-											<i className="fas fa-eye" />{" "}
+											<i className="fas fa-eye" /><span className="sr-only">Close</span>{" "}
 											{event.numWatches > 0 && (
 												<span>{event.numWatches}</span>
 											)}
@@ -250,7 +253,7 @@ const SingleEvent = ({
 											variant="outline-link"
 											eventKey="comment"
 											size="lg">
-											<i className="far fa-comment"></i>{" "}
+											<i className="far fa-comment"></i><span className="sr-only">Close</span>{" "}
 											{event.comments.length > 0 && (
 												<span>
 													{event.comments.length}

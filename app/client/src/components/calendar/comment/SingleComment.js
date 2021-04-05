@@ -22,6 +22,7 @@ const SingleComment = ({ comment }) => {
 						className="comment-favicon-container">
 						<Image
 							className="comment-favicon"
+							alt="comment_favicon"
 							src={comment.poster.avatar}
 							fluid
 							roundedCircle
