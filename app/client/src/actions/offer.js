@@ -142,7 +142,7 @@ export const deleteOffer = (e, placeDisplayed) => async (dispatch) => {
 		dispatch({
 			type: DELETE_OFFER_SUCCESS,
 		});
-		dispatch(setAlert("Successfully deleted your offer", GREEN_ALERT));
+		dispatch(setAlert("Successfully deleted the offer", GREEN_ALERT));
 		switch (placeDisplayed) {
 			case "offersPage":
 				dispatch(getOffers());

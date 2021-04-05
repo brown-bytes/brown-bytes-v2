@@ -16,7 +16,7 @@ const Team = ({ getFeedBacks, feedbacks }) => {
 	return (
 		<Fragment>
 			<h1>User Feedbacks</h1>
-			<Table striped bordered hover>
+			<Table striped bordered hoversize="sm">
 				<thead>
 					<tr>
 						<th>#</th>

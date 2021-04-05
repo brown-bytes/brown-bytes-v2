@@ -243,7 +243,7 @@ export const deleteEvent = (e, placeDisplayed) => async (dispatch) => {
 		dispatch({
 			type: DELETE_EVENT_SUCCESS,
 		});
-		dispatch(setAlert("Successfully deleted your event", GREEN_ALERT));
+		dispatch(setAlert("Successfully deleted the event", GREEN_ALERT));
 		switch (placeDisplayed) {
 			case "homeAndCalendar":
 				dispatch(getFutureEvents());
