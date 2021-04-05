@@ -38,6 +38,12 @@ const NavBar = ({ isAuthenticated, isAdmin, loading, logout }) => {
 						<Nav.Link
 							as={NavLink}
 							activeClassName="active"
+							to="/networking">
+							Networking
+						</Nav.Link>
+						<Nav.Link
+							as={NavLink}
+							activeClassName="active"
 							to="/about">
 							About
 						</Nav.Link>
@@ -81,6 +87,12 @@ const NavBar = ({ isAuthenticated, isAdmin, loading, logout }) => {
 							activeClassName="active"
 							to="/offers">
 							Offers
+						</Nav.Link>
+						<Nav.Link
+							as={NavLink}
+							activeClassName="active"
+							to="/networking">
+							Networking
 						</Nav.Link>
 						<Nav.Link
 							as={NavLink}

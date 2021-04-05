@@ -29,17 +29,19 @@ const Team = ({ getFeedBacks, feedbacks }) => {
 				</thead>
 				<tbody>
 					{feedbacks.map((feedback, index) => (
-						<tr>
-							<td>{index}</td>
-							<td>{feedback.posterName}</td>
-							<td>{feedback.email}</td>
-							<td>
-								{moment(feedback.createdAt).format(
-									"dddd, MMMM DD, YYYY"
-								)}
-							</td>
-							<td>{feedback.feedback}</td>
-						</tr>
+						<Fragment key={index}>
+							<tr>
+								<td>{index}</td>
+								<td>{feedback.posterName}</td>
+								<td>{feedback.email}</td>
+								<td>
+									{moment(feedback.createdAt).format(
+										"dddd, MMMM DD, YYYY"
+									)}
+								</td>
+								<td>{feedback.feedback}</td>
+							</tr>
+						</Fragment>
 					))}
 				</tbody>
 			</Table>

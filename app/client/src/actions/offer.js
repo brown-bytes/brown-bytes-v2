@@ -12,7 +12,7 @@ import {
 	DELETE_OFFER_SUCCESS,
 	GET_CREATED_OFFERS,
 	GET_OFFERS,
-	POST_OFFER_COMMENT,
+	CREATE_OFFER_COMMENT,
 } from "./types";
 
 export const createOffer = (info) => async (dispatch) => {
@@ -181,7 +181,7 @@ export const postOfferComment = (comment, offerId, placeDisplayed) => async (
 	try {
 		await axios.post(`offers/comment/${offerId}`, body, config);
 		dispatch({
-			type: POST_OFFER_COMMENT,
+			type: CREATE_OFFER_COMMENT,
 		});
 		switch (placeDisplayed) {
 			case "offersPage":

@@ -14,7 +14,7 @@ import {
 	GET_FUTURE_EVENTS,
 	GET_PAST_EVENTS,
 	GET_WATCHING_EVENTS,
-	POST_EVENT_COMMENT,
+	CREATE_EVENT_COMMENT,
 	UNWATCH_EVENT,
 	WATCH_EVENT,
 } from "./types";
@@ -282,7 +282,7 @@ export const postEventComment = (comment, eventId, placeDisplayed) => async (
 	try {
 		await axios.post(`events/comment/${eventId}`, body, config);
 		dispatch({
-			type: POST_EVENT_COMMENT,
+			type: CREATE_EVENT_COMMENT,
 		});
 		switch (placeDisplayed) {
 			case "homeAndCalendar":

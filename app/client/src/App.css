@@ -385,6 +385,21 @@ body {
 	font-size: large;
 }
 
+.networking-heading1 {
+	font-weight: bold;
+	font-size: xx-large;
+}
+
+.networking-heading2 {
+	font-weight: bold;
+	font-size: x-large;
+	margin-bottom: 0;
+}
+
+.networking-text {
+	font-size: large;
+}
+
 .new-offer-asterisk {
 	color: red;
 }

@@ -7,7 +7,7 @@ import {
 	DELETE_OFFER_SUCCESS,
 	GET_CREATED_OFFERS,
 	GET_OFFERS,
-	POST_OFFER_COMMENT,
+	CREATE_OFFER_COMMENT,
 } from "../actions/types";
 
 const initialState = {
@@ -39,7 +39,7 @@ export default (state = initialState, action) => {
 				...state,
 				queryString: payload,
 			};
-		case POST_OFFER_COMMENT:
+		case CREATE_OFFER_COMMENT:
 		case CREATE_OFFER_SUCCESS:
 		case CREATE_OFFER_FAILED:
 		case DELETE_OFFER_SUCCESS:

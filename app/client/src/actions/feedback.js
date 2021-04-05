@@ -34,10 +34,8 @@ export const sendFeedBack = (posterName, email, feedback) => async (
 
 export const getFeedBacks = () => async (dispatch) => {
 	clearAlerts();
-
 	try {
 		const res = await axios.get("/feedbacks");
-		console.log(res.data);
 		const feedbacks = res.data.feedbacks;
 		dispatch({
 			type: GET_FEEDBACKS,

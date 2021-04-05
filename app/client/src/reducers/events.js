@@ -9,7 +9,7 @@ import {
 	GET_FUTURE_EVENTS,
 	GET_PAST_EVENTS,
 	GET_WATCHING_EVENTS,
-	POST_EVENT_COMMENT,
+	CREATE_EVENT_COMMENT,
 	UNWATCH_EVENT,
 	WATCH_EVENT,
 } from "../actions/types";
@@ -85,7 +85,7 @@ export default function (state = initialState, action) {
 		case CREATE_EVENT_FAILED:
 		case DELETE_EVENT_SUCCESS:
 		case DELETE_EVENT_FAILED:
-		case POST_EVENT_COMMENT:
+		case CREATE_EVENT_COMMENT:
 		default:
 			return state;
 	}
