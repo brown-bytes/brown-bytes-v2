@@ -32,37 +32,95 @@ const SinglePost = ({
 					border="secondary"
 					className="post-card-class-overriding-bootstrap">
 					<Card.Body className="py-1 px-0">
-						<Row noGutters="true">
-							<Col xs={2} sm={2} md={2} lg={2}>
-								<Image
-									className="comment-favicon"
-									src={post.avatarURL}
-									alt="user avatar"
-									fluid
-									roundedCircle
-									thumbnail></Image>
-							</Col>
-							<Col xs={10} sm={10} md={10} lg={10}>
-								<p className="post-head">
-									<span className="post-user">
-										{post.creator}
-									</span>{" "}
-									created at{" "}
-									<span className="post-time">
-										{createdTime}
-									</span>
-								</p>
-								<p className="post-content">{post.content} </p>
-							</Col>
-						</Row>
+						<Container fluid>
+							<Row noGutters="true">
+								<Col xs={2} sm={2} md={2} lg={2}>
+									<Image
+										className="comment-favicon"
+										src={post.avatarURL}
+										alt="user avatar"
+										fluid
+										roundedCircle
+										thumbnail></Image>
+								</Col>
+								<Col xs={10} sm={10} md={10} lg={10}>
+									<p className="post-head">
+										<span className="post-user">
+											{post.creator}
+										</span>{" "}
+										created at{" "}
+										<span className="post-time">
+											{createdTime}
+										</span>
+									</p>
+									<p className="post-content">
+										{post.content}{" "}
+									</p>
+								</Col>
+							</Row>
+							<Row className="justify-content-end d-flex">
+								{!loadingUser &&
+									isAuthenticated &&
+									authedUser &&
+									(authedUser.userId === post.creatorId ||
+										authedUser.isAdmin) && (
+										<Button
+											className="pr-3"
+											variant="outline-link"
+											size="lg"
+											id={post.id}
+											onClick={(e) => {
+												deletePost(e, placeDisplayed);
+											}}>
+											<i
+												id={post.id}
+												className="fas fa-trash-alt"></i>
+											<span className="sr-only">
+												Close
+											</span>
+										</Button>
+									)}
+								{isAuthenticated ? (
+									<Accordion.Toggle
+										as={Button}
+										className="px-2"
+										variant="outline-link"
+										eventKey="comment"
+										size="lg">
+										<i className="far fa-comment"></i>
+										<span className="sr-only">
+											Close
+										</span>{" "}
+										{post.comments.length > 0 && (
+											<span> {post.comments.length}</span>
+										)}
+									</Accordion.Toggle>
+								) : (
+									post.comments.length > 0 && (
+										<Accordion.Toggle
+											as={Button}
+											className="px-2"
+											variant="outline-link"
+											eventKey="comment"
+											size="lg">
+											<i className="far fa-comment"></i>
+											<span className="sr-only">
+												Close
+											</span>{" "}
+											<span> {post.comments.length}</span>
+										</Accordion.Toggle>
+									)
+								)}
+							</Row>
+						</Container>
 					</Card.Body>
 				</Card>
-				{/* <Accordion.Collapse eventKey="comment" className="comment-area">
+				<Accordion.Collapse eventKey="comment" className="comment-area">
 					<CommentArea
 						comments={post.comments}
-						offerId={post.id}
+						postId={post.id}
 						placeDisplayed={placeDisplayed}></CommentArea>
-				</Accordion.Collapse> */}
+				</Accordion.Collapse>
 			</Accordion>
 		</Fragment>
 	);
@@ -88,7 +146,7 @@ SinglePost.propTypes = {
 	isAuthenticated: PropTypes.bool,
 	authedUser: PropTypes.object,
 	loadingUser: PropTypes.bool,
-	deleteOffer: PropTypes.func,
+	deletePost: PropTypes.func,
 };
 
 export default connect(mapStateToProps, {

@@ -22,9 +22,9 @@ const PostList = ({ posts, loading, queryString }) => {
 		<Fragment>
 			{posts
 				// .filter((post) => filterPost(post, queryString))
-				.map((post, index) => (
+				.map((post) => (
 					<SinglePost
-						key={index}
+						key={post.id}
 						post={post}
 						placeDisplayed="networkingPage"></SinglePost>
 				))}

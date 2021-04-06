@@ -50,7 +50,7 @@ const SingleComment = ({ comment }) => {
 };
 
 SingleComment.propTypes = {
-	comment: PropTypes.string,
+	comment: PropTypes.object,
 };
 
 export default SingleComment;

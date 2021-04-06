@@ -9,6 +9,7 @@ import { clearAlerts } from "../../actions/alert";
 import { createPost, getPosts } from "../../actions/post";
 
 import PostList from "./post/PostList";
+import SearchBar from "./post/SearchBar";
 
 const Networking = ({
 	isAuthenticated,
@@ -82,6 +83,7 @@ const Networking = ({
 				</p>
 			)}
 			<hr></hr>
+			<SearchBar></SearchBar>
 			<PostList></PostList>
 		</Fragment>
 	);

@@ -266,11 +266,7 @@ const SingleEvent = ({
 											<span className="sr-only">
 												Close
 											</span>{" "}
-											{event.comments.length > 0 && (
-												<span>
-													{event.comments.length}
-												</span>
-											)}
+											<span>{event.comments.length}</span>
 										</Accordion.Toggle>
 									)}
 								</Col>

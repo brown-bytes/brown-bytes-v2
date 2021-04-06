@@ -535,6 +535,13 @@ body {
 	margin-bottom: 0;
 }
 
+.no-posts-label {
+	font-size: x-large;
+	font-weight: bold;
+	padding-top: 5px;
+	margin-bottom: 0;
+}
+
 .no-dashboard-events-label {
 	font-size: larger;
 	padding-left: 15px;

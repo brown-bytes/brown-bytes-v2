@@ -1,5 +1,4 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { set } from "mongoose";
 import {
 	CHANGE_POST_QUERY_STRING,
 	CREATE_POST_FAILED,
@@ -9,11 +8,12 @@ import {
 	GET_CREATED_POSTS,
 	GET_POSTS,
 	CREATE_POST_COMMENT,
+	REFRESH_POSTS,
 } from "../actions/types";
 
 const initialState = {
 	posts: [],
-	fetchedPostIds: new Set(),
+	fetchedPostIds: new Set(["dummy"]),
 	loadingPosts: true,
 	numPostsFetched: 0,
 	queryString: "",
@@ -35,18 +35,48 @@ export default function (state = initialState, action) {
 				numPostsFetched: state.numPostsFetched + payload.length,
 			};
 		case CREATE_POST_SUCCESS:
-			const newPosts = payload.filter(
+			const newPostsAfterCreation = payload.filter(
 				(post) => !state.fetchedPostIds.has(post.id)
 			);
 			return {
 				...state,
-				posts: [...newPosts, ...state.posts],
+				posts: [...newPostsAfterCreation, ...state.posts],
 				fetchedPostIds: new Set([
 					...state.fetchedPostIds,
-					...newPosts.map((post) => post.id),
+					...newPostsAfterCreation.map((post) => post.id),
 				]),
 				loadingPosts: false,
-				numPostsFetched: state.numPostsFetched + newPosts.length,
+				numPostsFetched:
+					state.numPostsFetched + newPostsAfterCreation.length,
+			};
+		case REFRESH_POSTS:
+			const newPostsAfterRefreshing = payload.filter(
+				(post) => !state.fetchedPostIds.has(post.id)
+			);
+			return {
+				...state,
+				posts: [...newPostsAfterRefreshing, ...state.posts],
+				fetchedPostIds: new Set([
+					...state.fetchedPostIds,
+					...newPostsAfterRefreshing.map((post) => post.id),
+				]),
+				loadingPosts: false,
+				numPostsFetched:
+					state.numPostsFetched + newPostsAfterRefreshing.length,
+			};
+		case DELETE_POST_SUCCESS:
+			return {
+				...state,
+				posts: state.posts.filter(
+					(post) => post.id !== Number(payload)
+				),
+				fetchedPostIds: new Set(
+					[...state.fetchedPostIds].filter(
+						(id) => id !== Number(payload)
+					)
+				),
+				loadingPosts: false,
+				numPostsFetched: state.numPostsFetched - 1,
 			};
 		default:
 			return state;

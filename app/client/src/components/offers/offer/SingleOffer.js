@@ -110,18 +110,43 @@ const SingleOffer = ({
 											</span>
 										</Button>
 									)}
-								<Accordion.Toggle
-									as={Button}
-									className="px-2"
-									variant="outline-link"
-									eventKey="comment"
-									size="lg">
-									<i className="far fa-comment"></i>
-									<span className="sr-only">Close</span>{" "}
-									{offer.comments.length > 0 && (
-										<span> {offer.comments.length}</span>
-									)}
-								</Accordion.Toggle>
+								{isAuthenticated ? (
+									<Accordion.Toggle
+										as={Button}
+										className="px-2"
+										variant="outline-link"
+										eventKey="comment"
+										size="lg">
+										<i className="far fa-comment"></i>
+										<span className="sr-only">
+											Close
+										</span>{" "}
+										{offer.comments.length > 0 && (
+											<span>
+												{" "}
+												{offer.comments.length}
+											</span>
+										)}
+									</Accordion.Toggle>
+								) : (
+									offer.comments.length > 0 && (
+										<Accordion.Toggle
+											as={Button}
+											className="px-2"
+											variant="outline-link"
+											eventKey="comment"
+											size="lg">
+											<i className="far fa-comment"></i>
+											<span className="sr-only">
+												Close
+											</span>{" "}
+											<span>
+												{" "}
+												{offer.comments.length}
+											</span>
+										</Accordion.Toggle>
+									)
+								)}
 							</Row>
 						</Container>
 					</Card.Body>
