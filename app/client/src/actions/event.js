@@ -133,9 +133,7 @@ export const getFutureEvents = () => async (dispatch) => {
 			type: GET_FUTURE_EVENTS,
 			payload: events,
 		});
-	} catch (err) {
-		console.log("get future events failed");
-	}
+	} catch (err) {}
 	return;
 };
 
@@ -152,9 +150,7 @@ export const getPastEvents = (numPastEventFetched) => async (dispatch) => {
 			type: GET_PAST_EVENTS,
 			payload: events,
 		});
-	} catch (err) {
-		console.log("get past events failed");
-	}
+	} catch (err) {}
 	return;
 };
 
@@ -168,9 +164,7 @@ export const getWatchingEvents = () => async (dispatch) => {
 			type: GET_WATCHING_EVENTS,
 			payload: events,
 		});
-	} catch (err) {
-		console.log("get watching events failed");
-	}
+	} catch (err) {}
 	return;
 };
 
@@ -182,9 +176,7 @@ export const getCreatedEvents = () => async (dispatch) => {
 			type: GET_CREATED_EVENTS,
 			payload: events,
 		});
-	} catch (err) {
-		console.log("get created events failed");
-	}
+	} catch (err) {}
 	return;
 };
 

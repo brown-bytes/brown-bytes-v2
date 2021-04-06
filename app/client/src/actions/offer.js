@@ -115,9 +115,7 @@ export const getOffers = () => async (dispatch) => {
 			type: GET_OFFERS,
 			payload: offers,
 		});
-	} catch (err) {
-		console.log("fetching offers failed");
-	}
+	} catch (err) {}
 	return;
 };
 
@@ -129,9 +127,7 @@ export const getCreatedOffers = () => async (dispatch) => {
 			type: GET_CREATED_OFFERS,
 			payload: offers,
 		});
-	} catch (err) {
-		console.log("fetching created offers failed");
-	}
+	} catch (err) {}
 	return;
 };
 

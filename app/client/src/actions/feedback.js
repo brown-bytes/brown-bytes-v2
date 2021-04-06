@@ -42,8 +42,6 @@ export const getFeedBacks = () => async (dispatch) => {
 			payload: feedbacks,
 		});
 		dispatch(setAlert("Fetched user feedbacks from server", GREEN_ALERT));
-	} catch (err) {
-		console.log("fetching feedbacks failed");
-	}
+	} catch (err) {}
 	return;
 };

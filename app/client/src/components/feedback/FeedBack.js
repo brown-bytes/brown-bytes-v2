@@ -55,7 +55,7 @@ Team.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-	feedbacks: state.feedbacks.feedbacks,
+	feedbacks: state.feedback.feedbacks,
 });
 
 export default connect(mapStateToProps, { getFeedBacks })(Team);

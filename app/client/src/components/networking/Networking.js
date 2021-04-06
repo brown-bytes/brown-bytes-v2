@@ -8,6 +8,8 @@ import { connect } from "react-redux";
 import { clearAlerts } from "../../actions/alert";
 import { createPost, getPosts } from "../../actions/post";
 
+import PostList from "./post/PostList";
+
 const Networking = ({
 	isAuthenticated,
 	createPost,
@@ -80,6 +82,7 @@ const Networking = ({
 				</p>
 			)}
 			<hr></hr>
+			<PostList></PostList>
 		</Fragment>
 	);
 };

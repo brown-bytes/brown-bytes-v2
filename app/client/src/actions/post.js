@@ -14,7 +14,7 @@ import {
 	CREATE_POST_COMMENT,
 } from "./types";
 
-export const createPost = (content, numPostsFetched) => async (dispatch) => {
+export const createPost = (content) => async (dispatch) => {
 	console.log("creating a post:", content);
 	clearAlerts();
 
@@ -31,10 +31,15 @@ export const createPost = (content, numPostsFetched) => async (dispatch) => {
 	try {
 		await axios.post("posts", body, config);
 		dispatch(setAlert("Successfully created a new post!", GREEN_ALERT));
+		const res = await axios.get("posts", {
+			params: {
+				fetched: 0,
+			},
+		});
 		dispatch({
 			type: CREATE_POST_SUCCESS,
+			payload: res.data.posts,
 		});
-		dispatch(getPosts(numPostsFetched));
 	} catch (err) {
 		const errorMessage = err.response.data.error;
 		dispatch(setAlert(errorMessage, RED_ALERT));
@@ -45,20 +50,19 @@ export const createPost = (content, numPostsFetched) => async (dispatch) => {
 };
 
 export const getPosts = (numFetchedPosts) => async (dispatch) => {
-	console.log("getting posts");
 	try {
 		const res = await axios.get("posts", {
 			params: {
 				fetched: numFetchedPosts,
 			},
 		});
-		console.log("posts:", res.data);
+		console.log("get posts:", res.data.posts);
 		dispatch({
 			type: GET_POSTS,
 			payload: res.data.posts,
 		});
-	} catch (err) {
-		console.log("fetching posts failed");
-	}
+	} catch (err) {}
 	return;
 };
+
+export const deletePost = () => async (dispatch) => {};
