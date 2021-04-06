@@ -90,6 +90,7 @@ router
 				.then((posts) => {
 					for (let i = 0; i < posts.length; i++) {
 						posts[i] = posts[i].get({ plain: true });
+						posts[i].avatarURL = posts[i].creator.avatar;
 						posts[i].creator = posts[i].creator.username;
 					}
 					res.statusCode = 200;
@@ -146,6 +147,7 @@ router
 				.then((posts) => {
 					for (let i = 0; i < posts.length; i++) {
 						posts[i] = posts[i].get({ plain: true });
+						posts[i].avatarURL = posts[i].creator.avatar;
 						posts[i].creator = posts[i].creator.username;
 					}
 					res.statusCode = 200;
@@ -191,6 +193,7 @@ router
 				.then((posts) => {
 					for (let i = 0; i < posts.length; i++) {
 						posts[i] = posts[i].get({ plain: true });
+						posts[i].avatarURL = posts[i].creator.avatar;
 						posts[i].creator = posts[i].creator.username;
 					}
 					res.statusCode = 200;
@@ -220,7 +223,8 @@ router
 	.post(auth.parseToken, async (req, res) => {
 		await Post.create({
 			creatorId: req.decoded.id,
-			isAnonymous: req.body.anonymous,
+			//isAnonymous: req.body.anonymous,
+			isAnonymous: false,
 			content: req.body.content,
 		})
 			.then((post) => {
