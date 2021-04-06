@@ -1,4 +1,3 @@
-import moment from "moment";
 import PropTypes from "prop-types";
 import React, { Fragment } from "react";
 import Spinner from "react-bootstrap/Spinner";

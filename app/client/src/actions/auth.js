@@ -6,6 +6,7 @@ import setAuthToken from "../utils/setAuthToken";
 import { clearAlerts, setAlert } from "./alert";
 import { getCreatedEvents, getWatchingEvents } from "./event";
 import { getCreatedOffers } from "./offer";
+import { getCreatedPosts } from "./post";
 import {
 	AUTH_ERROR,
 	LOGIN_FAIL,
@@ -31,6 +32,7 @@ export const loadUser = () => async (dispatch) => {
 		dispatch(getWatchingEvents());
 		dispatch(getCreatedEvents());
 		dispatch(getCreatedOffers());
+		dispatch(getCreatedPosts());
 		dispatch({
 			type: USER_LOADED,
 			payload: res.data,

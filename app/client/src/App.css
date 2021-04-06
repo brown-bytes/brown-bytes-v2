@@ -389,6 +389,12 @@ body {
 	margin-bottom: 0;
 }
 
+.dashboard-my-posts-heading {
+	font-weight: bold;
+	font-size: x-large;
+	margin-bottom: 0;
+}
+
 #dashboard-profile-favicon {
 	cursor: pointer;
 }

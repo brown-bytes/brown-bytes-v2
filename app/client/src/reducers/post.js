@@ -13,8 +13,10 @@ import {
 
 const initialState = {
 	posts: [],
+	createdPosts: [],
 	fetchedPostIds: new Set(),
 	loadingPosts: true,
+	loadingCreatedPosts: true,
 	numPostsFetched: 0,
 	queryString: "",
 };
@@ -74,6 +76,12 @@ export default function (state = initialState, action) {
 				fetchedPostIds: new Set([...payload.map((post) => post.id)]),
 				loadingPosts: false,
 				numPostsFetched: 0,
+			};
+		case GET_CREATED_POSTS:
+			return {
+				...state,
+				createdPosts: [...payload],
+				loadingCreatedPosts: false,
 			};
 		default:
 			return state;

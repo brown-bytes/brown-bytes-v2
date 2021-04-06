@@ -4,6 +4,7 @@ import moment from "moment";
 import { GREEN_ALERT, RED_ALERT } from "../components/layout/AlertTypes";
 import toTop from "../utils/scrollToTop";
 import { clearAlerts, setAlert } from "./alert";
+import { getCreatedOffers } from "./offer";
 import {
 	CHANGE_POST_QUERY_STRING,
 	CREATE_POST_COMMENT,
@@ -77,6 +78,18 @@ export const getPosts = (numFetchedPosts) => async (dispatch) => {
 	return;
 };
 
+export const getCreatedPosts = () => async (dispatch) => {
+	try {
+		const res = await axios.get("posts/created");
+		const posts = Object.values(res.data.posts);
+		dispatch({
+			type: GET_CREATED_POSTS,
+			payload: posts,
+		});
+	} catch (err) {}
+	return;
+};
+
 export const searchPost = (queryString) => async (dispatch) => {
 	if (queryString.length <= 1) return;
 	console.log("searching with:", queryString);
@@ -114,6 +127,13 @@ export const deletePost = (e, placeDisplayed) => async (dispatch) => {
 					type: DELETE_POST_SUCCESS,
 					payload: postId,
 				});
+				break;
+			case "dashboardPosts":
+				dispatch({
+					type: DELETE_POST_SUCCESS,
+					payload: postId,
+				});
+				dispatch(getCreatedPosts());
 				break;
 			default:
 		}
