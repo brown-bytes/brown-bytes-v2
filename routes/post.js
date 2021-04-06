@@ -90,7 +90,6 @@ router
 				.then((posts) => {
 					for (let i = 0; i < posts.length; i++) {
 						posts[i] = posts[i].get({ plain: true });
-						posts[i].avatarURL = posts[i].creator.avatar;
 						posts[i].creator = posts[i].creator.username;
 					}
 					res.statusCode = 200;
@@ -167,6 +166,51 @@ router
 						res.json({ error: "" });
 					}
 				});
+		} else if (req.query.userId) {
+			await Post.findAll({
+				where: {
+					creatorId: Number(req.query.userId),
+				},
+				include: [
+					{
+						model: User,
+						as: "creator",
+						attributes: ["username", "avatar"],
+					},
+					{
+						model: PostComment,
+						as: "comments",
+						include: {
+							model: User,
+							as: "poster",
+							attributes: ["username", "avatar"],
+						},
+					},
+				],
+			})
+				.then((posts) => {
+					for (let i = 0; i < posts.length; i++) {
+						posts[i] = posts[i].get({ plain: true });
+						posts[i].creator = posts[i].creator.username;
+					}
+					res.statusCode = 200;
+					res.setHeader("Content-Type", "application/json");
+					res.json({ success: true, posts: posts });
+				})
+				.catch((err) => {
+					res.statusCode = 400;
+					res.setHeader("Content-Type", "application/json");
+					if (err.hasOwnProperty("errors")) {
+						res.json({ error: err.errors[0].message });
+					} else if (
+						err.hasOwnProperty("original") &&
+						err.original.hasOwnProperty("sqlMessage")
+					) {
+						res.json({ error: err.original.sqlMessage });
+					} else {
+						res.json({ error: "" });
+					}
+				});
 		} else {
 			res.statusCode = 400;
 			res.setHeader("Content-Type", "application/json");
@@ -176,8 +220,7 @@ router
 	.post(auth.parseToken, async (req, res) => {
 		await Post.create({
 			creatorId: req.decoded.id,
-			//isAnonymous: req.body.anonymous,
-			isAnonymous: false,
+			isAnonymous: req.body.anonymous,
 			content: req.body.content,
 		})
 			.then((post) => {
