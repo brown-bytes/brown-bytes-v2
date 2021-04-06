@@ -5,22 +5,18 @@ import { connect } from "react-redux";
 import PostComment from "./PostComment";
 import SingleComment from "./SingleComment";
 
-const CommentArea = ({
-	comments,
-	isAuthenticated,
-	offerId,
-	placeDisplayed,
-}) => {
+import { commentTimeComparator } from "../../../utils/commentTimeComparator";
+const CommentArea = ({ comments, isAuthenticated, postId, placeDisplayed }) => {
 	return (
 		<Fragment>
-			{comments.map((comment) => (
+			{comments.sort(commentTimeComparator).map((comment) => (
 				<SingleComment
 					key={comment.id}
 					comment={comment}></SingleComment>
 			))}
 			{isAuthenticated && (
 				<PostComment
-					offerId={offerId}
+					postId={postId}
 					placeDisplayed={placeDisplayed}></PostComment>
 			)}
 		</Fragment>

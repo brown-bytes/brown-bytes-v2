@@ -1,6 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
 import {
-	CHANGE_POST_QUERY_STRING,
 	CREATE_POST_FAILED,
 	CREATE_POST_SUCCESS,
 	DELETE_POST_FAILED,
@@ -18,7 +17,6 @@ const initialState = {
 	loadingPosts: true,
 	loadingCreatedPosts: true,
 	numPostsFetched: 0,
-	queryString: "",
 };
 
 export default function (state = initialState, action) {
@@ -54,6 +52,28 @@ export default function (state = initialState, action) {
 				loadingPosts: false,
 				numPostsFetched:
 					state.numPostsFetched + newPostsAfterCreation.length,
+			};
+		case CREATE_POST_COMMENT:
+			const newPostsAfterComment = payload.posts.filter(
+				(post) =>
+					post.id === Number(payload.postId) ||
+					!state.fetchedPostIds.has(post.id)
+			);
+			return {
+				...state,
+				posts: [
+					...newPostsAfterComment,
+					...state.posts.filter(
+						(post) => post.id !== Number(payload.postId)
+					),
+				],
+				fetchedPostIds: new Set([
+					...state.fetchedPostIds,
+					...newPostsAfterComment.map((post) => post.id),
+				]),
+				loadingPosts: false,
+				numPostsFetched:
+					state.numPostsFetched + newPostsAfterComment.length - 1,
 			};
 		case DELETE_POST_SUCCESS:
 			return {

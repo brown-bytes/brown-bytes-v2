@@ -7,11 +7,7 @@ import { connect } from "react-redux";
 
 import { postNetworkingPostComment } from "../../../actions/post";
 
-const PostComment = ({
-	offerId,
-	postNetworkingPostComment,
-	placeDisplayed,
-}) => {
+const PostComment = ({ postId, postNetworkingPostComment, placeDisplayed }) => {
 	const [comment, setComment] = useState("");
 
 	const onChange = (e) => {
@@ -19,9 +15,9 @@ const PostComment = ({
 	};
 
 	const onClick = (e) => {
-		const offerId = e.target.id;
+		const PostId = e.target.id;
 		setComment("");
-		postNetworkingPostComment(comment, offerId, placeDisplayed);
+		postNetworkingPostComment(comment, PostId, placeDisplayed);
 	};
 
 	return (
@@ -34,7 +30,7 @@ const PostComment = ({
 				value={comment}
 			/>
 			<Button
-				id={offerId}
+				id={postId}
 				onClick={onClick}
 				variant="dark"
 				className="post-comment-button-overriding-bootstrap">
@@ -45,7 +41,7 @@ const PostComment = ({
 };
 
 PostComment.propTypes = {
-	postOfferComment: PropTypes.func,
+	postNetworkingPostComment: PropTypes.func,
 };
 
 export default connect(null, {

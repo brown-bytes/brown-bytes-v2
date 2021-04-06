@@ -100,7 +100,9 @@ export const createOffer = (info) => async (dispatch) => {
 		toTop();
 	} catch (err) {
 		const errorMessage = err.response.data.error;
-		dispatch(setAlert(errorMessage, RED_ALERT));
+		if (errorMessage) {
+			dispatch(setAlert(errorMessage, RED_ALERT));
+		}
 		dispatch({
 			type: CREATE_OFFER_FAILED,
 		});
@@ -152,7 +154,9 @@ export const deleteOffer = (e, placeDisplayed) => async (dispatch) => {
 	} catch (err) {
 		if (err.response) {
 			const errorMessage = err.response.data.error;
-			dispatch(setAlert(errorMessage, RED_ALERT));
+			if (errorMessage) {
+				dispatch(setAlert(errorMessage, RED_ALERT));
+			}
 			dispatch({
 				type: DELETE_OFFER_FAILED,
 			});
@@ -190,7 +194,9 @@ export const postOfferComment = (comment, offerId, placeDisplayed) => async (
 		}
 	} catch (err) {
 		const errorMessage = err.response.data.error;
-		dispatch(setAlert(errorMessage, RED_ALERT));
+		if (errorMessage) {
+			dispatch(setAlert(errorMessage, RED_ALERT));
+		}
 	}
 	return;
 };

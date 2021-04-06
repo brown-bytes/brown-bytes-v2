@@ -118,7 +118,9 @@ export const createEvent = (info) => async (dispatch) => {
 		toTop();
 	} catch (err) {
 		const errorMessage = err.response.data.error;
-		dispatch(setAlert(errorMessage, RED_ALERT));
+		if (errorMessage) {
+			dispatch(setAlert(errorMessage, RED_ALERT));
+		}
 		dispatch({
 			type: CREATE_EVENT_FAILED,
 		});
@@ -288,7 +290,9 @@ export const postEventComment = (comment, eventId, placeDisplayed) => async (
 		}
 	} catch (err) {
 		const errorMessage = err.response.data.error;
-		dispatch(setAlert(errorMessage, RED_ALERT));
+		if (errorMessage) {
+			dispatch(setAlert(errorMessage, RED_ALERT));
+		}
 	}
 	return;
 };

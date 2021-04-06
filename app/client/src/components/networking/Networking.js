@@ -69,7 +69,7 @@ const Networking = ({
 
 			<p className="networking-heading1">Networking</p>
 			<p className="networking-text">
-				Here you can connect with other foodies inside / outside Brown
+				Here you can connect with other foodies inside and outside Brown
 				community by making posts
 			</p>
 			<p className="networking-heading2">Actions</p>

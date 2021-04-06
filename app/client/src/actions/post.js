@@ -55,6 +55,57 @@ export const createPost = (content) => async (dispatch) => {
 	}
 };
 
+export const postNetworkingPostComment = (
+	comment,
+	postId,
+	placeDisplayed
+) => async (dispatch) => {
+	clearAlerts();
+	console.log("posting comment:", comment, postId, placeDisplayed);
+	const config = {
+		headers: {
+			"Content-Type": "application/json",
+		},
+	};
+
+	const body = JSON.stringify({
+		content: comment,
+	});
+
+	try {
+		await axios.post(`posts/comment/${postId}`, body, config);
+		const res = await axios.get("posts", {
+			params: {
+				fetched: 0,
+			},
+		});
+		switch (placeDisplayed) {
+			case "networkingPage":
+				dispatch({
+					type: CREATE_POST_COMMENT,
+					payload: { posts: res.data.posts, postId: postId },
+				});
+				break;
+			case "dashboardPosts":
+				dispatch({
+					type: CREATE_POST_COMMENT,
+					payload: { posts: res.data.posts, postId: postId },
+				});
+				dispatch(getCreatedPosts());
+				break;
+			default:
+		}
+	} catch (err) {
+		if (err.response) {
+			const errorMessage = err.response.data.error;
+			if (errorMessage) {
+				dispatch(setAlert(errorMessage, RED_ALERT));
+			}
+		}
+	}
+	return;
+};
+
 export const getPosts = (numFetchedPosts) => async (dispatch) => {
 	try {
 		const res = await axios.get("posts", {
@@ -150,5 +201,3 @@ export const deletePost = (e, placeDisplayed) => async (dispatch) => {
 	}
 	return;
 };
-
-export const postNetworkingPostComment = () => async (dispatch) => {};

@@ -88,7 +88,9 @@ export const register = (userName, email, password, passwordRepeat) => async (
 				)
 			);
 		} else {
-			dispatch(setAlert(errorMessage, RED_ALERT));
+			if (errorMessage) {
+				dispatch(setAlert(errorMessage, RED_ALERT));
+			}
 		}
 
 		dispatch({
@@ -118,7 +120,9 @@ export const login = (email, password) => async (dispatch) => {
 		toTop();
 	} catch (err) {
 		const errorMessage = err.response.data.error;
-		dispatch(setAlert(errorMessage, RED_ALERT));
+		if (errorMessage) {
+			dispatch(setAlert(errorMessage, RED_ALERT));
+		}
 		dispatch({
 			type: LOGIN_FAIL,
 		});
@@ -195,7 +199,9 @@ export const loginGoogle = (data) => async (dispatch) => {
 			toTop();
 		} catch (err) {
 			const errorMessage = err.response.data.error;
-			dispatch(setAlert(errorMessage, RED_ALERT));
+			if (errorMessage) {
+				dispatch(setAlert(errorMessage, RED_ALERT));
+			}
 			dispatch({
 				type: LOGIN_FAIL,
 			});
@@ -257,7 +263,9 @@ export const loginFacebook = (data) => async (dispatch) => {
 			toTop();
 		} catch (err) {
 			const errorMessage = err.response.data.error;
-			dispatch(setAlert(errorMessage, RED_ALERT));
+			if (errorMessage) {
+				dispatch(setAlert(errorMessage, RED_ALERT));
+			}
 			dispatch({
 				type: LOGIN_FAIL,
 			});
