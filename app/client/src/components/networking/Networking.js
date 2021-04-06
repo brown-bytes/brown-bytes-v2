@@ -34,7 +34,7 @@ const Networking = ({
 	};
 
 	const onPost = () => {
-		createPost(content, numPostsFetched);
+		createPost(content);
 	};
 
 	return (
@@ -93,6 +93,13 @@ const Networking = ({
 			<hr></hr>
 			<SearchBar></SearchBar>
 			<PostList></PostList>
+			<button
+				id="networking-more-posts-button"
+				onClick={() => {
+					getPosts(numPostsFetched);
+				}}>
+				See more posts
+			</button>
 		</Fragment>
 	);
 };

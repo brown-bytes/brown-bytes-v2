@@ -113,7 +113,6 @@ export const getPosts = (numFetchedPosts) => async (dispatch) => {
 				fetched: numFetchedPosts,
 			},
 		});
-		console.log("get posts:", res.data.posts);
 		dispatch({
 			type: GET_POSTS,
 			payload: res.data.posts,

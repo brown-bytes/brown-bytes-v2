@@ -86,6 +86,7 @@ const Team = ({ sendFeedBack }) => {
 						as="textarea"
 						onChange={onChange}
 						rows={3}
+						required
 					/>
 				</Form.Group>
 				<Button variant="info" type="submit">
