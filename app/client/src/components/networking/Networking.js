@@ -82,6 +82,14 @@ const Networking = ({
 					You are not logged in. Please log in to create new posts.
 				</p>
 			)}
+			<Button
+				className="ml-2"
+				variant="success"
+				onClick={() => {
+					window.location.reload();
+				}}>
+				Refresh
+			</Button>
 			<hr></hr>
 			<SearchBar></SearchBar>
 			<PostList></PostList>

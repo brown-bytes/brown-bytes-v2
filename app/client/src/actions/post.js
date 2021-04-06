@@ -13,7 +13,7 @@ import {
 	DELETE_POST_SUCCESS,
 	GET_CREATED_POSTS,
 	GET_POSTS,
-	REFRESH_POSTS,
+	SEARCH_POSTS,
 } from "./types";
 
 export const createPost = (content) => async (dispatch) => {
@@ -44,7 +44,9 @@ export const createPost = (content) => async (dispatch) => {
 	} catch (err) {
 		if (err.response) {
 			const errorMessage = err.response.data.error;
-			dispatch(setAlert(errorMessage, RED_ALERT));
+			if (errorMessage) {
+				dispatch(setAlert(errorMessage, RED_ALERT));
+			}
 		}
 		dispatch({
 			type: CREATE_POST_FAILED,
@@ -64,27 +66,41 @@ export const getPosts = (numFetchedPosts) => async (dispatch) => {
 			type: GET_POSTS,
 			payload: res.data.posts,
 		});
-	} catch (err) {}
+	} catch (err) {
+		if (err.response) {
+			const errorMessage = err.response.data.error;
+			if (errorMessage) {
+				dispatch(setAlert(errorMessage, RED_ALERT));
+			}
+		}
+	}
 	return;
 };
 
-export const refreshPosts = () => async (dispatch) => {
+export const searchPost = (queryString) => async (dispatch) => {
+	if (queryString.length <= 1) return;
+	console.log("searching with:", queryString);
 	try {
 		const res = await axios.get("posts", {
 			params: {
-				fetched: 0,
+				queryString: queryString,
 			},
 		});
-		console.log("get posts:", res.data.posts);
 		dispatch({
-			type: REFRESH_POSTS,
+			type: SEARCH_POSTS,
 			payload: res.data.posts,
 		});
-	} catch (err) {}
+		console.log("search result:", res.data);
+	} catch (err) {
+		if (err.response) {
+			const errorMessage = err.response.data.error;
+			if (errorMessage) {
+				dispatch(setAlert(errorMessage, RED_ALERT));
+			}
+		}
+	}
 	return;
 };
-
-export const changeQueryString = (newQueryString) => (dispatch) => {};
 
 export const deletePost = (e, placeDisplayed) => async (dispatch) => {
 	clearAlerts();
@@ -104,11 +120,13 @@ export const deletePost = (e, placeDisplayed) => async (dispatch) => {
 	} catch (err) {
 		if (err.response) {
 			const errorMessage = err.response.data.error;
-			dispatch(setAlert(errorMessage, RED_ALERT));
-			dispatch({
-				type: DELETE_POST_FAILED,
-			});
+			if (errorMessage) {
+				dispatch(setAlert(errorMessage, RED_ALERT));
+			}
 		}
+		dispatch({
+			type: DELETE_POST_FAILED,
+		});
 	}
 	return;
 };

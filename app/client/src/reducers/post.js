@@ -8,12 +8,12 @@ import {
 	GET_CREATED_POSTS,
 	GET_POSTS,
 	CREATE_POST_COMMENT,
-	REFRESH_POSTS,
+	SEARCH_POSTS,
 } from "../actions/types";
 
 const initialState = {
 	posts: [],
-	fetchedPostIds: new Set(["dummy"]),
+	fetchedPostIds: new Set(),
 	loadingPosts: true,
 	numPostsFetched: 0,
 	queryString: "",
@@ -24,15 +24,19 @@ export default function (state = initialState, action) {
 
 	switch (type) {
 		case GET_POSTS:
+			const newPostsAfterFetched = payload.filter(
+				(post) => !state.fetchedPostIds.has(post.id)
+			);
 			return {
 				...state,
-				posts: [...state.posts, ...payload],
+				posts: [...newPostsAfterFetched, ...state.posts],
 				fetchedPostIds: new Set([
 					...state.fetchedPostIds,
-					...payload.map((post) => post.id),
+					...newPostsAfterFetched.map((post) => post.id),
 				]),
 				loadingPosts: false,
-				numPostsFetched: state.numPostsFetched + payload.length,
+				numPostsFetched:
+					state.numPostsFetched + newPostsAfterFetched.length,
 			};
 		case CREATE_POST_SUCCESS:
 			const newPostsAfterCreation = payload.filter(
@@ -49,21 +53,6 @@ export default function (state = initialState, action) {
 				numPostsFetched:
 					state.numPostsFetched + newPostsAfterCreation.length,
 			};
-		case REFRESH_POSTS:
-			const newPostsAfterRefreshing = payload.filter(
-				(post) => !state.fetchedPostIds.has(post.id)
-			);
-			return {
-				...state,
-				posts: [...newPostsAfterRefreshing, ...state.posts],
-				fetchedPostIds: new Set([
-					...state.fetchedPostIds,
-					...newPostsAfterRefreshing.map((post) => post.id),
-				]),
-				loadingPosts: false,
-				numPostsFetched:
-					state.numPostsFetched + newPostsAfterRefreshing.length,
-			};
 		case DELETE_POST_SUCCESS:
 			return {
 				...state,
@@ -77,6 +66,14 @@ export default function (state = initialState, action) {
 				),
 				loadingPosts: false,
 				numPostsFetched: state.numPostsFetched - 1,
+			};
+		case SEARCH_POSTS:
+			return {
+				...state,
+				posts: [...payload],
+				fetchedPostIds: new Set([...payload.map((post) => post.id)]),
+				loadingPosts: false,
+				numPostsFetched: 0,
 			};
 		default:
 			return state;

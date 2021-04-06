@@ -5,9 +5,9 @@ import FormControl from "react-bootstrap/FormControl";
 import InputGroup from "react-bootstrap/InputGroup";
 import { connect } from "react-redux";
 
-import { changeQueryString } from "../../../actions/post";
+import { searchPost } from "../../../actions/post";
 
-const SearchBar = ({ changeQueryString }) => {
+const SearchBar = ({ searchPost }) => {
 	const [queryString, setQueryString] = useState("");
 
 	const onChange = (e) => {
@@ -15,7 +15,8 @@ const SearchBar = ({ changeQueryString }) => {
 	};
 
 	const onSubmit = () => {
-		changeQueryString(queryString);
+		// setQueryString("");
+		searchPost(queryString);
 	};
 
 	return (
@@ -23,9 +24,10 @@ const SearchBar = ({ changeQueryString }) => {
 			<FormControl
 				className="mr-1"
 				size="sm"
-				placeholder="Creator, content or other keywords"
+				placeholder="Creator, content or other keywords (at least 2 letters)"
 				aria-label="networking post search bar"
 				onChange={onChange}
+				value={queryString}
 			/>
 			<Button size="sm" onClick={onSubmit}>
 				Search
@@ -35,7 +37,7 @@ const SearchBar = ({ changeQueryString }) => {
 };
 
 SearchBar.propTypes = {
-	changeQueryString: PropTypes.func,
+	searchPost: PropTypes.func,
 };
 
-export default connect(null, { changeQueryString })(SearchBar);
+export default connect(null, { searchPost })(SearchBar);
