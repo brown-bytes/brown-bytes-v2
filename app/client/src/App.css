@@ -159,6 +159,31 @@ body {
 	font-size: large;
 }
 
+.post-creator-name-button {
+	border: 0;
+	background-color: #fff;
+	padding: 0;
+	padding-top: 1px;
+	position: relative;
+	cursor: pointer;
+	font-size: large;
+	font-weight: bold;
+}
+
+.post-creator-avatar-button {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	border: 0;
+	background-color: #fff;
+	padding: 0;
+	padding-top: 1px;
+	position: relative;
+	cursor: pointer;
+	font-size: large;
+	font-weight: bold;
+}
+
 #new-event-heading {
 	font-weight: bold;
 	font-size: xx-large;
@@ -343,6 +368,37 @@ body {
 	margin-left: auto;
 	margin-right: auto;
 	border: 1px solid gray;
+}
+
+.profile-favicon {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	border: 1px solid gray;
+}
+
+.profile-username {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	font-weight: bold;
+	text-align: center;
+	font-size: larger;
+}
+
+.profile-social-button {
+	font-size: xx-large;
+	padding-left: 2px;
+	padding-right: 2px;
+}
+
+.profile-bio {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	font-size: xx-large;
+	font-family: "Times New Roman", Times, serif;
 }
 
 .post-favicon {

@@ -1,16 +1,18 @@
 import moment from "moment";
 import PropTypes from "prop-types";
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Accordion from "react-bootstrap/esm/Accordion";
 import Image from "react-bootstrap/Image";
+import Modal from "react-bootstrap/Modal";
 import Row from "react-bootstrap/Row";
 import { connect } from "react-redux";
 
 import { deletePost } from "../../../actions/post";
+import { getProfileById } from "../../../actions/profile";
 import CommentArea from "../comment/CommentArea";
 
 const SinglePost = ({
@@ -24,9 +26,75 @@ const SinglePost = ({
 	const createdTime = moment(post.createdAt).format(
 		"HH:mm A dddd, MMMM DD, YYYY"
 	);
+	const creatorUsername = post.creator;
+
+	const [show, setShow] = useState(false);
+	const handleClose = () => setShow(false);
+	const handleShow = () => setShow(true);
+
+	const [creatorProfile, setCreatorProfile] = useState({
+		avatar: post.avatarURL,
+		bio: null,
+		facebook: null,
+		twitter: null,
+		instagram: null,
+	});
 
 	return (
 		<Fragment>
+			<Modal
+				onShow={async () => {
+					const profile = await getProfileById(post.creatorId);
+					console.log(profile);
+					setCreatorProfile(profile);
+				}}
+				show={show}
+				onHide={handleClose}
+				centered>
+				<Modal.Body>
+					<Image
+						className="profile-favicon"
+						src={creatorProfile.avatar}
+						alt="user avatar"
+						fluid
+						roundedCircle
+						thumbnail></Image>
+
+					<span className="profile-username">{creatorUsername}</span>
+					<Row className="justify-content-center d-flex">
+						{creatorProfile.facebook && (
+							<a
+								className="profile-social-button"
+								href={creatorProfile.facebook}>
+								<i class="fab fa-facebook"></i>
+							</a>
+						)}
+						{creatorProfile.twitter && (
+							<a
+								className="profile-social-button"
+								href={creatorProfile.twitter}>
+								<i class="fab fa-twitter"></i>
+							</a>
+						)}
+						{creatorProfile.instagram && (
+							<a
+								className="profile-social-button"
+								href={creatorProfile.instagram}>
+								<i class="fab fa-instagram"></i>
+							</a>
+						)}
+					</Row>
+					{creatorProfile.bio ? (
+						<span className="profile-bio">
+							{creatorProfile.bio}
+						</span>
+					) : (
+						<span className="profile-bio">
+							{creatorUsername} hasn't set a bio yet
+						</span>
+					)}
+				</Modal.Body>
+			</Modal>
 			<Accordion>
 				<Card
 					border="secondary"
@@ -35,19 +103,25 @@ const SinglePost = ({
 						<Container fluid>
 							<Row noGutters="true">
 								<Col xs={2} sm={2} md={2} lg={2}>
-									<Image
-										className="comment-favicon"
-										src={post.avatarURL}
-										alt="user avatar"
-										fluid
-										roundedCircle
-										thumbnail></Image>
+									<button
+										className="post-creator-avatar-button"
+										onClick={handleShow}>
+										<Image
+											className="comment-favicon"
+											src={post.avatarURL}
+											alt="user avatar"
+											fluid
+											roundedCircle
+											thumbnail></Image>
+									</button>
 								</Col>
 								<Col xs={10} sm={10} md={10} lg={10}>
 									<p className="post-head">
-										<span className="post-user">
+										<button
+											className="post-creator-name-button"
+											onClick={handleShow}>
 											{post.creator}
-										</span>{" "}
+										</button>{" "}
 										created at{" "}
 										<span className="post-time">
 											{createdTime}

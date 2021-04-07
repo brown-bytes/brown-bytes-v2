@@ -93,3 +93,17 @@ export const updateAvatar = (image) => async (dispatch) => {
 		});
 	}
 };
+
+export const getProfileById = async (id) => {
+	try {
+		const res = await axios.get(`profile/:${id}`);
+		return res.data.data;
+	} catch (err) {
+		if (err.response) {
+			const errorMessage = err.response.data.error;
+			if (errorMessage) {
+				console.log(errorMessage);
+			}
+		}
+	}
+};

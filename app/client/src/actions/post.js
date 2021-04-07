@@ -138,7 +138,6 @@ export const getCreatedPosts = () => async (dispatch) => {
 
 export const searchPost = (queryString) => async (dispatch) => {
 	if (queryString.length <= 1) return;
-	console.log("searching with:", queryString);
 	try {
 		const res = await axios.get("posts", {
 			params: {

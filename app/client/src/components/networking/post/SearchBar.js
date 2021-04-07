@@ -24,7 +24,7 @@ const SearchBar = ({ searchPost }) => {
 			<FormControl
 				className="mr-1"
 				size="sm"
-				placeholder="Creator, content or other keywords (at least 2 letters)"
+				placeholder="Search creator or content (at least 2 letters)"
 				aria-label="networking post search bar"
 				onChange={onChange}
 				value={queryString}
