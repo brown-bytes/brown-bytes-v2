@@ -45,7 +45,6 @@ const SinglePost = ({
 			<Modal
 				onShow={async () => {
 					const profile = await getProfileById(post.creatorId);
-					console.log(profile);
 					setCreatorProfile(profile);
 				}}
 				show={show}
@@ -66,21 +65,21 @@ const SinglePost = ({
 							<a
 								className="profile-social-button"
 								href={creatorProfile.facebook}>
-								<i class="fab fa-facebook"></i>
+								<i className="fab fa-facebook"></i>
 							</a>
 						)}
 						{creatorProfile.twitter && (
 							<a
 								className="profile-social-button"
 								href={creatorProfile.twitter}>
-								<i class="fab fa-twitter"></i>
+								<i className="fab fa-twitter"></i>
 							</a>
 						)}
 						{creatorProfile.instagram && (
 							<a
 								className="profile-social-button"
 								href={creatorProfile.instagram}>
-								<i class="fab fa-instagram"></i>
+								<i className="fab fa-instagram"></i>
 							</a>
 						)}
 					</Row>
