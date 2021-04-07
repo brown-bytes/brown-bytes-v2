@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const cors = require("cors");
+const morgan = require("morgan");
 const usersRouter = require("./routes/user");
 const profileRouter = require("./routes/profile");
 const eventsRouter = require("./routes/event");
@@ -11,7 +12,8 @@ const app = express();
 const port = 8080;
 const host = "0.0.0.0";
 
-app.use(cors({origin: "http://ec2-3-138-68-52.us-east-2.compute.amazonaws.com/"}));
+app.use(cors());
+app.use(morgan("common"));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/users", usersRouter);

@@ -5,9 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server",
-    "server": "nodemon server",
-    "client": "npm start --prefix app/client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "server": "nodemon server"
   },
   "keywords": [],
   "author": "",
@@ -25,6 +23,7 @@
     "gravatar": "^1.8.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.6.12",
+    "morgan": "^1.10.0",
     "multer": "^1.4.2",
     "mysql2": "^2.2.5",
     "nodemailer": "^6.5.0",
