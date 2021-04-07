@@ -1,12 +1,8 @@
 import axios from "axios";
-import moment from "moment";
 
 import { GREEN_ALERT, RED_ALERT } from "../components/layout/AlertTypes";
-import toTop from "../utils/scrollToTop";
 import { clearAlerts, setAlert } from "./alert";
-import { getCreatedOffers } from "./offer";
 import {
-	CHANGE_POST_QUERY_STRING,
 	CREATE_POST_COMMENT,
 	CREATE_POST_FAILED,
 	CREATE_POST_SUCCESS,

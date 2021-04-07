@@ -8,9 +8,9 @@ import Row from "react-bootstrap/Row";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { resetPassword } from "../../actions/auth";
+import { requestResetPasswordEmail } from "../../actions/auth";
 
-const ForgotPassword = ({ resetPassword }) => {
+const ForgotPassword = ({ requestResetPasswordEmail }) => {
 	const [formData, setFormData] = useState({
 		email: "",
 	});
@@ -22,7 +22,7 @@ const ForgotPassword = ({ resetPassword }) => {
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
-		resetPassword(email);
+		requestResetPasswordEmail(email);
 	};
 
 	return (
@@ -99,7 +99,7 @@ const ForgotPassword = ({ resetPassword }) => {
 };
 
 ForgotPassword.propTypes = {
-	resetPassword: PropTypes.func,
+	requestResetPasswordEmail: PropTypes.func,
 };
 
-export default connect(null, { resetPassword })(ForgotPassword);
+export default connect(null, { requestResetPasswordEmail })(ForgotPassword);

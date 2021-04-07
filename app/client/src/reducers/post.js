@@ -103,6 +103,8 @@ export default function (state = initialState, action) {
 				createdPosts: [...payload],
 				loadingCreatedPosts: false,
 			};
+		case CREATE_POST_FAILED:
+		case DELETE_POST_FAILED:
 		default:
 			return state;
 	}

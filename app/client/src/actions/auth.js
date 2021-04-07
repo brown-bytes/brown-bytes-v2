@@ -137,12 +137,6 @@ export const logout = () => (dispatch) => {
 	toTop();
 };
 
-export const resetPassword = (email) => (dispatch) => {
-	dispatch({
-		type: "reset",
-	});
-};
-
 export const loginGoogle = (data) => async (dispatch) => {
 	clearAlerts();
 	const userName = data.profileObj.name;
@@ -269,6 +263,65 @@ export const loginFacebook = (data) => async (dispatch) => {
 			dispatch({
 				type: LOGIN_FAIL,
 			});
+		}
+	}
+};
+
+export const requestResetPasswordEmail = (email) => async (dispatch) => {
+	clearAlerts();
+	const config = {
+		headers: {
+			"Content-Type": "application/json",
+		},
+	};
+
+	const body = JSON.stringify({ email });
+
+	try {
+		await axios.post("users/reset", body, config);
+		dispatch(
+			setAlert(
+				"An email with link to reset your password has been sent to you.",
+				GREEN_ALERT
+			)
+		);
+	} catch (err) {
+		const errorMessage = err.response.data.error;
+
+		if (errorMessage) {
+			dispatch(setAlert(errorMessage, RED_ALERT));
+		}
+	}
+};
+
+export const resetPasswordWithKey = (
+	email,
+	key,
+	newPassword,
+	newPasswordRepeat
+) => async (dispatch) => {
+	clearAlerts();
+	if (newPassword !== newPasswordRepeat) {
+		dispatch(setAlert("Passwords should match!", RED_ALERT));
+		return;
+	}
+	const config = {
+		headers: {
+			"Content-Type": "application/json",
+		},
+	};
+
+	const body = JSON.stringify({ email, key, newPassword });
+
+	try {
+		await axios.post("users/resetpassword", body, config);
+		dispatch(setAlert("Successfully reset you password!", GREEN_ALERT));
+	} catch (err) {
+		console.log(err.response);
+		const errorMessage = err.response.data.error;
+
+		if (errorMessage) {
+			dispatch(setAlert(errorMessage, RED_ALERT));
 		}
 	}
 };

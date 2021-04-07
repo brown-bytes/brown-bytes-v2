@@ -5,8 +5,9 @@ import Form from "react-bootstrap/Form";
 import { connect } from "react-redux";
 
 import { clearAlerts } from "../../actions/alert";
+import { resetPasswordWithKey } from "../../actions/auth";
 
-const ForgotPassword = () => {
+const ResetPassword = ({ resetPasswordWithKey }) => {
 	useEffect(() => {
 		clearAlerts();
 	}, []);
@@ -24,7 +25,12 @@ const ForgotPassword = () => {
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
-		console.log(password, passwordRepeat);
+		const searchParams = new URLSearchParams(window.location.search);
+
+		const email = searchParams.get("email");
+		const key = searchParams.get("key");
+
+		resetPasswordWithKey(email, key, password, passwordRepeat);
 	};
 
 	return (
@@ -77,4 +83,6 @@ const mapStateToProps = (state) => ({
 	alerts: state.alert,
 });
 
-export default connect(mapStateToProps)(ForgotPassword);
+export default connect(mapStateToProps, { resetPasswordWithKey })(
+	ResetPassword
+);
