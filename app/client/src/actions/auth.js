@@ -301,6 +301,10 @@ export const resetPasswordWithKey = (
 	newPasswordRepeat
 ) => async (dispatch) => {
 	clearAlerts();
+	if (!email || !key) {
+		dispatch(setAlert("Invalid action!", RED_ALERT));
+		return;
+	}
 	if (newPassword !== newPasswordRepeat) {
 		dispatch(setAlert("Passwords should match!", RED_ALERT));
 		return;

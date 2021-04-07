@@ -334,7 +334,7 @@ router.delete("/:postId", auth.parseToken, async (req, res) => {
 				) {
 					res.json({ error: err.original.sqlMessage });
 				} else {
-					res.json({ error: "" });
+					res.json({ error: "unknown error" });
 				}
 			});
 	}

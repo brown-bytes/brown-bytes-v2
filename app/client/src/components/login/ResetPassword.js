@@ -26,7 +26,7 @@ const ResetPassword = ({ resetPasswordWithKey }) => {
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		const searchParams = new URLSearchParams(window.location.search);
-
+		setFormData({ password: "", passwordRepeat: "" });
 		const email = searchParams.get("email");
 		const key = searchParams.get("key");
 
@@ -50,6 +50,7 @@ const ResetPassword = ({ resetPasswordWithKey }) => {
 							onChange={onChange}
 							minLength={8}
 							required
+							value={formData.password}
 						/>
 						<Form.Label className="signup-form-label-bottom">
 							(minimun 8 characters)
@@ -67,6 +68,7 @@ const ResetPassword = ({ resetPasswordWithKey }) => {
 							onChange={onChange}
 							minLength={8}
 							required
+							value={formData.passwordRepeat}
 						/>
 					</Form.Group>
 

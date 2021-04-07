@@ -312,7 +312,7 @@ router.post("/resetpassword", async (req, res) => {
 				) {
 					res.json({ error: err.original.sqlMessage });
 				} else {
-					res.json({ error: "Unknown error" });
+					res.json({ error: "Unknown error. Please Try Again." });
 				}
 			});
 	} else {
