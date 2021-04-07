@@ -12,7 +12,7 @@ module.exports = {
 		 *   isBetaMember: false
 		 * }], {});
 		 */
-		return queryInterface.bulkInsert("users", [
+		return queryInterface.bulkInsert("Users", [
 			{
 				userName: "admin",
 				email: "brownbytes@brownbytes.bb",
@@ -33,6 +33,6 @@ module.exports = {
 		 * Example:
 		 * await queryInterface.bulkDelete('People', null, {});
 		 */
-		return queryInterface.bulkDelete("users", null, {});
+		return queryInterface.bulkDelete("Users", null, {});
 	},
 };
