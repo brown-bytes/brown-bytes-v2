@@ -51,7 +51,9 @@ export const updateSocialLinks = (data) => async (dispatch) => {
 		});
 	} catch (err) {
 		const errorMessage = err.response.data.error;
-		dispatch(setAlert(errorMessage, RED_ALERT));
+		if (errorMessage) {
+			dispatch(setAlert(errorMessage, RED_ALERT));
+		}
 		dispatch({
 			type: UPDATE_SOCIAL_LINKS_FAILED,
 		});
@@ -83,9 +85,25 @@ export const updateAvatar = (image) => async (dispatch) => {
 		});
 	} catch (err) {
 		const errorMessage = err.response.data.error;
-		dispatch(setAlert(errorMessage, RED_ALERT));
+		if (errorMessage) {
+			dispatch(setAlert(errorMessage, RED_ALERT));
+		}
 		dispatch({
 			type: UPDATE_AVATAR_FAILED,
 		});
+	}
+};
+
+export const getProfileById = async (id) => {
+	try {
+		const res = await axios.get(`profile/:${id}`);
+		return res.data.data;
+	} catch (err) {
+		if (err.response) {
+			const errorMessage = err.response.data.error;
+			if (errorMessage) {
+				console.log(errorMessage);
+			}
+		}
 	}
 };

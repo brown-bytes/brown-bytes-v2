@@ -6,6 +6,7 @@ import setAuthToken from "../utils/setAuthToken";
 import { clearAlerts, setAlert } from "./alert";
 import { getCreatedEvents, getWatchingEvents } from "./event";
 import { getCreatedOffers } from "./offer";
+import { getCreatedPosts } from "./post";
 import {
 	AUTH_ERROR,
 	LOGIN_FAIL,
@@ -31,6 +32,7 @@ export const loadUser = () => async (dispatch) => {
 		dispatch(getWatchingEvents());
 		dispatch(getCreatedEvents());
 		dispatch(getCreatedOffers());
+		dispatch(getCreatedPosts());
 		dispatch({
 			type: USER_LOADED,
 			payload: res.data,
@@ -86,7 +88,9 @@ export const register = (userName, email, password, passwordRepeat) => async (
 				)
 			);
 		} else {
-			dispatch(setAlert(errorMessage, RED_ALERT));
+			if (errorMessage) {
+				dispatch(setAlert(errorMessage, RED_ALERT));
+			}
 		}
 
 		dispatch({
@@ -116,7 +120,9 @@ export const login = (email, password) => async (dispatch) => {
 		toTop();
 	} catch (err) {
 		const errorMessage = err.response.data.error;
-		dispatch(setAlert(errorMessage, RED_ALERT));
+		if (errorMessage) {
+			dispatch(setAlert(errorMessage, RED_ALERT));
+		}
 		dispatch({
 			type: LOGIN_FAIL,
 		});
@@ -129,12 +135,6 @@ export const logout = () => (dispatch) => {
 	});
 	dispatch(setAlert("Logged out", GREEN_ALERT));
 	toTop();
-};
-
-export const resetPassword = (email) => (dispatch) => {
-	dispatch({
-		type: "reset",
-	});
 };
 
 export const loginGoogle = (data) => async (dispatch) => {
@@ -193,7 +193,9 @@ export const loginGoogle = (data) => async (dispatch) => {
 			toTop();
 		} catch (err) {
 			const errorMessage = err.response.data.error;
-			dispatch(setAlert(errorMessage, RED_ALERT));
+			if (errorMessage) {
+				dispatch(setAlert(errorMessage, RED_ALERT));
+			}
 			dispatch({
 				type: LOGIN_FAIL,
 			});
@@ -255,10 +257,75 @@ export const loginFacebook = (data) => async (dispatch) => {
 			toTop();
 		} catch (err) {
 			const errorMessage = err.response.data.error;
-			dispatch(setAlert(errorMessage, RED_ALERT));
+			if (errorMessage) {
+				dispatch(setAlert(errorMessage, RED_ALERT));
+			}
 			dispatch({
 				type: LOGIN_FAIL,
 			});
+		}
+	}
+};
+
+export const requestResetPasswordEmail = (email) => async (dispatch) => {
+	clearAlerts();
+	const config = {
+		headers: {
+			"Content-Type": "application/json",
+		},
+	};
+
+	const body = JSON.stringify({ email });
+
+	try {
+		await axios.post("users/reset", body, config);
+		dispatch(
+			setAlert(
+				"An email with link to reset your password has been sent to you.",
+				GREEN_ALERT
+			)
+		);
+	} catch (err) {
+		const errorMessage = err.response.data.error;
+
+		if (errorMessage) {
+			dispatch(setAlert(errorMessage, RED_ALERT));
+		}
+	}
+};
+
+export const resetPasswordWithKey = (
+	email,
+	key,
+	newPassword,
+	newPasswordRepeat
+) => async (dispatch) => {
+	clearAlerts();
+	if (!email || !key) {
+		dispatch(setAlert("Invalid action!", RED_ALERT));
+		return;
+	}
+	if (newPassword !== newPasswordRepeat) {
+		dispatch(setAlert("Passwords should match!", RED_ALERT));
+		return;
+	}
+	const config = {
+		headers: {
+			"Content-Type": "application/json",
+		},
+	};
+
+	const body = JSON.stringify({ email, key, newPassword });
+
+	try {
+		await axios.post("users/resetpassword", body, config);
+		dispatch(setAlert("Successfully reset you password!", GREEN_ALERT));
+	} catch (err) {
+		console.log(err.response);
+		const errorMessage = err.response.data.error;
+
+		if (errorMessage) {
+			dispatch(setAlert(errorMessage, RED_ALERT));
 		}
 	}
 };

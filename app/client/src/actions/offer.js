@@ -12,7 +12,7 @@ import {
 	DELETE_OFFER_SUCCESS,
 	GET_CREATED_OFFERS,
 	GET_OFFERS,
-	POST_OFFER_COMMENT,
+	CREATE_OFFER_COMMENT,
 } from "./types";
 
 export const createOffer = (info) => async (dispatch) => {
@@ -100,7 +100,9 @@ export const createOffer = (info) => async (dispatch) => {
 		toTop();
 	} catch (err) {
 		const errorMessage = err.response.data.error;
-		dispatch(setAlert(errorMessage, RED_ALERT));
+		if (errorMessage) {
+			dispatch(setAlert(errorMessage, RED_ALERT));
+		}
 		dispatch({
 			type: CREATE_OFFER_FAILED,
 		});
@@ -115,9 +117,7 @@ export const getOffers = () => async (dispatch) => {
 			type: GET_OFFERS,
 			payload: offers,
 		});
-	} catch (err) {
-		console.log("fetching offers failed");
-	}
+	} catch (err) {}
 	return;
 };
 
@@ -129,9 +129,7 @@ export const getCreatedOffers = () => async (dispatch) => {
 			type: GET_CREATED_OFFERS,
 			payload: offers,
 		});
-	} catch (err) {
-		console.log("fetching created offers failed");
-	}
+	} catch (err) {}
 	return;
 };
 
@@ -142,7 +140,7 @@ export const deleteOffer = (e, placeDisplayed) => async (dispatch) => {
 		dispatch({
 			type: DELETE_OFFER_SUCCESS,
 		});
-		dispatch(setAlert("Successfully deleted your offer", GREEN_ALERT));
+		dispatch(setAlert("Successfully deleted the offer", GREEN_ALERT));
 		switch (placeDisplayed) {
 			case "offersPage":
 				dispatch(getOffers());
@@ -156,7 +154,9 @@ export const deleteOffer = (e, placeDisplayed) => async (dispatch) => {
 	} catch (err) {
 		if (err.response) {
 			const errorMessage = err.response.data.error;
-			dispatch(setAlert(errorMessage, RED_ALERT));
+			if (errorMessage) {
+				dispatch(setAlert(errorMessage, RED_ALERT));
+			}
 			dispatch({
 				type: DELETE_OFFER_FAILED,
 			});
@@ -181,7 +181,7 @@ export const postOfferComment = (comment, offerId, placeDisplayed) => async (
 	try {
 		await axios.post(`offers/comment/${offerId}`, body, config);
 		dispatch({
-			type: POST_OFFER_COMMENT,
+			type: CREATE_OFFER_COMMENT,
 		});
 		switch (placeDisplayed) {
 			case "offersPage":
@@ -194,7 +194,9 @@ export const postOfferComment = (comment, offerId, placeDisplayed) => async (
 		}
 	} catch (err) {
 		const errorMessage = err.response.data.error;
-		dispatch(setAlert(errorMessage, RED_ALERT));
+		if (errorMessage) {
+			dispatch(setAlert(errorMessage, RED_ALERT));
+		}
 	}
 	return;
 };

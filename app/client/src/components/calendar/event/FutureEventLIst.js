@@ -11,7 +11,7 @@ const filterEvent = (event, queryString) => {
 	return (
 		event.title.includes(queryString) ||
 		event.location.includes(queryString) ||
-		moment(event.eventDate)
+		moment(event.startTime)
 			.format("dddd, MMMM DD, YYYY")
 			.includes(queryString) ||
 		(event.admittance && event.admittance.includes(queryString)) ||
@@ -32,7 +32,7 @@ const FutureEventList = ({ events, loading, queryString, getFutureEvents }) => {
 		<Spinner animation="border" role="status">
 			<span className="sr-only">Loading...</span>
 		</Spinner>
-	) : (
+	) : events.length > 0 ? (
 		<Fragment>
 			{events
 				.filter((event) => filterEvent(event, queryString))
@@ -43,6 +43,15 @@ const FutureEventList = ({ events, loading, queryString, getFutureEvents }) => {
 						event={event}
 						placeDisplayed="homeAndCalendar"></SingleEvent>
 				))}
+		</Fragment>
+	) : (
+		<Fragment>
+			<p className="no-events-label">
+				That's weird, there are no free food events coming up.
+			</p>
+			<p className="no-events-label">
+				Contact the team if this issue keeps occuring.
+			</p>
 		</Fragment>
 	);
 };

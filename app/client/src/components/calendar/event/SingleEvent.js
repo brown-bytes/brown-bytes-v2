@@ -1,4 +1,5 @@
 import moment from "moment";
+//import moment from "moment-timezone";
 import React, { Fragment } from "react";
 import Accordion from "react-bootstrap/Accordion";
 import Button from "react-bootstrap/Button";
@@ -36,7 +37,7 @@ const SingleEvent = ({
 	event,
 	placeDisplayed,
 }) => {
-	const eventDate = moment(event.eventDate).format("dddd, MMMM DD, YYYY");
+	const eventDate = moment(event.startTime).format("dddd, MMMM DD, YYYY");
 	const startTime = moment(event.startTime).format("HH:mm A");
 	const endTime = moment(event.endTime).format("HH:mm A");
 	const createdAt = moment(event.createdAt).format(
@@ -150,8 +151,9 @@ const SingleEvent = ({
 									className="justify-content-end d-flex">
 									{!loadingUser &&
 										authedUser &&
-										authedUser.userId ===
-											event.creatorId && (
+										(authedUser.userId ===
+											event.creatorId ||
+											authedUser.isAdmin) && (
 											<Button
 												className="pr-3"
 												variant="outline-link"
@@ -172,6 +174,9 @@ const SingleEvent = ({
 															placeDisplayed
 														);
 													}}></i>
+												<span className="sr-only">
+													Close
+												</span>
 											</Button>
 										)}
 									<Button
@@ -189,7 +194,8 @@ const SingleEvent = ({
 											onClick={(e) => {
 												watchEvent(e, placeDisplayed);
 											}}
-										/>{" "}
+										/>
+										<span className="sr-only">Close</span>{" "}
 										{event.numWatches && (
 											<span>{event.numWatches}</span>
 										)}
@@ -207,6 +213,7 @@ const SingleEvent = ({
 												unwatchEvent(e, placeDisplayed);
 											}}
 										/>
+										<span className="sr-only">Close</span>
 									</Button>
 									<Accordion.Toggle
 										as={Button}
@@ -214,7 +221,10 @@ const SingleEvent = ({
 										variant="outline-link"
 										eventKey="comment"
 										size="lg">
-										<i className="far fa-comment"></i>{" "}
+										<i className="far fa-comment"></i>
+										<span className="sr-only">
+											Close
+										</span>{" "}
 										{event.comments.length > 0 && (
 											<span>{event.comments.length}</span>
 										)}
@@ -233,7 +243,10 @@ const SingleEvent = ({
 											className="px-2"
 											variant="outline-link"
 											size="lg">
-											<i className="fas fa-eye" />{" "}
+											<i className="fas fa-eye" />
+											<span className="sr-only">
+												Close
+											</span>{" "}
 											{event.numWatches > 0 && (
 												<span>{event.numWatches}</span>
 											)}
@@ -249,12 +262,11 @@ const SingleEvent = ({
 											variant="outline-link"
 											eventKey="comment"
 											size="lg">
-											<i className="far fa-comment"></i>{" "}
-											{event.comments.length > 0 && (
-												<span>
-													{event.comments.length}
-												</span>
-											)}
+											<i className="far fa-comment"></i>
+											<span className="sr-only">
+												Close
+											</span>{" "}
+											<span>{event.comments.length}</span>
 										</Accordion.Toggle>
 									)}
 								</Col>

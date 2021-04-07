@@ -14,9 +14,12 @@ import ResetPassword from "../login/ResetPassword";
 import SignUp from "../login/SignUp";
 import NewOffer from "../offers/offer/NewOffer";
 import Offers from "../offers/Offers";
+import Networking from "../networking/Networking";
 import Team from "../team/Team";
+import FeedBack from "../feedback/FeedBack";
 import NotLoggedInRoute from "./NotLoggedInRoute";
 import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "./AdminRoute";
 
 const Routes = () => {
 	return (
@@ -26,8 +29,11 @@ const Routes = () => {
 				<Route exact path="/" component={Home} />
 				<Route exact path="/calendar" component={Calendar} />
 				<Route exact path="/offers" component={Offers} />
+				<Route exact path="/networking" component={Networking} />
 				<Route exact path="/about" component={About} />
 				<PrivateRoute exact path="/dashboard" component={DashBoard} />
+				<AdminRoute exact path="/feedbacks" component={FeedBack} />
+
 				<NotLoggedInRoute exact path="/login" component={Login} />
 				<Route
 					exact

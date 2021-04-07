@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import React, { Fragment } from "react";
 import { connect } from "react-redux";
 
+import { commentTimeComparator } from "../../../utils/commentTimeComparator";
 import PostComment from "./PostComment";
 import SingleComment from "./SingleComment";
 
@@ -13,7 +14,7 @@ const CommentArea = ({
 }) => {
 	return (
 		<Fragment>
-			{comments.map((comment) => (
+			{comments.sort(commentTimeComparator).map((comment) => (
 				<SingleComment
 					key={comment.id}
 					comment={comment}></SingleComment>

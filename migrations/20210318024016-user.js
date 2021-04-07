@@ -31,6 +31,10 @@ module.exports = {
       isActive: {
         type: Sequelize.BOOLEAN,
       },
+      admin: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+      },
       avatar: {
         type: Sequelize.STRING
       },

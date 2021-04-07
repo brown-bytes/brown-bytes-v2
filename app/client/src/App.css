@@ -147,6 +147,43 @@ body {
 	font-size: large;
 }
 
+#networking-more-posts-button {
+	border: 0;
+	background-color: #fff;
+	padding: 0;
+	padding-left: 1px;
+	padding-top: 1px;
+	position: relative;
+	color: #2f7ef6;
+	cursor: pointer;
+	font-size: large;
+}
+
+.post-creator-name-button {
+	border: 0;
+	background-color: #fff;
+	padding: 0;
+	padding-top: 1px;
+	position: relative;
+	cursor: pointer;
+	font-size: large;
+	font-weight: bold;
+}
+
+.post-creator-avatar-button {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	border: 0;
+	background-color: #fff;
+	padding: 0;
+	padding-top: 1px;
+	position: relative;
+	cursor: pointer;
+	font-size: large;
+	font-weight: bold;
+}
+
 #new-event-heading {
 	font-weight: bold;
 	font-size: xx-large;
@@ -295,11 +332,21 @@ body {
 	font-size: large;
 }
 
+.post-user {
+	font-weight: bold;
+	font-size: larger;
+}
+
 .comment-time {
 	font-style: italic;
 }
 
 .comment-head {
+	margin-bottom: 0;
+	padding-left: 5px;
+}
+
+.post-head {
 	margin-bottom: 0;
 	padding-left: 5px;
 }
@@ -310,7 +357,51 @@ body {
 	padding-left: 5px;
 }
 
+.post-content {
+	font-size: x-large;
+	margin-bottom: 0;
+	padding-left: 5px;
+}
+
 .comment-favicon {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	border: 1px solid gray;
+}
+
+.profile-favicon {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	border: 1px solid gray;
+}
+
+.profile-username {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	font-weight: bold;
+	text-align: center;
+	font-size: larger;
+}
+
+.profile-social-button {
+	font-size: xx-large;
+	padding-left: 2px;
+	padding-right: 2px;
+}
+
+.profile-bio {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	font-size: xx-large;
+	font-family: "Times New Roman", Times, serif;
+}
+
+.post-favicon {
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
@@ -366,6 +457,12 @@ body {
 	margin-bottom: 0;
 }
 
+.dashboard-my-posts-heading {
+	font-weight: bold;
+	font-size: x-large;
+	margin-bottom: 0;
+}
+
 #dashboard-profile-favicon {
 	cursor: pointer;
 }
@@ -382,6 +479,21 @@ body {
 }
 
 .offers-text {
+	font-size: large;
+}
+
+.networking-heading1 {
+	font-weight: bold;
+	font-size: xx-large;
+}
+
+.networking-heading2 {
+	font-weight: bold;
+	font-size: x-large;
+	margin-bottom: 0;
+}
+
+.networking-text {
 	font-size: large;
 }
 
@@ -419,6 +531,12 @@ body {
 }
 
 .offer-card-class-overriding-bootstrap {
+	border-bottom: 1px solid #6c757d !important;
+	border-bottom-left-radius: 0.25rem !important;
+	margin-bottom: 5px;
+}
+
+.post-card-class-overriding-bootstrap {
 	border-bottom: 1px solid #6c757d !important;
 	border-bottom-left-radius: 0.25rem !important;
 	margin-bottom: 5px;
@@ -475,6 +593,39 @@ body {
 	text-transform: none !important;
 	position: relative;
 	bottom: 7px;
+}
+
+.no-events-label {
+	font-size: x-large;
+	font-weight: bold;
+	padding-top: 5px;
+	margin-bottom: 0;
+}
+
+.no-offers-label {
+	font-size: x-large;
+	font-weight: bold;
+	padding-top: 5px;
+	margin-bottom: 0;
+}
+
+.no-posts-label {
+	font-size: x-large;
+	font-weight: bold;
+	padding-top: 5px;
+	margin-bottom: 0;
+}
+
+.no-dashboard-events-label {
+	font-size: larger;
+	padding-left: 15px;
+	margin-bottom: 5px;
+}
+
+.no-dashboard-offers-label {
+	font-size: larger;
+	padding-left: 15px;
+	margin-bottom: 5px;
 }
 
 [data-reach-skip-nav-link] {

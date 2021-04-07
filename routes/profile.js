@@ -46,6 +46,7 @@ router
 							facebook: user.facebookLink,
 							twitter: user.twitterLink,
 							instagram: user.instagramLink,
+							isAdmin: user.admin,
 						},
 					});
 				} else {
@@ -124,10 +125,11 @@ router
 			});
 	});
 
-router.get("/:userId", auth.parseToken, async (req, res) => {
+//router.get("/:userId", auth.parseToken, async (req, res) => {
+router.get("/:userId", async (req, res) => {
 	await User.findOne({
 		where: {
-			id: req.params.userId,
+			id: req.params.userId.slice(1),
 		},
 	})
 		.then((user) => {
@@ -147,7 +149,10 @@ router.get("/:userId", auth.parseToken, async (req, res) => {
 			} else {
 				res.statusCode = 404;
 				res.setHeader("Content-Type", "application/json");
-				res.json({ success: false, error: "User not found" });
+				res.json({
+					success: false,
+					error: `User ${req.params.userId.slice(1)} not found`,
+				});
 			}
 		})
 		.catch((err) => {

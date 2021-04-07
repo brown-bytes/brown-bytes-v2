@@ -6,8 +6,8 @@ const ExtractJwt = require("passport-jwt").ExtractJwt;
 const User = require("./models").User;
 const bcrypt = require("bcrypt");
 
-let getToken = function (userId) {
-	return jwt.sign(userId, config.secretKey, { expiresIn: 3600 });
+let getToken = function (user) {
+	return jwt.sign(user, config.secretKey, { expiresIn: 3600 });
 };
 
 let opts = {};

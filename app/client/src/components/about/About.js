@@ -37,7 +37,7 @@ const About = () => {
 					Bytes!)
 				</li>
 				<li>Meet other hungry people!</li>
-				<li>Brown Bytes was built for fun by a Brown student!</li>
+				<li>Brown Bytes was built for fun by a few Brown students!</li>
 			</ul>
 			<p className="about-second-heading">
 				Join the Fight Against Food Insecurity

@@ -4,6 +4,7 @@ import Tabs from "react-bootstrap/Tabs";
 
 import MyEvents from "./MyEvents";
 import MyOffers from "./MyOffers";
+import MyPosts from "./MyPosts";
 import Profile from "./Profile";
 
 const DashBoard = () => {
@@ -17,6 +18,9 @@ const DashBoard = () => {
 			</Tab>
 			<Tab eventKey="myOffer" title="My Offers">
 				<MyOffers></MyOffers>
+			</Tab>
+			<Tab eventKey="myPosts" title="My Posts">
+				<MyPosts></MyPosts>
 			</Tab>
 		</Tabs>
 	);

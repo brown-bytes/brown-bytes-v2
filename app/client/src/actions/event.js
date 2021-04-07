@@ -14,7 +14,7 @@ import {
 	GET_FUTURE_EVENTS,
 	GET_PAST_EVENTS,
 	GET_WATCHING_EVENTS,
-	POST_EVENT_COMMENT,
+	CREATE_EVENT_COMMENT,
 	UNWATCH_EVENT,
 	WATCH_EVENT,
 } from "./types";
@@ -108,7 +108,7 @@ export const createEvent = (info) => async (dispatch) => {
 		await axios.post("events", body, config);
 		dispatch(
 			setAlert(
-				"Successfully created an event. Check it out in calendar",
+				"Successfully created an event. You can check it out in calendar",
 				GREEN_ALERT
 			)
 		);
@@ -118,7 +118,9 @@ export const createEvent = (info) => async (dispatch) => {
 		toTop();
 	} catch (err) {
 		const errorMessage = err.response.data.error;
-		dispatch(setAlert(errorMessage, RED_ALERT));
+		if (errorMessage) {
+			dispatch(setAlert(errorMessage, RED_ALERT));
+		}
 		dispatch({
 			type: CREATE_EVENT_FAILED,
 		});
@@ -133,9 +135,7 @@ export const getFutureEvents = () => async (dispatch) => {
 			type: GET_FUTURE_EVENTS,
 			payload: events,
 		});
-	} catch (err) {
-		console.log("get future events failed");
-	}
+	} catch (err) {}
 	return;
 };
 
@@ -152,9 +152,7 @@ export const getPastEvents = (numPastEventFetched) => async (dispatch) => {
 			type: GET_PAST_EVENTS,
 			payload: events,
 		});
-	} catch (err) {
-		console.log("get past events failed");
-	}
+	} catch (err) {}
 	return;
 };
 
@@ -168,9 +166,7 @@ export const getWatchingEvents = () => async (dispatch) => {
 			type: GET_WATCHING_EVENTS,
 			payload: events,
 		});
-	} catch (err) {
-		console.log("get watching events failed");
-	}
+	} catch (err) {}
 	return;
 };
 
@@ -182,9 +178,7 @@ export const getCreatedEvents = () => async (dispatch) => {
 			type: GET_CREATED_EVENTS,
 			payload: events,
 		});
-	} catch (err) {
-		console.log("get created events failed");
-	}
+	} catch (err) {}
 	return;
 };
 
@@ -243,7 +237,7 @@ export const deleteEvent = (e, placeDisplayed) => async (dispatch) => {
 		dispatch({
 			type: DELETE_EVENT_SUCCESS,
 		});
-		dispatch(setAlert("Successfully deleted your event", GREEN_ALERT));
+		dispatch(setAlert("Successfully deleted the event", GREEN_ALERT));
 		switch (placeDisplayed) {
 			case "homeAndCalendar":
 				dispatch(getFutureEvents());
@@ -282,7 +276,7 @@ export const postEventComment = (comment, eventId, placeDisplayed) => async (
 	try {
 		await axios.post(`events/comment/${eventId}`, body, config);
 		dispatch({
-			type: POST_EVENT_COMMENT,
+			type: CREATE_EVENT_COMMENT,
 		});
 		switch (placeDisplayed) {
 			case "homeAndCalendar":
@@ -296,7 +290,9 @@ export const postEventComment = (comment, eventId, placeDisplayed) => async (
 		}
 	} catch (err) {
 		const errorMessage = err.response.data.error;
-		dispatch(setAlert(errorMessage, RED_ALERT));
+		if (errorMessage) {
+			dispatch(setAlert(errorMessage, RED_ALERT));
+		}
 	}
 	return;
 };

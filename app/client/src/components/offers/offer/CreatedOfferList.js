@@ -16,7 +16,7 @@ const CreatedOfferList = ({ offers, loading, getCreatedOffers }) => {
 		<Spinner animation="border" role="status">
 			<span className="sr-only">Loading Offers...</span>
 		</Spinner>
-	) : (
+	) : offers.length > 0 ? (
 		<Fragment>
 			{offers.sort(startTimeComparator).map((offer) => (
 				<SingleOffer
@@ -24,6 +24,12 @@ const CreatedOfferList = ({ offers, loading, getCreatedOffers }) => {
 					offer={offer}
 					placeDisplayed="dashboardOffers"></SingleOffer>
 			))}
+		</Fragment>
+	) : (
+		<Fragment>
+			<p className="no-dashboard-offers-label">
+				You have not created any offers
+			</p>
 		</Fragment>
 	);
 };

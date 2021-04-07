@@ -5,7 +5,7 @@ import Form from "react-bootstrap/Form";
 import { connect } from "react-redux";
 
 import { clearAlerts } from "../../actions/alert";
-import sendFeedBack from "../../actions/feedback";
+import { sendFeedBack } from "../../actions/feedback";
 
 const Team = ({ sendFeedBack }) => {
 	useEffect(() => {
@@ -34,7 +34,7 @@ const Team = ({ sendFeedBack }) => {
 			<hr></hr>
 			<p id="team-text">
 				Join our team by contacting{" "}
-				<a href="mailto:scoot_huson@brown.edu">scoot_huson@brown.edu</a>
+				<a href="mailto:scott_huson@brown.edu">scott_huson@brown.edu</a>
 				. We would love to have your help in making Brown a better
 				place!
 			</p>
@@ -43,7 +43,12 @@ const Team = ({ sendFeedBack }) => {
 				think, how this application can improve, or if you would like to
 				contribute.
 			</p>
-			<Form id="feedback-form" onSubmit={(e) => onSubmit(e)}>
+			<Form
+				id="feedback-form"
+				onSubmit={(e) => {
+					onSubmit(e);
+					e.target.reset();
+				}}>
 				<Form.Group>
 					<Form.Label className="feedback-form-label" htmlFor="name">
 						Your full name
@@ -81,6 +86,7 @@ const Team = ({ sendFeedBack }) => {
 						as="textarea"
 						onChange={onChange}
 						rows={3}
+						required
 					/>
 				</Form.Group>
 				<Button variant="info" type="submit">

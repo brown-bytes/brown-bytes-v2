@@ -16,7 +16,7 @@ const EventList = ({ events, loading, getCreatedEvents }) => {
 		<Spinner animation="border" role="status">
 			<span className="sr-only">Loading...</span>
 		</Spinner>
-	) : (
+	) : events.length > 0 ? (
 		<Fragment>
 			{events.sort(startTimeComparator).map((event) => (
 				<SingleEvent
@@ -24,6 +24,12 @@ const EventList = ({ events, loading, getCreatedEvents }) => {
 					event={event}
 					placeDisplayed="dashboardEvents"></SingleEvent>
 			))}
+		</Fragment>
+	) : (
+		<Fragment>
+			<p className="no-dashboard-events-label">
+				You have not created any events
+			</p>
 		</Fragment>
 	);
 };
