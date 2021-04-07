@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import { GREEN_ALERT, RED_ALERT } from "../components/layout/AlertTypes";
+import proxy from "../utils/proxy";
 import toTop from "../utils/scrollToTop";
 import { clearAlerts, setAlert } from "./alert";
 import { GET_FEEDBACKS, SEND_FEEDBACK } from "./types";
@@ -18,7 +19,7 @@ export const sendFeedBack = (posterName, email, feedback) => async (
 	const body = JSON.stringify({ posterName, email, feedback });
 
 	try {
-		await axios.post("/feedbacks", body, config);
+		await axios.post(`${proxy}/feedbacks`, body, config);
 
 		dispatch({
 			type: SEND_FEEDBACK,
@@ -35,7 +36,7 @@ export const sendFeedBack = (posterName, email, feedback) => async (
 export const getFeedBacks = () => async (dispatch) => {
 	clearAlerts();
 	try {
-		const res = await axios.get("/feedbacks");
+		const res = await axios.get(`${proxy}/feedbacks`);
 		const feedbacks = res.data.feedbacks;
 		dispatch({
 			type: GET_FEEDBACKS,

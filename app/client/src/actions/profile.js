@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import { GREEN_ALERT, RED_ALERT } from "../components/layout/AlertTypes";
+import proxy from "../utils/proxy";
 import setAuthToken from "../utils/setAuthToken";
 import { clearAlerts, setAlert } from "./alert";
 import { loadUser } from "./auth";
@@ -43,7 +44,7 @@ export const updateSocialLinks = (data) => async (dispatch) => {
 	});
 
 	try {
-		await axios.patch("profile/", body, config);
+		await axios.patch(`${proxy}/profile/`, body, config);
 		dispatch(setAlert("Successfully updated profile!", GREEN_ALERT));
 		dispatch(loadUser());
 		dispatch({
@@ -72,7 +73,7 @@ export const updateAvatar = (image) => async (dispatch) => {
 	}
 	const body = image;
 	try {
-		await axios.post("profile/avatar", body);
+		await axios.post(`${proxy}/profile/avatar`, body);
 		dispatch(
 			setAlert(
 				"Successfully updated avatar! Reload this page to see your new avatar.",
@@ -96,7 +97,7 @@ export const updateAvatar = (image) => async (dispatch) => {
 
 export const getProfileById = async (id) => {
 	try {
-		const res = await axios.get(`profile/:${id}`);
+		const res = await axios.get(`${proxy}/profile/:${id}`);
 		return res.data.data;
 	} catch (err) {
 		if (err.response) {

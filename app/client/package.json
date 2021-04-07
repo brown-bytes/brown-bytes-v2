@@ -49,6 +49,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "proxy": "http://172.16.14.196:8080/"
+  }
 }

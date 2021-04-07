@@ -2,6 +2,7 @@ import axios from "axios";
 import moment from "moment";
 
 import { GREEN_ALERT, RED_ALERT } from "../components/layout/AlertTypes";
+import proxy from "../utils/proxy";
 import toTop from "../utils/scrollToTop";
 import { clearAlerts, setAlert } from "./alert";
 import {
@@ -90,7 +91,7 @@ export const createOffer = (info) => async (dispatch) => {
 	});
 
 	try {
-		const res = await axios.post("offers", body, config);
+		const res = await axios.post(`${proxy}/offers`, body, config);
 
 		dispatch(setAlert("Successfully created a new offer!", GREEN_ALERT));
 		dispatch({
@@ -111,7 +112,7 @@ export const createOffer = (info) => async (dispatch) => {
 
 export const getOffers = () => async (dispatch) => {
 	try {
-		const res = await axios.get("offers");
+		const res = await axios.get(`${proxy}/offers`);
 		const offers = Object.values(res.data.offers);
 		dispatch({
 			type: GET_OFFERS,
@@ -123,7 +124,7 @@ export const getOffers = () => async (dispatch) => {
 
 export const getCreatedOffers = () => async (dispatch) => {
 	try {
-		const res = await axios.get("offers/created");
+		const res = await axios.get(`${proxy}/offers/created`);
 		const offers = Object.values(res.data.offers);
 		dispatch({
 			type: GET_CREATED_OFFERS,
@@ -136,7 +137,7 @@ export const getCreatedOffers = () => async (dispatch) => {
 export const deleteOffer = (e, placeDisplayed) => async (dispatch) => {
 	const offerId = e.target.id;
 	try {
-		await axios.delete(`offers/${offerId}`);
+		await axios.delete(`${proxy}/offers/${offerId}`);
 		dispatch({
 			type: DELETE_OFFER_SUCCESS,
 		});
@@ -179,7 +180,7 @@ export const postOfferComment = (comment, offerId, placeDisplayed) => async (
 	});
 
 	try {
-		await axios.post(`offers/comment/${offerId}`, body, config);
+		await axios.post(`${proxy}/offers/comment/${offerId}`, body, config);
 		dispatch({
 			type: CREATE_OFFER_COMMENT,
 		});
