@@ -71,11 +71,13 @@ export const postNetworkingPostComment = (
 
 	try {
 		await axios.post(`${proxy}/posts/comment/${postId}`, body, config);
-		const res = await axios.get("posts", {
+		const res = await axios.get(`${proxy}/posts`, {
 			params: {
 				fetched: 0,
 			},
 		});
+		console.log("posted a comment, res from server:", res.data);
+		console.log("placeDisplayed:", placeDisplayed);
 		switch (placeDisplayed) {
 			case "networkingPage":
 				dispatch({

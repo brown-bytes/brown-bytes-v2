@@ -1,0 +1,6 @@
+{
+    "short_name": "BrownBytes",
+    "name": "BrownBytes",
+    "start_url": "/index.html",
+    "display": "standalone"
+}
