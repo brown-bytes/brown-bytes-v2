@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import { GREEN_ALERT, RED_ALERT } from "../components/layout/AlertTypes";
+import proxy from "../utils/proxy";
 import { clearAlerts, setAlert } from "./alert";
 import {
 	CREATE_POST_COMMENT,
@@ -27,9 +28,9 @@ export const createPost = (content) => async (dispatch) => {
 	});
 
 	try {
-		await axios.post("posts", body, config);
+		await axios.post(`${proxy}/posts`, body, config);
 		dispatch(setAlert("Successfully created a new post!", GREEN_ALERT));
-		const res = await axios.get("posts", {
+		const res = await axios.get(`${proxy}/posts`, {
 			params: {
 				fetched: 0,
 			},
@@ -69,7 +70,7 @@ export const postNetworkingPostComment = (
 	});
 
 	try {
-		await axios.post(`posts/comment/${postId}`, body, config);
+		await axios.post(`${proxy}/posts/comment/${postId}`, body, config);
 		const res = await axios.get("posts", {
 			params: {
 				fetched: 0,
@@ -104,7 +105,7 @@ export const postNetworkingPostComment = (
 
 export const getPosts = (numFetchedPosts) => async (dispatch) => {
 	try {
-		const res = await axios.get("posts", {
+		const res = await axios.get(`${proxy}/posts`, {
 			params: {
 				fetched: numFetchedPosts,
 			},
@@ -126,7 +127,7 @@ export const getPosts = (numFetchedPosts) => async (dispatch) => {
 
 export const getCreatedPosts = () => async (dispatch) => {
 	try {
-		const res = await axios.get("posts/created");
+		const res = await axios.get(`${proxy}/posts/created`);
 		const posts = Object.values(res.data.posts);
 		dispatch({
 			type: GET_CREATED_POSTS,
@@ -139,7 +140,7 @@ export const getCreatedPosts = () => async (dispatch) => {
 export const searchPost = (queryString) => async (dispatch) => {
 	if (queryString.length <= 1) return;
 	try {
-		const res = await axios.get("posts", {
+		const res = await axios.get(`${proxy}/posts`, {
 			params: {
 				queryString: queryString,
 			},
@@ -164,7 +165,7 @@ export const deletePost = (e, placeDisplayed) => async (dispatch) => {
 	clearAlerts();
 	const postId = e.target.id;
 	try {
-		await axios.delete(`posts/${postId}`);
+		await axios.delete(`${proxy}/posts/${postId}`);
 		dispatch(setAlert("Successfully deleted the post", GREEN_ALERT));
 		switch (placeDisplayed) {
 			case "networkingPage":

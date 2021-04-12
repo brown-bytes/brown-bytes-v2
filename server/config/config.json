@@ -1,0 +1,24 @@
+{
+    "development": {
+      "username": "root",
+      "password": "brown_bytes",
+      "database": "brown_bytes",
+      "host": "172.31.5.214",
+      "dialect": "mysql",
+      "logging": false
+    },
+    "test": {
+      "username": "",
+      "password": "",
+      "database": "",
+      "host": "127.0.0.1",
+      "dialect": "mysql"
+    },
+    "production": {
+      "username": "",
+      "password": "",
+      "database": "",
+      "host": "127.0.0.1",
+      "dialect": "mysql"
+    }
+  }

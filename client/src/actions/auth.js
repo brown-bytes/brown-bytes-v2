@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import { GREEN_ALERT, RED_ALERT } from "../components/layout/AlertTypes";
+import proxy from "../utils/proxy";
 import toTop from "../utils/scrollToTop";
 import setAuthToken from "../utils/setAuthToken";
 import { clearAlerts, setAlert } from "./alert";
@@ -28,7 +29,7 @@ export const loadUser = () => async (dispatch) => {
 	}
 
 	try {
-		const res = await axios.get("profile");
+		const res = await axios.get(`${proxy}/profile`);
 		dispatch(getWatchingEvents());
 		dispatch(getCreatedEvents());
 		dispatch(getCreatedOffers());
@@ -67,7 +68,7 @@ export const register = (userName, email, password, passwordRepeat) => async (
 	const body = JSON.stringify({ userName, email, password });
 
 	try {
-		await axios.post("users/signup", body, config);
+		await axios.post(`${proxy}/users/signup`, body, config);
 		dispatch(
 			setAlert(
 				"Thank you for signing up, a verification link has been emailed to you.",
@@ -110,7 +111,7 @@ export const login = (email, password) => async (dispatch) => {
 	const body = JSON.stringify({ email, password });
 
 	try {
-		const res = await axios.post("users/login", body, config);
+		const res = await axios.post(`${proxy}/users/login`, body, config);
 		dispatch(setAlert("Successfully logged in!", GREEN_ALERT));
 		dispatch({
 			type: LOGIN_SUCCESS,
@@ -158,7 +159,11 @@ export const loginGoogle = (data) => async (dispatch) => {
 			password,
 			avatarUrl,
 		});
-		const res = await axios.post("users/signupsocial", trySignUp, config);
+		const res = await axios.post(
+			`${proxy}/users/signupsocial`,
+			trySignUp,
+			config
+		);
 		dispatch(
 			setAlert(
 				"Successfully logged in with your google account!",
@@ -176,7 +181,11 @@ export const loginGoogle = (data) => async (dispatch) => {
 		const tryLogIn = JSON.stringify({ email, password });
 
 		try {
-			const res = await axios.post("users/login", tryLogIn, config);
+			const res = await axios.post(
+				`${proxy}/users/login`,
+				tryLogIn,
+				config
+			);
 			dispatch(
 				setAlert(
 					"Successfully logged in with your google account!",
@@ -223,7 +232,11 @@ export const loginFacebook = (data) => async (dispatch) => {
 			password,
 			avatarUrl,
 		});
-		const res = await axios.post("users/signupsocial", trySignUp, config);
+		const res = await axios.post(
+			`${proxy}/users/signupsocial`,
+			trySignUp,
+			config
+		);
 		dispatch(
 			setAlert(
 				"Successfully logged in with your facebook account!",
@@ -241,7 +254,11 @@ export const loginFacebook = (data) => async (dispatch) => {
 		const tryLogIn = JSON.stringify({ email, password });
 
 		try {
-			const res = await axios.post("users/login", tryLogIn, config);
+			const res = await axios.post(
+				`${proxy}/users/login`,
+				tryLogIn,
+				config
+			);
 			dispatch(
 				setAlert(
 					"Successfully logged in with your facebook account!",
@@ -278,7 +295,7 @@ export const requestResetPasswordEmail = (email) => async (dispatch) => {
 	const body = JSON.stringify({ email });
 
 	try {
-		await axios.post("users/reset", body, config);
+		await axios.post(`${proxy}/users/reset`, body, config);
 		dispatch(
 			setAlert(
 				"An email with link to reset your password has been sent to you.",
@@ -318,7 +335,7 @@ export const resetPasswordWithKey = (
 	const body = JSON.stringify({ email, key, newPassword });
 
 	try {
-		await axios.post("users/resetpassword", body, config);
+		await axios.post(`${proxy}/users/resetpassword`, body, config);
 		dispatch(setAlert("Successfully reset you password!", GREEN_ALERT));
 	} catch (err) {
 		console.log(err.response);

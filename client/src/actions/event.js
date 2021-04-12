@@ -2,6 +2,7 @@ import axios from "axios";
 import moment from "moment";
 
 import { GREEN_ALERT, RED_ALERT } from "../components/layout/AlertTypes";
+import proxy from "../utils/proxy";
 import toTop from "../utils/scrollToTop";
 import { clearAlerts, setAlert } from "./alert";
 import {
@@ -105,7 +106,7 @@ export const createEvent = (info) => async (dispatch) => {
 	});
 
 	try {
-		await axios.post("events", body, config);
+		await axios.post(`${proxy}/events`, body, config);
 		dispatch(
 			setAlert(
 				"Successfully created an event. You can check it out in calendar",
@@ -129,7 +130,7 @@ export const createEvent = (info) => async (dispatch) => {
 
 export const getFutureEvents = () => async (dispatch) => {
 	try {
-		const res = await axios.get("events");
+		const res = await axios.get(`${proxy}/events`);
 		const events = Object.values(res.data.events);
 		dispatch({
 			type: GET_FUTURE_EVENTS,
@@ -141,7 +142,7 @@ export const getFutureEvents = () => async (dispatch) => {
 
 export const getPastEvents = (numPastEventFetched) => async (dispatch) => {
 	try {
-		const res = await axios.get("events/past", {
+		const res = await axios.get(`${proxy}/events/past`, {
 			params: {
 				fetched: numPastEventFetched,
 			},
@@ -158,7 +159,7 @@ export const getPastEvents = (numPastEventFetched) => async (dispatch) => {
 
 export const getWatchingEvents = () => async (dispatch) => {
 	try {
-		const res = await axios.get("events/watched");
+		const res = await axios.get(`${proxy}/events/watched`);
 		const events = Object.values(res.data.events).map(
 			(watchingEvent) => watchingEvent.event
 		);
@@ -172,7 +173,7 @@ export const getWatchingEvents = () => async (dispatch) => {
 
 export const getCreatedEvents = () => async (dispatch) => {
 	try {
-		const res = await axios.get("events/created");
+		const res = await axios.get(`${proxy}/events/created`);
 		let events = Object.values(res.data.events);
 		dispatch({
 			type: GET_CREATED_EVENTS,
@@ -185,7 +186,7 @@ export const getCreatedEvents = () => async (dispatch) => {
 export const watchEvent = (e, placeDisplayed) => async (dispatch) => {
 	const eventId = e.target.id;
 	try {
-		await axios.post(`events/watch/${eventId}`);
+		await axios.post(`${proxy}/events/watch/${eventId}`);
 		dispatch({
 			type: WATCH_EVENT,
 			payload: eventId,
@@ -209,7 +210,7 @@ export const watchEvent = (e, placeDisplayed) => async (dispatch) => {
 export const unwatchEvent = (e, placeDisplayed) => async (dispatch) => {
 	const eventId = e.target.id;
 	try {
-		await axios.delete(`events/watch/${eventId}`);
+		await axios.delete(`${proxy}/events/watch/${eventId}`);
 		dispatch({
 			type: UNWATCH_EVENT,
 			payload: eventId,
@@ -233,7 +234,7 @@ export const unwatchEvent = (e, placeDisplayed) => async (dispatch) => {
 export const deleteEvent = (e, placeDisplayed) => async (dispatch) => {
 	const eventId = e.target.id;
 	try {
-		await axios.delete(`events/${eventId}`);
+		await axios.delete(`${proxy}/events/${eventId}`);
 		dispatch({
 			type: DELETE_EVENT_SUCCESS,
 		});
@@ -274,7 +275,7 @@ export const postEventComment = (comment, eventId, placeDisplayed) => async (
 	});
 
 	try {
-		await axios.post(`events/comment/${eventId}`, body, config);
+		await axios.post(`${proxy}/events/comment/${eventId}`, body, config);
 		dispatch({
 			type: CREATE_EVENT_COMMENT,
 		});
