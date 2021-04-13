@@ -147,8 +147,9 @@ const SingleEvent = ({
 									className="justify-content-end d-flex">
 									{!loadingUser &&
 										authedUser &&
-										authedUser.userId ===
-											event.creatorId && (
+										(authedUser.userId ===
+											event.creatorId ||
+											authedUser.isAdmin) && (
 											<Button
 												className="pr-3"
 												variant="outline-link"
@@ -180,7 +181,7 @@ const SingleEvent = ({
 											className="fas fa-eye"
 											id={event.id}
 										/>{" "}
-										{event.numWatches && (
+										{event.numWatches > 0 && (
 											<span>{event.numWatches}</span>
 										)}
 									</Button>

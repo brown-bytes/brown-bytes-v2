@@ -196,7 +196,7 @@ const SingleEvent = ({
 											}}
 										/>
 										<span className="sr-only">Close</span>{" "}
-										{event.numWatches && (
+										{event.numWatches > 0 && (
 											<span>{event.numWatches}</span>
 										)}
 									</Button>
@@ -205,7 +205,9 @@ const SingleEvent = ({
 										variant="outline-link"
 										size="lg"
 										id={event.id}
-										onClick={unwatchEvent}>
+										onClick={(e) => {
+											unwatchEvent(e, placeDisplayed);
+										}}>
 										<i
 											className="fas fa-eye-slash"
 											id={event.id}

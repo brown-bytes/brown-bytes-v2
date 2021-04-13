@@ -1,4 +1,3 @@
-/* eslint-disable import/no-anonymous-default-export */
 import {
 	CREATE_POST_FAILED,
 	CREATE_POST_SUCCESS,
@@ -54,7 +53,6 @@ export default function (state = initialState, action) {
 					state.numPostsFetched + newPostsAfterCreation.length,
 			};
 		case CREATE_POST_COMMENT:
-			console.log("payload recieved by reducer:", payload);
 			const newPostsAfterComment = payload.posts.filter(
 				(post) =>
 					post.id === Number(payload.postId) ||

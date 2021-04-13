@@ -1,4 +1,3 @@
-/* eslint-disable import/no-anonymous-default-export */
 import {
 	AUTH_ERROR,
 	LOGIN_FAIL,

@@ -1,4 +1,3 @@
-/* eslint-disable import/no-anonymous-default-export */
 import {
 	CHANGE_EVENT_QUERY_STRING,
 	CREATE_EVENT_FAILED,

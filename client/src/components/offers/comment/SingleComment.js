@@ -11,7 +11,6 @@ const SingleComment = ({ comment }) => {
 			className="offset-1 comment-card-overriding-bootstrap"
 			border="secondary">
 			<Card.Body className="py-1 px-1">
-				{/* <Container fluid="true"> */}
 				<Row noGutters="true">
 					<Col
 						xs={2}
@@ -42,7 +41,6 @@ const SingleComment = ({ comment }) => {
 						<p className="comment-content">{comment.content} </p>
 					</Col>
 				</Row>
-				{/* </Container> */}
 			</Card.Body>
 		</Card>
 	);

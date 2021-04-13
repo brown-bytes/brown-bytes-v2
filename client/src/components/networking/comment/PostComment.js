@@ -33,7 +33,8 @@ const PostComment = ({ postId, postNetworkingPostComment, placeDisplayed }) => {
 				id={postId}
 				onClick={onClick}
 				variant="dark"
-				className="post-comment-button-overriding-bootstrap">
+				className="post-comment-button-overriding-bootstrap"
+				disabled={!comment.length > 0}>
 				Post
 			</Button>
 		</InputGroup>

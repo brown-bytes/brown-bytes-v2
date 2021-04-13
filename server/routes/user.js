@@ -11,7 +11,6 @@ const fs = require("fs");
 router.use(bodyParser.json());
 
 router.post("/signup", async (req, res) => {
-	User.destroy({ where: { email: "qiaonanh@uci.edu" } }); // test account
 	if (req.body.email && req.body.password && req.body.userName) {
 		if (req.body.password.length < 8) {
 			res.statusCode = 400;
@@ -363,7 +362,6 @@ async function sendEmail(e_mail, host, subject, route) {
 		if (error) {
 			res.end("error");
 		} else {
-			console.log("email sent.");
 			await emailVerifyDb.destroy({ where: { email: e_mail } });
 			await emailVerifyDb.create({
 				email: e_mail,

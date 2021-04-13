@@ -1,4 +1,3 @@
-/* eslint-disable import/no-anonymous-default-export */
 import { SEND_FEEDBACK, GET_FEEDBACKS } from "../actions/types";
 
 const initialState = {

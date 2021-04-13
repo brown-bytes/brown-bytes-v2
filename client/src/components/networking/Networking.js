@@ -20,7 +20,6 @@ const Networking = ({
 	useEffect(() => {
 		clearAlerts();
 		getPosts(numPostsFetched);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [getPosts]);
 
 	const [show, setShow] = useState(false);
@@ -35,6 +34,7 @@ const Networking = ({
 
 	const onPost = () => {
 		createPost(content);
+		setContent("");
 	};
 
 	return (
@@ -61,7 +61,8 @@ const Networking = ({
 						onClick={() => {
 							onPost();
 							handleClose();
-						}}>
+						}}
+						disabled={!content.length > 0}>
 						Post
 					</Button>
 				</Modal.Footer>
@@ -70,7 +71,7 @@ const Networking = ({
 			<p className="networking-heading1">Networking</p>
 			<p className="networking-text">
 				Here you can connect with other foodies inside and outside Brown
-				community by making posts
+				community by making posts.
 			</p>
 			<p className="networking-heading2">Actions</p>
 			{isAuthenticated ? (

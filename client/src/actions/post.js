@@ -58,7 +58,6 @@ export const postNetworkingPostComment = (
 	placeDisplayed
 ) => async (dispatch) => {
 	clearAlerts();
-	console.log("posting comment:", comment, postId, placeDisplayed);
 	const config = {
 		headers: {
 			"Content-Type": "application/json",
@@ -76,8 +75,6 @@ export const postNetworkingPostComment = (
 				fetched: 0,
 			},
 		});
-		console.log("posted a comment, res from server:", res.data);
-		console.log("placeDisplayed:", placeDisplayed);
 		switch (placeDisplayed) {
 			case "networkingPage":
 				dispatch({
@@ -151,7 +148,6 @@ export const searchPost = (queryString) => async (dispatch) => {
 			type: SEARCH_POSTS,
 			payload: res.data.posts,
 		});
-		console.log("search result:", res.data);
 	} catch (err) {
 		if (err.response) {
 			const errorMessage = err.response.data.error;
