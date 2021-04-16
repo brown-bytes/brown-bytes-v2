@@ -224,7 +224,7 @@ router.post("/reset", async (req, res) => {
 			if (user) {
 				sendEmail(
 					e_mail,
-					"localhost:3000",
+					"brownbytes.club",
 					"reset Your Password",
 					"resetpassword"
 				);
