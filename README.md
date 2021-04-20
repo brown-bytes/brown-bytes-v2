@@ -6,7 +6,7 @@
 
 ## Tech Stack
 
-Frontend: [React](https://reactjs.org/), [Redux](https://redux.js.org/), [React Bootstrap](https://react-bootstrap.netlify.app/), [Momentjs](https://momentjs.com/),
+Frontend: [React](https://reactjs.org/), [Redux](https://redux.js.org/), [React Bootstrap](https://react-bootstrap.netlify.app/), [Moment](https://momentjs.com/),
 [axios](https://www.npmjs.com/package/axios).
 
 Backend: [Node.js](https://nodejs.org/en/), [Express](https://expressjs.com/).
