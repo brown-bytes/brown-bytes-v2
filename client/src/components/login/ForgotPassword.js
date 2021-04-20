@@ -42,7 +42,7 @@ const ForgotPassword = ({ requestResetPasswordEmail }) => {
 						<Form
 							onSubmit={(e) => {
 								onSubmit(e);
-								e.target.reset();
+								//e.target.reset();
 							}}
 							id="forgot-password-form">
 							<Form.Group controlId="formEmail">

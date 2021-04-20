@@ -47,7 +47,7 @@ const Team = ({ sendFeedBack }) => {
 				id="feedback-form"
 				onSubmit={(e) => {
 					onSubmit(e);
-					e.target.reset();
+					//e.target.reset();
 				}}>
 				<Form.Group>
 					<Form.Label className="feedback-form-label" htmlFor="name">

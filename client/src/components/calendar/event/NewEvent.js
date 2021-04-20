@@ -55,7 +55,7 @@ const NewEvent = ({ createEvent }) => {
 				<Form
 					onSubmit={(e) => {
 						onSubmit(e);
-						e.target.reset();
+						//e.target.reset();
 					}}
 					id="new-event-form">
 					<Form.Group>

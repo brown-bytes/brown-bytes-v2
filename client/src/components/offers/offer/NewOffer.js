@@ -55,7 +55,7 @@ const NewOffer = ({ createOffer }) => {
 				<Form
 					onSubmit={(e) => {
 						onSubmit(e);
-						e.target.reset();
+						//e.target.reset();
 					}}
 					id="new-offer-form">
 					<Form.Group>
