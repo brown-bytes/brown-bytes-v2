@@ -3,7 +3,8 @@
       "username": "root",
       "password": "brown_bytes",
       "database": "brown_bytes",
-      "host": "172.31.5.214",
+      "host": "192.168.31.153",
+      "port": "3305",
       "dialect": "mysql",
       "logging": false
     },

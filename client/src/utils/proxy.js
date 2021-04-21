@@ -1,3 +1,3 @@
-const proxy = "http://3.138.68.52:8080";
+const proxy = "http://192.168.31.153:8080";
 
 export default proxy;
