@@ -48,6 +48,6 @@ Launch the server by running <code>docker run -p 8080:8080 brownbytes-client</co
 | Name  | Contributions |
 | ------------- | ------------- |
 | Qiaonan Huang  | Designed and implement email verification process; <br /> Implement parts of database schemas and do some backend tests; |
-| Wei Li  | BBB  |
+| Wei Li  | Designed and implement Facebook login and Google Login; <br /> Do all the frontend tests; <br /> Do the Black-box testing; |
 | Shiqin Yan | Designed database schema and RESTful APIs for all functionalities; <br /> Designed and implemented all the frontend pages;  |
 | Zhe Shen | DDD |
