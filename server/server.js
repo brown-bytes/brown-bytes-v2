@@ -10,7 +10,7 @@ const postsRouter = require("./routes/post");
 const feedbacksRouter = require("./routes/feedback");
 const app = express();
 const port = 8080;
-const host = "0.0.0.0";
+const host = "127.0.0.1";
 
 app.use(cors());
 app.use(morgan("common"));
