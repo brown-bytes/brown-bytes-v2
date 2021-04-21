@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import {
 	CREATE_POST_FAILED,
 	CREATE_POST_SUCCESS,

@@ -20,7 +20,7 @@ const Networking = ({
 	useEffect(() => {
 		clearAlerts();
 		getPosts(numPostsFetched);
-	}, [getPosts]);
+	}, [getPosts, numPostsFetched]);
 
 	const [show, setShow] = useState(false);
 	const handleClose = () => setShow(false);

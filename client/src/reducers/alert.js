@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import { SET_ALERT, CLEAR_ALERT } from "../actions/types";
 
 const initialState = [];

@@ -5,7 +5,6 @@ import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 import Row from "react-bootstrap/Row";
 import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
 
 import { getProfileById } from "../../../actions/profile";
 

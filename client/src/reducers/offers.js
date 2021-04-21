@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import {
 	CHANGE_OFFER_QUERY_STRING,
 	CREATE_OFFER_FAILED,
