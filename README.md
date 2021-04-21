@@ -23,19 +23,19 @@ Visit this [page](https://docs.docker.com/get-docker/) to get docker.
 
 ### Step 2: Edit configs
 
-Find your computer's IP address (not "localhost", may get by running `ifconfig` command in terminal) in your local network. In the following files, replace IP address part (exclude port) with your IP:
+Find your computer's IP address (not "localhost", may get by running `ifconfig` command in terminal) in your local network. In the following files, replace the IP address parts (excluding ports) with your IP:
 - [proxy.js](./client/src/utils/proxy.js)
 - Avatar URL in [seeder](./server/seeders/20210405133707-super-user.js)
 - Host in [config.json](./server/config/config.json)
 
 ### Step 3: Build and run Docker containers
 
-Run command:
+Under root directory `BrownBytes`, run command:
 ```
 docker-compose up -d --build
 ```
 
-Three containers: MySQL, server, client will then be built and run locally. After this step, BrownBytes can be visited at http://localhost:3000. This completes setting up BrownBytes with Docker.
+Three containers: MySQL, server, and client will then be built and run locally. After this step, BrownBytes can be visited at http://localhost:3000. This completes setting up BrownBytes with Docker.
 
 Note: Current backend [Dockerfile](./server/Dockerfile) cleans database each time it builds. You may disable this by removing `RUN ./reconstructTables.sh`.
 
@@ -49,7 +49,7 @@ Download [MySQL Community Server](https://dev.mysql.com/downloads/mysql/) and in
 
 ### Step 2. Edit Configs
 
-Replace the IP address part with `127.0.0.1` in the following files.
+Replace the IP address parts with `127.0.0.1` in the following files.
 - [proxy.js](./client/src/utils/proxy.js)
 - Avatar URL in [seeder](./server/seeders/20210405133707-super-user.js)
 - Host in [config.json](./server/config/config.json)
@@ -66,7 +66,7 @@ under `server` and `client` directories to install dependencies.
 
 ### Step 4. Set up DB Schema
 
-In the `server` directory, run [reconstructTable.sh](./server/reconstructTables.sh).
+In the `server` directory, run [reconstructTable.sh](./server/reconstructTables.sh) to create and initialize tables in the database.
 
 ### Step 5. Start client server and back end server
 
@@ -83,7 +83,7 @@ And then the website is accessible at http://localhost:3000.
 
 | Name  | Contributions |
 | ------------- | ------------- |
-| Qiaonan Huang  | Designed and implement email verification process; <br /> Implement parts of database schemas and do some backend tests; |
-| Wei Li  | Designed and implement Facebook login and Google Login; <br /> Do all the frontend tests; <br /> Do the Black-box testing; |
+| Qiaonan Huang  | Designed and implemented email verification process; <br /> Implemented parts of database schemas and did backend tests; |
+| Wei Li  | Designed and implemented Facebook login and Google Login; <br /> Did all the frontend tests; <br /> Did Black-box testing; |
 | Shiqin Yan | Designed database schema and RESTful APIs for all functionalities; <br /> Designed and implemented all the frontend pages;  |
 | Zhe Shen | Implemented database schemas, migrated schema to MySQL; <br /> Implemented most backend RESTful API, tested with Postman; <br /> Deployed application on AWS with Docker.|
