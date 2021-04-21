@@ -23,7 +23,7 @@ Visit this [page](https://docs.docker.com/get-docker/) to get docker.
 
 ### Step 2: Edit config
 
-Find your computer's IP address (not localhost) in your connected network. Change IP address part (exclude port) to your IP in following files:
+Find your computer's IP address (not localhost, may get by `ifconfig`) in your connected network. Change IP address part (exclude port) to your IP in following files:
 - [proxy.js](./client/src/utils/proxy.js)
 - Avatar URL in [seeder](./server/seeders/20210405133707-super-user.js)
 - Host in [config.json](./server/config/config.json)
