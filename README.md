@@ -78,12 +78,3 @@ Under `client` directory, run command <code>npm start</code> to start the client
 
 
 And then the website is accessible at http://localhost:3000.
-
-## Individual contributions
-
-| Name  | Contributions |
-| ------------- | ------------- |
-| Qiaonan Huang  | Designed and implemented email verification process; <br /> Implemented parts of database schemas and did backend tests; |
-| Wei Li  | Designed and implemented Facebook login and Google Login; <br /> Did all the frontend tests; <br /> Did Black-box testing; |
-| Shiqin Yan | Designed database schema and RESTful APIs for all functionalities; <br /> Designed and implemented all the frontend pages;  |
-| Zhe Shen | Implemented database schemas, migrated schema to MySQL; <br /> Implemented most backend RESTful API, tested with Postman; <br /> Deployed application on AWS with Docker.|
