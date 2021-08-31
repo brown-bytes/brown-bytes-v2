@@ -54,7 +54,7 @@ const About = () => {
 			<p className="about-second-heading">
 				See more about the Brown Bytes project on{" "}
 				<a
-					href="https://github.com/brown-bytes/brown-bytes"
+					href="https://github.com/player-eric/BrownBytes"
 					target="_blank"
 					rel="noreferrer">
 					<i className="fab fa-github"></i>GitHub
@@ -87,6 +87,11 @@ const About = () => {
 					Redux
 				</a>
 				.
+			</p>
+			<p className="about-text">
+				If you have any questions about Brown Bytes' implementation
+				details, please feel free to contact{" "}
+				<a href="mailto:shiqin_yan@brown.edu">shiqin_yan@brown.edu</a>
 			</p>
 		</Fragment>
 	);
