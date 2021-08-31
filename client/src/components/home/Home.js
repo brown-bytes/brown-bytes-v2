@@ -25,8 +25,8 @@ const Home = ({ isAuthenticated }) => {
 							you!
 						</p>
 						<p className="home-text">
-							Free food is coming back! Brown Bytes has evloved
-							when there were no free food events on campus! Here
+							Free food is coming back to campus! Brown Bytes has
+							evloved when there were no free food events - Here
 							is a list of some new features:
 						</p>
 						<p className="home-text">
