@@ -6,7 +6,7 @@ services:
     ports:
       - "3305:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: brown_bytes
+      MYSQL_ROOT_PASSWORD: ytt123
       MYSQL_DATABASE: brown_bytes
     volumes:
       - my-db:/var/lib/mysql
@@ -19,7 +19,7 @@ services:
   frontend:
     build: ./client
     ports:
-      - "3000:80"
+      - "80:80"
     depends_on:
       - backend
 

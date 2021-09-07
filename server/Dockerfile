@@ -7,5 +7,5 @@ RUN npm install
 COPY . .
 
 EXPOSE 8080
-RUN ./reconstructTables.sh
+#RUN ./reconstructTables.sh
 CMD npm run-script server
