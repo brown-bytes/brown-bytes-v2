@@ -1,12 +1,16 @@
 {
     "development": {
       "username": "root",
-      "password": "ytt123",
+      "password": "brown_bytes",
       "database": "brown_bytes",
       "host": "database",
+<<<<<<< HEAD
       "port": "3305",
+=======
+      "port": "3306",
+>>>>>>> cd755087038aa962dde6973dc6a2a3e5a603ee74
       "dialect": "mysql",
-      "logging": false
+      "logging": true
     },
     "test": {
       "username": "",

@@ -17,7 +17,7 @@ module.exports = {
 				userName: "admin",
 				email: "brownbytes@brownbytes.bb",
 				password: auth.hashPassword("csci1320"),
-				avatar: "http://192.168.31.153:8080/images/default_avatar.png",
+				avatar: "http://127.0.0.1:8080/images/default_avatar.png",
 				isActive: true,
 				admin: true,
 				createdAt: new Date(),
