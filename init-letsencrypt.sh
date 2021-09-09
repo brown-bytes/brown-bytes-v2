@@ -7,7 +7,7 @@ fi
 
 domains=(brownbytes.org www.brownbytes.org)
 rsa_key_size=4096
-data_path="./data/certbot"
+data_path="./certs/certbot"
 email="" # Adding a valid address is strongly recommended
 staging=0 # Set to 1 if you're testing your setup to avoid hitting request limits
 
@@ -39,7 +39,7 @@ echo
 
 
 echo "### Starting nginx ..."
-docker-compose up --force-recreate -d nginx
+docker-compose up --force-recreate -d frontend
 echo
 
 echo "### Deleting dummy certificate for $domains ..."
@@ -76,5 +76,6 @@ docker-compose run --rm --entrypoint "\
     --force-renewal" certbot
 echo
 
+
 echo "### Reloading nginx ..."
-docker-compose exec nginx nginx -s reload
+docker-compose exec brownbytes_frontend_1 nginx -s reload
