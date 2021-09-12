@@ -1,3 +1,3 @@
-const proxy = "http://brownbytes.org:8080";
+const proxy = "https://brownbytes.org/api";
 
 export default proxy;
