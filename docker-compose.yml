@@ -1,5 +1,45 @@
 version: "3.8"
 services:
+  https-portal:
+    image: steveltn/https-portal:1
+    ports:
+      - '80:80'
+      - '443:443'
+    links:
+      - backend
+      - frontend
+    restart: always
+    environment:
+      STAGE: local
+      DOMAINS: 'brownbytes.org -> http://frontend:80, api.brownbytes.org -> http://backend:8080'
+      # STAGE: 'production' # Don't use production until staging works
+      # FORCE_RENEW: 'true'
+    volumes: 
+      - https-portal-data:/var/lib/https-portal
+
+  backend:
+    build: ./server
+    ports:
+      - "8080:8080"
+    depends_on:
+      - database
+  frontend:
+    build: ./client
+    # ports:
+    #   - "80:80"
+    #   - "443:443"
+    depends_on:
+      - backend
+    # volumes:
+    #   - ./certs/certbot/conf:/etc/letsencrypt
+    #   - ./certs/certbot/www:/var/www/certbot
+    # command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+  # certbot:
+  #   image: certbot/certbot
+  #   volumes: 
+  #     - ./certs/certbot/conf:/etc/letsencrypt
+  #     - ./certs/certbot/www:/var/www/certbot
+  #   entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
   database:
     image: "mysql"
     command: --default-authentication-plugin=mysql_native_password
@@ -10,29 +50,6 @@ services:
       MYSQL_DATABASE: brown_bytes
     volumes:
       - my-db:/var/lib/mysql
-  backend:
-    build: ./server
-    ports:
-      - "8080:8080"
-    depends_on:
-      - database
-  frontend:
-    build: ./client
-    ports:
-      - "80:80"
-      - "443:443"
-    depends_on:
-      - backend
-    volumes:
-      - ./certs/certbot/conf:/etc/letsencrypt
-      - ./certs/certbot/www:/var/www/certbot
-    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
-  certbot:
-    image: certbot/certbot
-    volumes: 
-      - ./certs/certbot/conf:/etc/letsencrypt
-      - ./certs/certbot/www:/var/www/certbot
-    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
-
 volumes:
   my-db:
+  https-portal-data:
