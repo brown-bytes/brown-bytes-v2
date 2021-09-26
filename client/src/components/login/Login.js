@@ -85,7 +85,7 @@ const Login = ({ login, loginGoogle, loginFacebook }) => {
 								lg={6}
 								className="pt-2">
 								<GoogleLogin
-									clientId="852502263308-8anqhhr6s7bqqnjoegolvqmuolv4h1k2.apps.googleusercontent.com"
+									clientId="28805008769-g5g3fshnjfnpvupcgn6ps5k4hhkef3qf.apps.googleusercontent.com"
 									buttonText="Login with Google"
 									theme="dark"
 									onSuccess={loginGoogle}
