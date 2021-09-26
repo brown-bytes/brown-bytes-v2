@@ -1,22 +1,35 @@
 version: "3.8"
 services:
-  https-portal:
+  https-portal1:
     image: steveltn/https-portal:1
     ports:
       - '80:80'
       - '443:443'
     links:
-      - backend
       - frontend
     restart: always
     environment:
       STAGE: local
-      DOMAINS: 'brownbytes.org -> http://frontend:80, api.brownbytes.org -> http://backend:8080'
+      DOMAINS: 'brownbytes.org -> http://frontend:80'
       # STAGE: 'production' # Don't use production until staging works
       # FORCE_RENEW: 'true'
     volumes: 
-      - https-portal-data:/var/lib/https-portal
-
+      - https-portal-data1:/var/lib/https-portal
+  https-portal2:
+    image: steveltn/https-portal:1
+    ports:
+      - '8080:80'
+      - '8443:443'
+    links:
+      - backend
+    restart: always
+    environment:
+      STAGE: local
+      DOMAINS: 'api.brownbytes.org -> http://backend:8080'
+      # STAGE: 'production' # Don't use production until staging works
+      # FORCE_RENEW: 'true'
+    volumes: 
+      - https-portal-data2:/var/lib/https-portal
   backend:
     build: ./server
     ports:
@@ -52,4 +65,5 @@ services:
       - my-db:/var/lib/mysql
 volumes:
   my-db:
-  https-portal-data:
+  https-portal-data1:
+  https-portal-data2:
