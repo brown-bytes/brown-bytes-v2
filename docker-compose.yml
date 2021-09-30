@@ -4,9 +4,12 @@ services:
     restart: unless-stopped
     build: ./server
     ports:
-      - "8080:8080"
+      - "3000:3000"
     depends_on:
       - database
+    volumes:
+      - ./certs/certbot/conf:/etc/letsencrypt
+      - ./certs/certbot/www:/var/www/certbot
   frontend: # This runs the routing server
     restart: unless-stopped
     build: ./client
@@ -19,6 +22,8 @@ services:
       - ./certs/certbot/conf:/etc/letsencrypt
       - ./certs/certbot/www:/var/www/certbot
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+    link:
+      - "backend:backend"
   certbot:
     image: certbot/certbot
     volumes: 
