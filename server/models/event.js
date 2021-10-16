@@ -59,7 +59,12 @@ module.exports = (sequelize, DataTypes) => {
     hostGroup: DataTypes.STRING,
     eventType: DataTypes.STRING,
     foodType: DataTypes.STRING,
-    foodAmount: DataTypes.STRING
+    foodAmount: DataTypes.STRING,
+    link: DataTypes.STRING,
+    visible: DataTypes.BOOLEAN,
+    scraped: DataTypes.BOOLEAN,
+    keywords: DataTypes.STRING,
+    eventTags: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Event',

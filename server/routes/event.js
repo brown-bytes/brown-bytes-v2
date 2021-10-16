@@ -79,6 +79,11 @@ router
 			foodType: req.body.foodType,
 			foodAmount: req.body.foodAmount,
 			otherInfo: req.body.otherInfo,
+			eventTags: req.body.eventTags,
+			visible: req.body.visible,
+			scraped: req.body.scraped,
+			keywords: req.body.keywords,
+			link: req.body.link,
 		})
 			.then((event) => {
 				if (event) {
