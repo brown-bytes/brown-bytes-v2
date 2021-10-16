@@ -90,6 +90,11 @@ export const createEvent = (info) => async (dispatch) => {
 	const foodType = info.foodType;
 	const foodAmount = info.foodAmount;
 	const otherInfo = info.otherInfo;
+	const eventTags = null;
+	const visible = true;
+	const scraped = false;
+	const keywords = null;
+	const link = null;
 
 	const body = JSON.stringify({
 		title,
@@ -103,6 +108,11 @@ export const createEvent = (info) => async (dispatch) => {
 		foodType,
 		foodAmount,
 		otherInfo,
+		eventTags,
+		visible,
+    scraped,
+    keywords,
+		link,
 	});
 
 	try {
