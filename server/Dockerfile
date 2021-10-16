@@ -6,7 +6,7 @@ COPY package.json .
 RUN npm install
 COPY . .
 
-EXPOSE 8080
+#EXPOSE 3000
 
 # RUN ./reconstructTables.sh
 CMD npm run-script server

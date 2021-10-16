@@ -12,9 +12,9 @@ const offersRouter = require("./routes/offer");
 const postsRouter = require("./routes/post");
 const feedbacksRouter = require("./routes/feedback");
 const winston = require('winston')
-const app = express();
+let app = express();
 const port = 3000;
-const host = "127.0.0.1";
+const host = "143.198.160.66";
 
 // Make sure the DB is initialized
 const output = execSync('./reconstructTables.sh', { encoding: 'utf-8' });
@@ -27,11 +27,6 @@ const corsOptions = {
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 app.use(cors(corsOptions));
-
-app = https.createServer({
-  key: fs.readFileSync('/etc/letsencrypt/live/brownbytes.org/privkey.pem'),
-  cert: fs.readFileSync('/etc/letsencrypt/live/brownbytes.org/fullchain.pem'),
-}, app);
 
 
 // Set up logger
@@ -57,5 +52,10 @@ app.use("/events", eventsRouter);
 app.use("/offers", offersRouter);
 app.use("/posts", postsRouter);
 app.use("/feedbacks", feedbacksRouter);
+
+app = https.createServer({
+  key: fs.readFileSync('/etc/letsencrypt/live/brownbytes.org/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/brownbytes.org/fullchain.pem'),
+}, app);
 
 app.listen(port, host, () => console.log(`Server is listening on port: ${port}`));

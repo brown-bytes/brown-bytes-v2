@@ -1,0 +1,3 @@
+const proxy = "https://api.brownbytes.org:8080";
+
+export default proxy;
