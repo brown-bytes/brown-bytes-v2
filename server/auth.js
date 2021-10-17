@@ -5,6 +5,8 @@ const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
 const User = require("./models").User;
 const bcrypt = require("bcrypt");
+require('dotenv').config()
+
 
 let getToken = function (user) {
 	return jwt.sign(user, config.secretKey, { expiresIn: 3600 });
@@ -32,6 +34,15 @@ let parseToken = (req, res, next) => {
 	if (token && token.startsWith("Bearer ")) {
 		// Remove Bearer from string
 		token = token.slice(7, token.length);
+	}
+
+	let bd = req.headers["bd"];
+
+	if (bd && bd === process.env.SCRAPER) {
+		return res.json({
+			success: true,
+			message: "Scraper auth provided",
+		});
 	}
 
 	if (token) {

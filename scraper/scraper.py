@@ -16,7 +16,7 @@ from dotenv import dotenv_values
 from mailer import sendEmail
 
 config = {
-    **dotenv_values(".env"),  # load shared development variables
+    **dotenv_values("../server/.env"),  # load shared development variables
 }
 
 # from dotenv import load_dotenv
@@ -58,7 +58,7 @@ def login(imap, email_addr, email_pass):
     resp_code, response = None, None
 
   print("Response Code : {}".format(resp_code))
-  print("Response      : {}\n".format(response[0].decode()))
+  print("Response      : {}\n".format(response))
 
 # Logs out of the imap server
 def logout(imap):
