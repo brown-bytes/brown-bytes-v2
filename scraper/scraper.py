@@ -13,6 +13,7 @@ from datetime import datetime
 import os
 import requests
 from dotenv import dotenv_values
+from mailer import sendEmail
 
 config = {
     **dotenv_values(".env"),  # load shared development variables
@@ -28,6 +29,7 @@ email_addr = 'jebc3s9fflbhhkez@gmail.com'
 email_pass = 'O2je!iEf9q2pK&'
 # Create event link list
 event_link_list = []
+free_event_list = []
 keywords = [
   'reception',
   'refreshments',
@@ -42,7 +44,8 @@ keywords = [
   'jabob',
   'curry',
   'coffee',
-  'evening'
+  'evening',
+  'dessert',
 ]
 
 # Logs into the imap server
@@ -121,7 +124,6 @@ def addEvent(event, keywords):
     'link': link,
   })
 
-  print(body)
   headers = {
   	"Content-Type": "application/json",
     "bd": config['SCRAPER']
@@ -135,6 +137,7 @@ def addEvent(event, keywords):
     return False
 
 
+  
 # Beginning of scripting part of script
 
 
@@ -197,10 +200,16 @@ if(event_link_list):
     
     # Detect keywords in the description
     event_keywords = freeFood(event_text) # outputs string of keywords
-    print("DETECTED FREE FOOD:", event_keywords)
+    
     if(event_keywords):
+      print("DETECTED FREE FOOD:", event_keywords)
       if not addEvent(data, event_keywords): # returns boolean
         print("Adding event error occurred")
+        free_event_list.append((data, event_keywords, "Failure"))
+      else:
+        free_event_list.append((data, event_keywords, "Success"))
+      
+  sendEmail(free_event_list, event_link_list, config)   
 
       
       
