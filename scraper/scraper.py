@@ -46,16 +46,17 @@ keywords = [
   'jabob',
   'curry',
   'coffee',
-  'evening',
+#  'evening',
   'dessert',
 ]
 
 # Create MySql
-def create_connection(host_name, user_name, user_password, database):
+def create_connection(host_name, port, user_name, user_password, database):
   connection = None
   try:
     connection = mysql.connector.connect(
         host=host_name,
+        port=port,
         user=user_name,
         passwd=user_password,
         database=database
@@ -109,7 +110,7 @@ def addEvent(event, keywords, mysql):
   creatorId = 1
   title = event['summary']
   location = event['location']
-  date = datetime.strptime(event['start'], '%Y%m%dT%H%M%SZ').strftime('%Y-%m-%d')
+  eventDate = datetime.strptime(event['start'], '%Y%m%dT%H%M%SZ').strftime('%Y-%m-%d')
   startTime = datetime.strptime(event['start'], '%Y%m%dT%H%M%SZ').strftime('%Y-%m-%d %H:%M')
   endTime = datetime.strptime(event['end'], '%Y%m%dT%H%M%SZ').strftime('%Y-%m-%d %H:%M')
   hostGroup = None
@@ -119,14 +120,15 @@ def addEvent(event, keywords, mysql):
   foodAmount = None
   otherInfo = "This event was added by Brown Bytes"
   eventTags = ','.join(event['categoryTags'])
-  visible = False
-  scraped = True
+  visible = 0
+  scraped = 1
   keywords = ','.join(list(keywords))
-  link = event['link']
-
+  link = event['link'] if 'link' in event else ""
+  createdAt = time.strftime('%Y-%m-%d %H:%M:%S')
+  updatedAt = time.strftime('%Y-%m-%d %H:%M:%S')
   query = (' INSERT INTO Events '
-    '(creatorId, title, location, date, startTime, endTime, hostGroup, eventType, whoCanCome, foodType, foodAmount, otherInfo, eventTags, visible, scraped, keywords, link) VALUES '
-    f'({creatorId}, "{title}", "{location}", "{date}", "{startTime}", "{endTime}", "{hostGroup}", "{eventType}", "{whoCanCome}", "{foodType}", "{foodAmount}", "{otherInfo}", "{eventTags}", "{visible}", "{scraped}", "{keywords}", "{link}");'
+    '(creatorId, title, location, eventDate, startTime, endTime, hostGroup, eventType, admittance, foodType, foodAmount, otherInfo, eventTags, visible, scraped, keywords, link, createdAt, updatedAt) VALUES '
+    f'({creatorId}, "{title}", "{location}", "{eventDate}", "{startTime}", "{endTime}", "{hostGroup}", "{eventType}", "{whoCanCome}", "{foodType}", "{foodAmount}", "{otherInfo}", "{eventTags}", "{visible}", "{scraped}", "{keywords}", "{link}", "{createdAt}", "{updatedAt}");'
   )
   
   #query = mysql.converter.escape(query).rstrip()
@@ -151,10 +153,12 @@ def addEvent(event, keywords, mysql):
   # })
 
   cursor = mysql.cursor()
-  
+  #print(query)  
   output = cursor.execute(query)
-  #print(output)
-  # headers = {
+  #print(cursor.lastrowid)
+  mysql.commit()
+  cursor.close()  
+# headers = {
   # 	"Content-Type": "application/json",
   #   "bd": config['SCRAPER']
   # }
@@ -193,7 +197,7 @@ message_list = message_numbers[0].split()
 
 # Look through the results and get the event links
 if(message_list):
-  message_list.sort(reverse=True)
+  message_list.sort(reverse=True, key=lambda r: int(r))
   for number in message_list:
     typ, data = imap.fetch(number,'(RFC822)')
 
@@ -220,7 +224,7 @@ if(message_list):
     break   
     
 print(config['DB_HOST'], config['DB_USERNAME'], config['DB_PASS'], config['DB_DATABASE'])
-mysql = create_connection(config['DB_HOST'], config['DB_USERNAME'], config['DB_PASS'], config['DB_DATABASE'])
+mysql = create_connection(config['DB_HOST'], config['DB_PORT'], config['DB_USERNAME'], config['DB_PASS'], config['DB_DATABASE'])
 
 if (not mysql):
   print("DB connect failed, quitting...")
@@ -257,3 +261,4 @@ if(event_link_list):
 
 # Log out of email 
 logout(imap)
+mysql.close()

@@ -36,14 +36,14 @@ let parseToken = (req, res, next) => {
 		token = token.slice(7, token.length);
 	}
 
-	let bd = req.headers["bd"];
+	//let bd = req.headers["bd"];
 
-	if (bd && bd === process.env.SCRAPER) {
+	/*if (bd && bd === process.env.SCRAPER) {
 		return res.json({
 			success: true,
 			message: "Scraper auth provided",
 		});
-	}
+	}*/
 
 	if (token) {
 		jwt.verify(token, config.secretKey, (err, decoded) => {
