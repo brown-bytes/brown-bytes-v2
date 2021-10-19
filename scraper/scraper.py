@@ -14,9 +14,11 @@ import os
 import requests
 from dotenv import dotenv_values
 from mailer import sendEmail
+import mysql.connector
+from mysql.connector import Error
 
 config = {
-    **dotenv_values("../server/.env"),  # load shared development variables
+    **dotenv_values("server/.env"),  # load shared development variables
 }
 
 # from dotenv import load_dotenv
@@ -47,6 +49,22 @@ keywords = [
   'evening',
   'dessert',
 ]
+
+# Create MySql
+def create_connection(host_name, user_name, user_password, database):
+  connection = None
+  try:
+    connection = mysql.connector.connect(
+        host=host_name,
+        user=user_name,
+        passwd=user_password,
+        database=database
+    )
+    print("Connection to MySQL DB successful")
+  except Error as e:
+    print(f"The error '{e}' occurred")
+
+  return connection
 
 # Logs into the imap server
 def login(imap, email_addr, email_pass): 
@@ -86,11 +104,12 @@ def freeFood(text):
   cleaned = re.sub('[\W_]+', ' ', text).lower()
   return classify(cleaned) # change the classification script here
   
-def addEvent(event, keywords): 
+def addEvent(event, keywords, mysql): 
   
+  creatorId = 1
   title = event['summary']
   location = event['location']
-  datevar = datetime.strptime(event['start'], '%Y%m%dT%H%M%SZ').strftime('%Y-%m-%d')
+  date = datetime.strptime(event['start'], '%Y%m%dT%H%M%SZ').strftime('%Y-%m-%d')
   startTime = datetime.strptime(event['start'], '%Y%m%dT%H%M%SZ').strftime('%Y-%m-%d %H:%M')
   endTime = datetime.strptime(event['end'], '%Y%m%dT%H%M%SZ').strftime('%Y-%m-%d %H:%M')
   hostGroup = None
@@ -105,36 +124,47 @@ def addEvent(event, keywords):
   keywords = ','.join(list(keywords))
   link = event['link']
 
-  body = json.dumps({
-    'title': title,
-    'location': location,
-    'date': datevar,
-    'startTime': startTime,
-    'endTime': endTime,
-    'hostGroup': hostGroup,
-    'eventType': eventType,
-    'whoCanCome': whoCanCome,
-    'foodType': foodType,
-    'foodType': foodAmount,
-    'otherInfo': otherInfo,
-    'eventTags': eventTags,
-    'visible': visible,
-    'scraped': scraped,
-    'keywords': keywords,
-    'link': link,
-  })
+  query = (' INSERT INTO Events '
+    '(creatorId, title, location, date, startTime, endTime, hostGroup, eventType, whoCanCome, foodType, foodAmount, otherInfo, eventTags, visible, scraped, keywords, link) VALUES '
+    f'({creatorId}, "{title}", "{location}", "{date}", "{startTime}", "{endTime}", "{hostGroup}", "{eventType}", "{whoCanCome}", "{foodType}", "{foodAmount}", "{otherInfo}", "{eventTags}", "{visible}", "{scraped}", "{keywords}", "{link}");'
+  )
+  
+  #query = mysql.converter.escape(query).rstrip()
+  # print(query)
+  # body = json.dumps({
+  #   'title': title,
+  #   'location': location,
+  #   'date': datevar,
+  #   'startTime': startTime,
+  #   'endTime': endTime,
+  #   'hostGroup': hostGroup,
+  #   'eventType': eventType,
+  #   'whoCanCome': whoCanCome,
+  #   'foodType': foodType,
+  #   'foodAmount': foodAmount,
+  #   'otherInfo': otherInfo,
+  #   'eventTags': eventTags,
+  #   'visible': visible,
+  #   'scraped': scraped,
+  #   'keywords': keywords,
+  #   'link': link,
+  # })
 
-  headers = {
-  	"Content-Type": "application/json",
-    "bd": config['SCRAPER']
-  }
-  try:
-    req = requests.post("https://127.0.0.1:3000/events", data=body, headers=headers)
-    print(req.text)
-    return True
-  except Exception as e:
-    print("Could not make request: ", e)
-    return False
+  cursor = mysql.cursor()
+  
+  output = cursor.execute(query)
+  #print(output)
+  # headers = {
+  # 	"Content-Type": "application/json",
+  #   "bd": config['SCRAPER']
+  # }
+  # try:
+  #   req = requests.post("https://127.0.0.1:3000/events", data=body, headers=headers)
+  #   print(req.text)
+  #   return True
+  # except Exception as e:
+  #   print("Could not make request: ", e)
+  #   return False
 
 
   
@@ -189,6 +219,12 @@ if(message_list):
                 continue
     break   
     
+print(config['DB_HOST'], config['DB_USERNAME'], config['DB_PASS'], config['DB_DATABASE'])
+mysql = create_connection(config['DB_HOST'], config['DB_USERNAME'], config['DB_PASS'], config['DB_DATABASE'])
+
+if (not mysql):
+  print("DB connect failed, quitting...")
+  quit()
 
 print("Checking", len(event_link_list), "events")
 # Go through the event links and get the information
@@ -203,7 +239,7 @@ if(event_link_list):
     
     if(event_keywords):
       print("DETECTED FREE FOOD:", event_keywords)
-      if not addEvent(data, event_keywords): # returns boolean
+      if not addEvent(data, event_keywords, mysql): # returns boolean
         print("Adding event error occurred")
         free_event_list.append((data, event_keywords, "Failure"))
       else:
