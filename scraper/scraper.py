@@ -105,7 +105,7 @@ def freeFood(text):
   cleaned = re.sub('[\W_]+', ' ', text).lower()
   return classify(cleaned) # change the classification script here
   
-def addEvent(event, keywords, mysql): 
+def addEvent(event, keywords, cursor): 
   
   creatorId = 1
   title = event['summary']
@@ -130,46 +130,9 @@ def addEvent(event, keywords, mysql):
     '(creatorId, title, location, eventDate, startTime, endTime, hostGroup, eventType, admittance, foodType, foodAmount, otherInfo, eventTags, visible, scraped, keywords, link, createdAt, updatedAt) VALUES '
     f'({creatorId}, "{title}", "{location}", "{eventDate}", "{startTime}", "{endTime}", "{hostGroup}", "{eventType}", "{whoCanCome}", "{foodType}", "{foodAmount}", "{otherInfo}", "{eventTags}", "{visible}", "{scraped}", "{keywords}", "{link}", "{createdAt}", "{updatedAt}");'
   )
-  
-  #query = mysql.converter.escape(query).rstrip()
-  # print(query)
-  # body = json.dumps({
-  #   'title': title,
-  #   'location': location,
-  #   'date': datevar,
-  #   'startTime': startTime,
-  #   'endTime': endTime,
-  #   'hostGroup': hostGroup,
-  #   'eventType': eventType,
-  #   'whoCanCome': whoCanCome,
-  #   'foodType': foodType,
-  #   'foodAmount': foodAmount,
-  #   'otherInfo': otherInfo,
-  #   'eventTags': eventTags,
-  #   'visible': visible,
-  #   'scraped': scraped,
-  #   'keywords': keywords,
-  #   'link': link,
-  # })
-
-  cursor = mysql.cursor()
-  #print(query)  
+  print(query) 
   output = cursor.execute(query)
-  #print(cursor.lastrowid)
-  mysql.commit()
-  cursor.close()  
-# headers = {
-  # 	"Content-Type": "application/json",
-  #   "bd": config['SCRAPER']
-  # }
-  # try:
-  #   req = requests.post("https://127.0.0.1:3000/events", data=body, headers=headers)
-  #   print(req.text)
-  #   return True
-  # except Exception as e:
-  #   print("Could not make request: ", e)
-  #   return False
-
+  print("Added row ",  cursor.lastrowid)
 
   
 # Beginning of scripting part of script
@@ -230,6 +193,8 @@ if (not mysql):
   print("DB connect failed, quitting...")
   quit()
 
+cursor = mysql.cursor()
+
 print("Checking", len(event_link_list), "events")
 # Go through the event links and get the information
 if(event_link_list):
@@ -243,7 +208,7 @@ if(event_link_list):
     
     if(event_keywords):
       print("DETECTED FREE FOOD:", event_keywords)
-      if not addEvent(data, event_keywords, mysql): # returns boolean
+      if not addEvent(data, event_keywords, cursor): # returns boolean
         print("Adding event error occurred")
         free_event_list.append((data, event_keywords, "Failure"))
       else:
@@ -261,4 +226,6 @@ if(event_link_list):
 
 # Log out of email 
 logout(imap)
+mysql.commit()
+cursor.close()
 mysql.close()
