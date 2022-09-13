@@ -51,12 +51,21 @@ const SingleEvent = ({
 					className="event-card-class-overriding-bootstrap">
 					<Card.Header>
 						<Row>
-							<Col xs={6} sm={8} md={9} lg={10}>
+							<Col xs={6} sm={7} md={8} lg={9}>
 								<p className="event-card-title">
 									{event.title}
 								</p>
 							</Col>
-							<Col xs={6} sm={4} md={3} lg={2}>
+							<Col xs={1} sm={1} md={1} lg={1}>
+								<Button variant="outline-link"
+										size="lg"
+										href={event.link} 
+										className="event-card-link">
+									<i class="fa-solid fa-link">
+									</i>
+								</Button>
+							</Col>
+							<Col xs={5} sm={4} md={3} lg={2}>
 								<EventBadge
 									startTime={event.startTime}
 									endTime={event.endTime}></EventBadge>
