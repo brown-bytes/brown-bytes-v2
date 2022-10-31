@@ -61,7 +61,7 @@ const SingleEvent = ({
 										size="lg"
 										href={event.link} 
 										className="event-card-link">
-									<i class="fa-solid fa-link">
+									<i class="fa fa-link">
 									</i>
 								</Button>
 							</Col>

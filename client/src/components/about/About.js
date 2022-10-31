@@ -15,7 +15,7 @@ const About = () => {
 				credits. It was initially developed as an application to
 				facilitate the donation and exchange of meal credits between
 				students at Brown University but later also became a place to
-				find free food. Brown Bytes was developed by a Brown student
+				find free food. Brown Bytes was developed by Brown students
 				with the goal of building a community to help fix a flawed
 				meal-plan system.
 			</p>
@@ -28,16 +28,8 @@ const About = () => {
 					Learn and contribute to our vision by joining our{" "}
 					<a href="https://discord.gg/FuVWu8K">Discord</a>.
 				</li>
-				<li>
-					Never waste a swipe by giving to your fellow hungry
-					Brunonians.
-				</li>
-				<li>
-					Give and receive: A new payment method (Coming Soon to Brown
-					Bytes!)
-				</li>
 				<li>Meet other hungry people!</li>
-				<li>Brown Bytes was built for fun by a few Brown students!</li>
+				<li>Brown Bytes was built for fun by Brown students!</li>
 			</ul>
 			<p className="about-second-heading">
 				Join the Fight Against Food Insecurity
@@ -90,8 +82,29 @@ const About = () => {
 			</p>
 			<p className="about-text">
 				If you have any questions about Brown Bytes' implementation
-				details, please feel free to contact{" "}
-				<a href="mailto:shiqin_yan@brown.edu">shiqin_yan@brown.edu</a>
+				details, please feel free to contact the team!{" "}
+				<a href="mailto:scott_huson@brown.edu">scott_huson@brown.edu</a>
+			</p>
+			<p className="about-second-heading">
+				Credits
+			</p>
+			<p className="about-text">
+				Brown Bytes exists because of the following amazing students and developers:
+				<li>
+					<a href="https://scott.huson.com">Scott Huson</a> - Lead and System Manager
+				</li>
+				<li>
+					Shiqin Yan  - Development Lead
+				</li>
+				<li>
+					<a href="https://github.com/Zhe-Shen">Zhe Shen</a>  - Developer
+				</li>
+				<li>
+					<a href="https://github.com/player-eric">Eric</a>  - Developer
+				</li>
+				<li>
+					Your name here! Contact the team!
+				</li>
 			</p>
 		</Fragment>
 	);

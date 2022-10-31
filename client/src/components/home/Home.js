@@ -24,12 +24,7 @@ const Home = ({ isAuthenticated }) => {
 							Brown Bytes has all the free food on campus just for
 							you!
 						</p>
-						<p className="home-text">
-							Free food is coming back to campus! Brown Bytes has
-							evloved when there were no free food events - Here
-							is a list of some new features:
-						</p>
-						<p className="home-text">
+						{/* <p className="home-text">
 							· The new responsive UI works perfectly on screens
 							with different sizes.
 						</p>
@@ -40,21 +35,20 @@ const Home = ({ isAuthenticated }) => {
 						<p className="home-text">
 							· Events can be filtered by their names, time,
 							locations...
-						</p>
-						<p className="home-text">
+						</p> */}
+						{/* <p className="home-text">
 							· Network with other hungary brunonians by making{" "}
 							<Link to="/networking">posts</Link>.
-						</p>
+						</p> */}
 
 						{/* <p className="home-text">
 							Check out the upcoming free food events below.
-						</p>
-
+					</p>*/}
 						<p className="home-text">
 							{" "}
 							To filter events or add a new event, go to{" "}
 							<Link to="/calendar">calendar</Link>
-						</p> */}
+						</p>
 					</Col>
 					<Col lg={4}>
 						<Image
